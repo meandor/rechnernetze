@@ -5,19 +5,30 @@ package de.haw.rnp01.newsticker.view;
  */
 
 import javax.swing.*;
+import java.awt.*;
 
-public class NewsView {
+public class NewsView extends JFrame {
 
-    public void createView() {
-        JFrame frame = new JFrame("HelloWorldSwing");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private JLabel messageLabel = new JLabel("Nachricht");
+    private JTextField messageInput = new JTextField(255);
+    private JButton send = new JButton("absenden");
 
-        //Add the ubiquitous "Hello World" label.
-        JLabel label = new JLabel("Hello World");
-        frame.getContentPane().add(label);
+    public NewsView() {
+        super("Nachrichten-Ticker");
+        initForm();
+    }
 
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+    private void initForm() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new FlowLayout());
+        this.setBounds(200, 200, 500, 100);
+
+        this.add(messageLabel);
+        this.add(messageInput);
+        this.add(send);
+    }
+
+    public String getMessage() {
+        return this.messageInput.getText();
     }
 }
