@@ -1,8 +1,5 @@
 package de.haw.rnp01.newsticker;
 
-import de.haw.rnp01.newsticker.Controller;
-import de.haw.rnp01.newsticker.model.News;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
