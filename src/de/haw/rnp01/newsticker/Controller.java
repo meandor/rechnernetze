@@ -6,6 +6,7 @@ import de.haw.rnp01.newsticker.view.NewsView;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by daniel on 21.03.2016.
@@ -15,10 +16,12 @@ public class Controller {
     private ArrayList<News> news;
     private RandomGenerator randomGenerator;
     private NewsView view;
+    private LinkedList<News> queue;
 
     public Controller() {
         String[] messageTypes = {"INFO", "WARN", "CORR"};
         this.news = new ArrayList<News>();
+        this.queue = new LinkedList<News>();
         this.randomGenerator = RandomGenerator.getInstance();
         this.view = new NewsView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
@@ -35,36 +38,5 @@ public class Controller {
             this.news.add(n);
             this.view.addNews(this.news.get(this.news.size() - 1));
         }
-    }
-
-    private void addTestInput() {
-        News n1 = new News("INFO", "Test 1");
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
-        this.view.addNews(n1);
     }
 }
