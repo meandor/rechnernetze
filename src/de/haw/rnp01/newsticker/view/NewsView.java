@@ -9,6 +9,7 @@ import de.haw.rnp01.newsticker.model.News;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class NewsView extends JFrame {
 
@@ -49,7 +50,7 @@ public class NewsView extends JFrame {
         this.add(scrollPane);
     }
 
-    public void addNews(News news) {
+    public void addNews(ArrayList<News> news) {
         this.newsOutput.append(news.toString() + "\n");
     }
 

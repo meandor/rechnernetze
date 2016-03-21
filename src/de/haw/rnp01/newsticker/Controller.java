@@ -14,29 +14,36 @@ import java.util.LinkedList;
 public class Controller {
 
     private ArrayList<News> news;
-    private RandomGenerator randomGenerator;
     private NewsView view;
     private LinkedList<News> queue;
+    private MessageTransporter mt;
+    private MessageProducer t1;
+    private MessageProducer t2;
 
     public Controller() {
         String[] messageTypes = {"INFO", "WARN", "CORR"};
         this.news = new ArrayList<News>();
         this.queue = new LinkedList<News>();
-        this.randomGenerator = RandomGenerator.getInstance();
         this.view = new NewsView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);
+        mt = new MessageTransporter(queue, news);
+        t1 = new MessageProducer(queue);
+        t2 = new MessageProducer(queue);
+        this.view.addNews(this.news);
     }
 
     public void showView() {
         this.view.setVisible(true);
+        mt.run();
+        t1.run();
+        t2.run();
     }
 
     public void performAction(ActionEvent e) {
         if (e.getSource() == this.view.getSend()) {
             News n = new News(this.view.getNewsTypesSelector(), this.view.getNewsInput());
-            this.news.add(n);
-            this.view.addNews(this.news.get(this.news.size() - 1));
+            this.queue.addLast(n);
         }
     }
 }

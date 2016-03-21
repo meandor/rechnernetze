@@ -3,29 +3,31 @@ package de.haw.rnp01.newsticker;
 import de.haw.rnp01.newsticker.model.News;
 import de.haw.rnp01.newsticker.model.RandomGenerator;
 
+import java.util.LinkedList;
+
 /**
  * Created by on 21.03.2016.
  */
 public class MessageProducer extends Thread {
 
-    private News message;
     private RandomGenerator random;
+    private LinkedList<News> sharedMemory;
 
-    public MessageProducer() {
+    public MessageProducer(LinkedList<News> sharedMemory) {
         super();
         this.random = RandomGenerator.getInstance();
+        this.sharedMemory = sharedMemory;
     }
 
     public void run() {
         try {
-            sleep(this.random.generateRandomSleepTime());
-            this.message = new News(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
+            while (true) {
+                sleep(this.random.generateRandomSleepTime());
+                News n = new News(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
+                this.sharedMemory.addLast(n);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public News getMessage() {
-        return message;
     }
 }
