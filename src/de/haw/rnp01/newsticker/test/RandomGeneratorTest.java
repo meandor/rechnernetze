@@ -28,8 +28,8 @@ public class RandomGeneratorTest {
 
     @org.junit.Test
     public void testGenerateRandomSleepTime() throws Exception {
-        int r1 = RandomGenerator.getInstance().generateRandomSleepTime();
-        int r2 = RandomGenerator.getInstance().generateRandomSleepTime();
+        long r1 = RandomGenerator.getInstance().generateRandomSleepTime();
+        long r2 = RandomGenerator.getInstance().generateRandomSleepTime();
         assertTrue(r1 >= 1000 && r1 <= 5000);
         assertTrue(r2 >= 1000 && r2 <= 5000);
         assertFalse(r1 == r2);
