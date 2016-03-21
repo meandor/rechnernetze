@@ -19,7 +19,7 @@ public class Controller {
     public Controller() {
         String[] messageTypes = {"INFO", "WARN", "CORR"};
         this.news = new ArrayList<News>();
-        this.randomGenerator = new RandomGenerator();
+        this.randomGenerator = RandomGenerator.getInstance();
         this.view = new NewsView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);
