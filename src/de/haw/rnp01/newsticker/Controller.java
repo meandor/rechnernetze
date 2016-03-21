@@ -15,7 +15,13 @@ public class Controller {
     private RandomGenerator randomGenerator;
     private NewsView view;
 
-    public void showView() {
+    public Controller() {
+        this.news = new ArrayList<News>();
+        this.randomGenerator = new RandomGenerator();
+        this.view = new NewsView();
+    }
 
+    public void showView() {
+        this.view.setVisible(true);
     }
 }
