@@ -5,8 +5,10 @@ package de.haw.rnp01.newsticker.view;
  */
 
 import de.haw.rnp01.newsticker.model.News;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class NewsView extends JFrame {
 
@@ -17,6 +19,7 @@ public class NewsView extends JFrame {
     private JButton send;
     private JButton pauseThreads;
     private JTextArea newsOutput;
+    private JScrollPane scrollPane;
 
     public NewsView(String[] newsTypes) {
         super("Nachrichten-Ticker");
@@ -26,8 +29,8 @@ public class NewsView extends JFrame {
         this.newsTypesSelector = new JComboBox(this.newsTypes);
         this.send = new JButton("absenden");
         this.pauseThreads = new JButton("Threads pausieren");
-        this.newsOutput = new JTextArea(100, 500);
-        JScrollPane scrollPane = new JScrollPane(this.newsOutput);
+        this.newsOutput = new JTextArea(40, 100);
+        this.scrollPane = new JScrollPane(this.newsOutput);
         this.newsOutput.setEditable(false);
 
         initForm();
@@ -36,22 +39,41 @@ public class NewsView extends JFrame {
     private void initForm() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new FlowLayout());
-        this.setBounds(200, 200, 1200, 600);
+        this.setBounds(0, 0, 1200, 800);
 
         this.add(newsLabel);
         this.add(newsInput);
         this.add(newsTypesSelector);
         this.add(send);
         this.add(pauseThreads);
-        this.add(newsOutput);
-    }
-
-    public String getNews() {
-        return this.newsInput.getText();
+        this.add(scrollPane);
     }
 
     public void addNews(News news) {
         this.newsOutput.append(news.toString() + "\n");
-        System.out.println("shit hinzugefügt");
+    }
+
+    public String getNewsInput() {
+        return newsInput.getText();
+    }
+
+    public JButton getSend() {
+        return this.send;
+    }
+
+    public JButton getPauseThreads() {
+        return this.pauseThreads;
+    }
+
+    public String getNewsTypesSelector() {
+        return newsTypesSelector.getSelectedItem().toString();
+    }
+
+    public void registerSendButtonListener(ActionListener l) {
+        this.send.addActionListener(l);
+    }
+
+    public void registerThreadButtonListener(ActionListener l) {
+        this.pauseThreads.addActionListener(l);
     }
 }
