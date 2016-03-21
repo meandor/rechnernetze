@@ -16,9 +16,12 @@ public class Controller {
     private NewsView view;
 
     public Controller() {
+        String[] messageTypes = {"INFO", "WARN", "CORR"};
         this.news = new ArrayList<News>();
         this.randomGenerator = new RandomGenerator();
-        this.view = new NewsView();
+        this.view = new NewsView(messageTypes);
+        News n1 = new News("INFO", "Test 1");
+        this.view.addNews(n1);
     }
 
     public void showView() {
