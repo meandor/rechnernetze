@@ -7,6 +7,11 @@ public class News {
     private String type;
     private String message;
 
+    /**
+     * Constructs a new News model
+     * @param type the type of the news as String
+     * @param message actual message of the news
+     */
     public News(String type, String message) {
         this.type = type;
         this.message = message;
