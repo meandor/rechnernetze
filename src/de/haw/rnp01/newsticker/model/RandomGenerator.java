@@ -36,7 +36,7 @@ public class RandomGenerator {
      * @return {"INFO", "WARN", "CORR"} any of those
      */
     public String generateRandomMessageType() {
-        return this.messageTypes[this.generator.nextInt(2)];
+        return this.messageTypes[this.generator.nextInt(3)];
     }
 
     /**

@@ -35,9 +35,9 @@ public class Controller {
 
     public void showView() {
         this.view.setVisible(true);
-        mt.run();
-        t1.run();
-        t2.run();
+        mt.start();
+        t1.start();
+        t2.start();
     }
 
     public void performAction(ActionEvent e) {
