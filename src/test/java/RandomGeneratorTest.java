@@ -29,8 +29,8 @@ public class RandomGeneratorTest {
     public void testGenerateRandomSleepTime() throws Exception {
         long r1 = RandomGenerator.getInstance().generateRandomSleepTime();
         long r2 = RandomGenerator.getInstance().generateRandomSleepTime();
-        assertTrue(r1 >= 1000 && r1 <= 5000);
-        assertTrue(r2 >= 1000 && r2 <= 5000);
+        assertTrue(r1 >=  1000L && r1 <= 5000L);
+        assertTrue(r2 >= 1000L && r2 <= 5000L);
         assertFalse(r1 == r2);
     }
 
