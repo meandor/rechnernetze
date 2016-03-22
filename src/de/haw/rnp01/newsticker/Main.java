@@ -5,7 +5,7 @@ public class Main {
     private static Controller controller;
 
     public static void main(String[] args) {
-        controller = new Controller();
+        controller = new Controller(1);
         controller.showView();
         controller.start();
     }

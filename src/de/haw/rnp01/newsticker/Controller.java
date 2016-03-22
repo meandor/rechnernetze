@@ -14,18 +14,20 @@ public class Controller extends Thread {
 
     private NewsView view;
     private LinkedBlockingQueue queue;
-    private MessageProducer t1;
-    private MessageProducer t2;
+    private ArrayList<Thread> threadPool;
 
-    public Controller() {
+    public Controller(int threadCount) {
         super();
         String[] messageTypes = {"INFO", "WARN", "CORR"};
         this.queue = new LinkedBlockingQueue();
+        this.threadPool = new ArrayList<Thread>();
         this.view = new NewsView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);
-        t1 = new MessageProducer(queue);
-        t2 = new MessageProducer(queue);
+        for (int i = 0; i < threadCount; i++) {
+            MessageProducer thread = new MessageProducer(this.queue);
+            this.threadPool.add(thread);
+        }
     }
 
     public void showView() {
@@ -33,8 +35,9 @@ public class Controller extends Thread {
     }
 
     public void run() {
-        t1.start();
-        t2.start();
+        for (Thread t: this.threadPool) {
+            t.start();
+        }
         while (true) {
             try {
                 this.view.addNews(this.queue.take());
@@ -52,6 +55,8 @@ public class Controller extends Thread {
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
+        } else if (e.getSource() == this.view.getPauseThreads()) {
+
         }
     }
 }
