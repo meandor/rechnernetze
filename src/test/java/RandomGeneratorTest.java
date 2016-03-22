@@ -17,7 +17,7 @@ public class RandomGeneratorTest {
 
     @Test
     public void testGenerateRandomMessageType() throws Exception {
-        ArrayList<String> possibilities = new ArrayList<String>();
+        ArrayList<String> possibilities = new ArrayList<>();
         possibilities.add("INFO");
         possibilities.add("WARN");
         possibilities.add("CORR");
@@ -29,8 +29,6 @@ public class RandomGeneratorTest {
     public void testGenerateRandomSleepTime() throws Exception {
         long r1 = RandomGenerator.getInstance().generateRandomSleepTime();
         long r2 = RandomGenerator.getInstance().generateRandomSleepTime();
-        System.out.println(r1);
-        System.out.println(r2);
         assertEquals(true, (r1 >= 1000L && r1 <= 5000L));
         assertEquals(true, (r2 >= 1000L && r2 <= 5000L));
         assertFalse(r1 == r2);
