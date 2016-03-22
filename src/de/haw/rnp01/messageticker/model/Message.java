@@ -1,14 +1,14 @@
 package de.haw.rnp01.messageticker.model;
 
 /**
- * This class represents a content. Every content has a content and a type
+ * This class represents a message. Every message has a content and a type.
  */
 public class Message {
     private String type;
     private String content;
 
     /**
-     * Constructs a new content model
+     * Constructs a new content model.
      * @param type the type of the news as String
      * @param content actual content of the news
      */

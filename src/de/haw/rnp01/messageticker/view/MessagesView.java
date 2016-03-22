@@ -1,15 +1,14 @@
 package de.haw.rnp01.messageticker.view;
 
-/**
- * Created by daniel on 21.03.2016.
- */
-
 import de.haw.rnp01.messageticker.model.Message;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * The view for displaying all messages and the basic chat functionality.
+ */
 public class MessagesView extends JFrame {
 
     private String[] messageTypes;
@@ -21,6 +20,10 @@ public class MessagesView extends JFrame {
     private JTextArea messageOutput;
     private JScrollPane scrollPane;
 
+    /**
+     * Constructs the view.
+     * @param messageTypes establishes the messageTypes
+     */
     public MessagesView(String[] messageTypes) {
         super("Nachrichten-Ticker");
         this.messageTypes = messageTypes;
@@ -32,10 +35,12 @@ public class MessagesView extends JFrame {
         this.messageOutput = new JTextArea(40, 100);
         this.scrollPane = new JScrollPane(this.messageOutput);
         this.messageOutput.setEditable(false);
-
         initForm();
     }
 
+    /**
+     * Initializes the view and its components.
+     */
     private void initForm() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new FlowLayout());

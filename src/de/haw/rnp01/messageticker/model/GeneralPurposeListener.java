@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by on 21.03.2016.
+ * Listener that just forwards the actions back to the controller (for better modularity).
  */
 public class GeneralPurposeListener implements ActionListener {
 

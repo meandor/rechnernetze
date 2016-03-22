@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- *
+ * Controller for the MVC Pattern.
  */
 public class Controller extends Thread {
 
@@ -19,6 +19,11 @@ public class Controller extends Thread {
     private ArrayList<Thread> threadPool;
     private boolean interruptThreads;
 
+    /**
+     * Constructs the Controller with a thread pool.
+     *
+     * @param threadCount count of the threads in the pool
+     */
     public Controller(int threadCount) {
         super();
         String[] messageTypes = {"INFO", "WARN", "CORR"};
@@ -47,14 +52,21 @@ public class Controller extends Thread {
 
         while (true) {
             try {
-                this.view.addMessage(this.queue.take());
+                this.view.addMessage(((Message) this.queue.take()));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    /**
+     * Handles the actions from the GeneralPurposeListener.
+     * @param e ActionEvent
+     */
     public void performAction(ActionEvent e) {
+        /**
+         * Adds the message from the View into the queue
+         */
         if (e.getSource() == this.view.getSend()) {
             Message n = new Message(this.view.getMessageTypesSelector(), this.view.getMessageInput());
             try {
@@ -63,6 +75,9 @@ public class Controller extends Thread {
                 e1.printStackTrace();
             }
         } else if (e.getSource() == this.view.getPauseThreads()) {
+            /**
+             * Stops and restarts all threads
+             */
             for (Thread t : this.threadPool) {
                 if (!this.interruptThreads) {
                     t.interrupt();

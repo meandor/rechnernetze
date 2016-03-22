@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /**
- * Created by on 21.03.2016.
+ * Tests the RandomGenerator.
  */
 public class RandomGeneratorTest {
 

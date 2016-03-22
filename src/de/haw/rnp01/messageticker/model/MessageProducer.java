@@ -1,24 +1,28 @@
 package de.haw.rnp01.messageticker.model;
 
-import de.haw.rnp01.messageticker.model.Message;
-import de.haw.rnp01.messageticker.model.RandomGenerator;
-
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * Created by on 21.03.2016.
+ * Producer in the consumer producer pattern. Produces random messages.
  */
 public class MessageProducer extends Thread {
 
     private RandomGenerator random;
     private LinkedBlockingQueue sharedMemory;
 
+    /**
+     * Constructs the producer.
+     * @param sharedMemory Shared memory (buffer) for the produced items.
+     */
     public MessageProducer(LinkedBlockingQueue sharedMemory) {
         super();
         this.random = RandomGenerator.getInstance();
         this.sharedMemory = sharedMemory;
     }
 
+    /**
+     * Uses the RandomGenerator to produce random messages at random intervals (1s-5s).
+     */
     public void run() {
         while (!isInterrupted()) {
             try {
