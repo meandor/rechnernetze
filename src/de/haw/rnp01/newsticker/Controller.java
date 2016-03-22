@@ -1,44 +1,47 @@
 package de.haw.rnp01.newsticker;
 
 import de.haw.rnp01.newsticker.model.News;
-import de.haw.rnp01.newsticker.model.RandomGenerator;
 import de.haw.rnp01.newsticker.view.NewsView;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * Created by daniel on 21.03.2016.
+ *
  */
-public class Controller {
+public class Controller extends Thread {
 
-    private ArrayList<News> news;
     private NewsView view;
     private LinkedBlockingQueue queue;
-    private MessageTransporter mt;
     private MessageProducer t1;
     private MessageProducer t2;
 
     public Controller() {
+        super();
         String[] messageTypes = {"INFO", "WARN", "CORR"};
-        this.news = new ArrayList<News>();
         this.queue = new LinkedBlockingQueue();
         this.view = new NewsView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);
-        mt = new MessageTransporter(queue, news);
         t1 = new MessageProducer(queue);
         t2 = new MessageProducer(queue);
-        this.view.addNews(this.news);
     }
 
     public void showView() {
         this.view.setVisible(true);
-        mt.start();
+    }
+
+    public void run() {
         t1.start();
         t2.start();
+        while (true) {
+            try {
+                this.view.addNews(this.queue.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void performAction(ActionEvent e) {
