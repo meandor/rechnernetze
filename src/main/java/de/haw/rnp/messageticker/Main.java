@@ -1,4 +1,4 @@
-package de.haw.rnp01.messageticker;
+package de.haw.rnp.messageticker;
 
 public class Main {
     public static void main(String[] args) {

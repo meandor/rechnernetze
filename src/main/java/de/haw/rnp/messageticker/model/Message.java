@@ -1,4 +1,4 @@
-package de.haw.rnp01.messageticker.model;
+package de.haw.rnp.messageticker.model;
 
 /**
  * This class represents a message. Every message has a content and a type.

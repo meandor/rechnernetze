@@ -1,6 +1,6 @@
-package de.haw.rnp01.messageticker.view;
+package de.haw.rnp.messageticker.view;
 
-import de.haw.rnp01.messageticker.model.Message;
+import de.haw.rnp.messageticker.model.Message;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,6 @@
-package de.haw.rnp01.messageticker.model;
+package de.haw.rnp.messageticker.model;
 
-import de.haw.rnp01.messageticker.Controller;
+import de.haw.rnp.messageticker.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

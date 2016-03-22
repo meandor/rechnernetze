@@ -1,9 +1,9 @@
-package de.haw.rnp01.messageticker;
+package de.haw.rnp.messageticker;
 
-import de.haw.rnp01.messageticker.model.GeneralPurposeListener;
-import de.haw.rnp01.messageticker.model.Message;
-import de.haw.rnp01.messageticker.model.MessageProducer;
-import de.haw.rnp01.messageticker.view.MessagesView;
+import de.haw.rnp.messageticker.model.GeneralPurposeListener;
+import de.haw.rnp.messageticker.model.Message;
+import de.haw.rnp.messageticker.model.MessageProducer;
+import de.haw.rnp.messageticker.view.MessagesView;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;

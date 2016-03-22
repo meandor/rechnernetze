@@ -1,6 +1,4 @@
-package de.haw.rnp01.messageticker.test;
-
-import de.haw.rnp01.messageticker.model.RandomGenerator;
+import de.haw.rnp.messageticker.model.RandomGenerator;
 import org.junit.Test;
 
 import java.util.ArrayList;
