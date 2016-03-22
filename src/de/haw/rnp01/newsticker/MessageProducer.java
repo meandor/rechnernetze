@@ -21,14 +21,14 @@ public class MessageProducer extends Thread {
     }
 
     public void run() {
-        try {
-            while (true) {
+        while (!isInterrupted()) {
+            try {
                 sleep(this.random.generateRandomSleepTime());
                 News n = new News(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
                 this.sharedMemory.put(n);
+            } catch (InterruptedException e) {
+                break;
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

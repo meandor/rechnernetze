@@ -15,6 +15,7 @@ public class Controller extends Thread {
     private NewsView view;
     private LinkedBlockingQueue queue;
     private ArrayList<Thread> threadPool;
+    private boolean interruptThreads;
 
     public Controller(int threadCount) {
         super();
@@ -24,6 +25,8 @@ public class Controller extends Thread {
         this.view = new NewsView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);
+        this.view.registerThreadButtonListener(l);
+
         for (int i = 0; i < threadCount; i++) {
             MessageProducer thread = new MessageProducer(this.queue);
             this.threadPool.add(thread);
@@ -35,9 +38,10 @@ public class Controller extends Thread {
     }
 
     public void run() {
-        for (Thread t: this.threadPool) {
+        for (Thread t : this.threadPool) {
             t.start();
         }
+
         while (true) {
             try {
                 this.view.addNews(this.queue.take());
@@ -56,7 +60,22 @@ public class Controller extends Thread {
                 e1.printStackTrace();
             }
         } else if (e.getSource() == this.view.getPauseThreads()) {
+            for (Thread t : this.threadPool) {
+                if (!this.interruptThreads) {
+                    t.interrupt();
+                } else {
+                    t = new MessageProducer(this.queue);
+                    t.start();
+                }
+            }
 
+            if (!this.interruptThreads) {
+                this.view.getPauseThreads().setText("Threads starten");
+            } else {
+                this.view.getPauseThreads().setText("Threads pausieren");
+            }
+
+            this.interruptThreads = !this.interruptThreads;
         }
     }
 }
