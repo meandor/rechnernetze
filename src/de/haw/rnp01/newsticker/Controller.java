@@ -20,6 +20,7 @@ public class Controller extends Thread {
     public Controller(int threadCount) {
         super();
         String[] messageTypes = {"INFO", "WARN", "CORR"};
+        // Queue can have a size for less delay but too small size can lead to "package" loss
         this.queue = new LinkedBlockingQueue();
         this.threadPool = new ArrayList<Thread>();
         this.view = new NewsView(messageTypes);
