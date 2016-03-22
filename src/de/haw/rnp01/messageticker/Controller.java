@@ -1,7 +1,9 @@
-package de.haw.rnp01.newsticker;
+package de.haw.rnp01.messageticker;
 
-import de.haw.rnp01.newsticker.model.Message;
-import de.haw.rnp01.newsticker.view.NewsView;
+import de.haw.rnp01.messageticker.model.GeneralPurposeListener;
+import de.haw.rnp01.messageticker.model.Message;
+import de.haw.rnp01.messageticker.model.MessageProducer;
+import de.haw.rnp01.messageticker.view.MessagesView;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Controller extends Thread {
 
-    private NewsView view;
+    private MessagesView view;
     private LinkedBlockingQueue queue;
     private ArrayList<Thread> threadPool;
     private boolean interruptThreads;
@@ -23,7 +25,7 @@ public class Controller extends Thread {
         // Queue can have a size for less delay but too small size can lead to "package" loss
         this.queue = new LinkedBlockingQueue();
         this.threadPool = new ArrayList<Thread>();
-        this.view = new NewsView(messageTypes);
+        this.view = new MessagesView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);
         this.view.registerThreadButtonListener(l);
@@ -45,7 +47,7 @@ public class Controller extends Thread {
 
         while (true) {
             try {
-                this.view.addNews(this.queue.take());
+                this.view.addMessage(this.queue.take());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -54,7 +56,7 @@ public class Controller extends Thread {
 
     public void performAction(ActionEvent e) {
         if (e.getSource() == this.view.getSend()) {
-            Message n = new Message(this.view.getNewsTypesSelector(), this.view.getNewsInput());
+            Message n = new Message(this.view.getMessageTypesSelector(), this.view.getMessageInput());
             try {
                 this.queue.put(n);
             } catch (InterruptedException e1) {

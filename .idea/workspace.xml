@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2e7b428c-1080-46b0-bb63-a2abc8bb5900" name="Default" comment="wait time is long">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rechnernetze.iml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/News.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java" />
+    <list default="true" id="2e7b428c-1080-46b0-bb63-a2abc8bb5900" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/view/MessagesView.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/newsticker.iml" afterPath="$PROJECT_DIR$/messageticker.iml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/GeneralPurposeListener.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/GeneralPurposeListener.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/Message.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/RandomGenerator.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/RandomGenerator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/test/RandomGeneratorTest.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/test/RandomGeneratorTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java" afterPath="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java" />
     </list>
     <ignored path="rechnernetze.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,45 +33,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="newsticker.iml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/newsticker.iml">
+      <file leaf-file-name="MessageProducer.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Message.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
-              <folding>
-                <element signature="e#496#497#0" expanded="true" />
-                <element signature="e#523#524#0" expanded="true" />
-                <element signature="e#563#564#0" expanded="true" />
-                <element signature="e#595#596#0" expanded="true" />
-                <element signature="e#629#630#0" expanded="true" />
-                <element signature="e#659#660#0" expanded="true" />
-                <element signature="e#705#706#0" expanded="true" />
-                <element signature="e#743#744#0" expanded="true" />
-                <element signature="e#789#790#0" expanded="true" />
-                <element signature="e#833#834#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewsView.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+            <state relative-caret-position="285">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GeneralPurposeListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/GeneralPurposeListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -105,8 +87,10 @@
         <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java" />
         <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java" />
         <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageTransporter.java" />
-        <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java" />
         <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java" />
+        <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java" />
+        <option value="$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/MessagesView.java" />
+        <option value="$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java" />
       </list>
     </option>
   </component>
@@ -187,7 +171,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="newsticker" />
+              <option name="myItemId" value="messageticker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -205,7 +189,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="newsticker" />
+              <option name="myItemId" value="messageticker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -227,7 +211,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="newsticker" />
+              <option name="myItemId" value="messageticker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -249,7 +233,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="newsticker" />
+              <option name="myItemId" value="messageticker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -295,15 +279,15 @@
     <configuration default="false" name="RandomGeneratorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="de.haw.rnp01.newsticker.test.*" />
+          <option name="PATTERN" value="de.haw.rnp01.messageticker.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="rechnernetze" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="de.haw.rnp01.newsticker.test" />
-      <option name="MAIN_CLASS_NAME" value="de.haw.rnp01.newsticker.test.RandomGeneratorTest" />
+      <option name="PACKAGE_NAME" value="de.haw.rnp01.messageticker.test" />
+      <option name="MAIN_CLASS_NAME" value="de.haw.rnp01.messageticker.test.RandomGeneratorTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -783,7 +767,7 @@
     </configuration>
     <configuration default="false" name="java" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="de.haw.rnp01.newsticker.Main" />
+      <option name="MAIN_CLASS_NAME" value="de.haw.rnp01.messageticker.Main" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -833,7 +817,7 @@
       <workItem from="1458665573867" duration="88000" />
       <workItem from="1458665760295" duration="5000" />
       <workItem from="1458666307029" duration="8000" />
-      <workItem from="1458667222956" duration="892000" />
+      <workItem from="1458667222956" duration="1804000" />
     </task>
     <task id="LOCAL-00001" summary="Package structure added">
       <created>1458559324918</created>
@@ -968,11 +952,18 @@
       <option name="project" value="LOCAL" />
       <updated>1458566098671</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Renamed news to message">
+      <created>1458668124094</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1458668124094</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18803000" />
+    <option name="totallyTimeSpent" value="19715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1985" y="-4" width="1855" height="1084" extended-state="6" />
@@ -985,7 +976,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26458332" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26354167" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1039,7 +1030,8 @@
     <MESSAGE value="Added queue" />
     <MESSAGE value="Thread for producing random messages done" />
     <MESSAGE value="wait time is long" />
-    <option name="LAST_COMMIT_MESSAGE" value="wait time is long" />
+    <MESSAGE value="Renamed news to message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renamed news to message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1052,7 +1044,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
@@ -1062,7 +1054,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="27" />
@@ -1070,7 +1062,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/test/RandomGeneratorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/test/RandomGeneratorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
@@ -1080,36 +1072,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#566#567#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/view/MessagesView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
@@ -1119,7 +1113,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
@@ -1129,7 +1123,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="27" />
@@ -1137,7 +1131,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/test/RandomGeneratorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/test/RandomGeneratorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
@@ -1147,36 +1141,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#566#567#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/view/MessagesView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="31" column="61" selection-start-line="31" selection-start-column="61" selection-end-line="31" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
@@ -1186,7 +1182,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
@@ -1196,7 +1192,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="27" />
@@ -1204,7 +1200,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/test/RandomGeneratorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/test/RandomGeneratorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
@@ -1214,7 +1210,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1224,7 +1220,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="27" />
@@ -1233,7 +1229,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageTransporter.java" />
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/test/RandomGeneratorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/test/RandomGeneratorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
@@ -1243,26 +1239,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#566#567#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
@@ -1272,7 +1268,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="27" />
@@ -1281,36 +1277,38 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageTransporter.java" />
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#566#567#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/view/MessagesView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
           <caret line="53" column="35" selection-start-line="53" selection-start-column="35" selection-end-line="53" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
@@ -1320,7 +1318,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1330,17 +1328,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/view/MessagesView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1367,14 +1367,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/GeneralPurposeListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/RandomGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/RandomGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="46" column="15" selection-start-line="46" selection-start-column="15" selection-end-line="46" selection-end-column="15" />
@@ -1383,7 +1376,7 @@
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/org/junit/Assert.class" />
     <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageTransporter.java" />
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/test/RandomGeneratorTest.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/test/RandomGeneratorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
@@ -1393,7 +1386,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="27" />
@@ -1401,20 +1394,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/MessageProducer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1429,7 +1412,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/newsticker.iml">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/view/MessagesView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="52" column="41" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1558#1559#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+          <folding>
+            <element signature="e#499#500#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#566#567#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#632#633#0" expanded="true" />
+            <element signature="e#662#663#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/messageticker.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
@@ -1437,29 +1451,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/model/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/GeneralPurposeListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="36" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
-          <folding>
-            <element signature="e#496#497#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#563#564#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-            <element signature="e#705#706#0" expanded="true" />
-            <element signature="e#743#744#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="105">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/newsticker/view/NewsView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/haw/rnp01/messageticker/model/MessageProducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+        <state relative-caret-position="285">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

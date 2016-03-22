@@ -1,7 +1,7 @@
-package de.haw.rnp01.newsticker;
+package de.haw.rnp01.messageticker.model;
 
-import de.haw.rnp01.newsticker.model.Message;
-import de.haw.rnp01.newsticker.model.RandomGenerator;
+import de.haw.rnp01.messageticker.model.Message;
+import de.haw.rnp01.messageticker.model.RandomGenerator;
 
 import java.util.concurrent.LinkedBlockingQueue;
 

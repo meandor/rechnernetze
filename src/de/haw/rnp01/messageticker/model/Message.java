@@ -1,4 +1,4 @@
-package de.haw.rnp01.newsticker.model;
+package de.haw.rnp01.messageticker.model;
 
 /**
  * This class represents a content. Every content has a content and a type

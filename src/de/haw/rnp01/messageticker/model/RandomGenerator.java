@@ -1,4 +1,4 @@
-package de.haw.rnp01.newsticker.model;
+package de.haw.rnp01.messageticker.model;
 
 import java.util.Random;
 

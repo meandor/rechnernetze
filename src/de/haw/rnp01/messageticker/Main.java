@@ -1,4 +1,4 @@
-package de.haw.rnp01.newsticker;
+package de.haw.rnp01.messageticker;
 
 public class Main {
 
