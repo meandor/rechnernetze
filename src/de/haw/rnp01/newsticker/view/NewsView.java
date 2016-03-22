@@ -50,7 +50,7 @@ public class NewsView extends JFrame {
         this.add(scrollPane);
     }
 
-    public void addNews(ArrayList<News> news) {
+    public void addNews(Object news) {
         this.newsOutput.append(news.toString() + "\n");
     }
 

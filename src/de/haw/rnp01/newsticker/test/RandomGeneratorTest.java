@@ -1,6 +1,7 @@
 package de.haw.rnp01.newsticker.test;
 
 import de.haw.rnp01.newsticker.model.RandomGenerator;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
@@ -11,12 +12,12 @@ import static org.junit.Assert.*;
  */
 public class RandomGeneratorTest {
 
-    @org.junit.Test
+    @Test
     public void testGetInstance() throws Exception {
         assertEquals(RandomGenerator.getInstance(), RandomGenerator.getInstance());
     }
 
-    @org.junit.Test
+    @Test
     public void testGenerateRandomMessageType() throws Exception {
         ArrayList<String> possibilities = new ArrayList<String>();
         possibilities.add("INFO");
@@ -26,7 +27,7 @@ public class RandomGeneratorTest {
         assertTrue(possibilities.contains(testMessageType));
     }
 
-    @org.junit.Test
+    @Test
     public void testGenerateRandomSleepTime() throws Exception {
         long r1 = RandomGenerator.getInstance().generateRandomSleepTime();
         long r2 = RandomGenerator.getInstance().generateRandomSleepTime();
@@ -35,7 +36,7 @@ public class RandomGeneratorTest {
         assertFalse(r1 == r2);
     }
 
-    @org.junit.Test
+    @Test
     public void testGenerateRandomMessage() throws Exception {
         String r1 = RandomGenerator.getInstance().generateRandomMessage();
         String r2 = RandomGenerator.getInstance().generateRandomMessage();

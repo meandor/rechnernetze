@@ -4,6 +4,7 @@ import de.haw.rnp01.newsticker.model.News;
 import de.haw.rnp01.newsticker.model.RandomGenerator;
 
 import java.util.LinkedList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by on 21.03.2016.
@@ -11,23 +12,23 @@ import java.util.LinkedList;
 public class MessageProducer extends Thread {
 
     private RandomGenerator random;
-    private LinkedList<News> sharedMemory;
+    private LinkedBlockingQueue sharedMemory;
 
-    public MessageProducer(LinkedList<News> sharedMemory) {
+    public MessageProducer(LinkedBlockingQueue sharedMemory) {
         super();
         this.random = RandomGenerator.getInstance();
         this.sharedMemory = sharedMemory;
     }
 
     public void run() {
-        try {
-            while (true) {
+        while (!isInterrupted()) {
+            try {
                 sleep(this.random.generateRandomSleepTime());
                 News n = new News(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
-                this.sharedMemory.addLast(n);
+                this.sharedMemory.put(n);
+            } catch (InterruptedException e) {
+                break;
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
