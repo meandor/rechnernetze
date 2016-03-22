@@ -1,6 +1,6 @@
 package de.haw.rnp01.newsticker;
 
-import de.haw.rnp01.newsticker.model.News;
+import de.haw.rnp01.newsticker.model.Message;
 import de.haw.rnp01.newsticker.view.NewsView;
 
 import java.awt.event.ActionEvent;
@@ -54,7 +54,7 @@ public class Controller extends Thread {
 
     public void performAction(ActionEvent e) {
         if (e.getSource() == this.view.getSend()) {
-            News n = new News(this.view.getNewsTypesSelector(), this.view.getNewsInput());
+            Message n = new Message(this.view.getNewsTypesSelector(), this.view.getNewsInput());
             try {
                 this.queue.put(n);
             } catch (InterruptedException e1) {

@@ -1,9 +1,8 @@
 package de.haw.rnp01.newsticker;
 
-import de.haw.rnp01.newsticker.model.News;
+import de.haw.rnp01.newsticker.model.Message;
 import de.haw.rnp01.newsticker.model.RandomGenerator;
 
-import java.util.LinkedList;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -24,7 +23,7 @@ public class MessageProducer extends Thread {
         while (!isInterrupted()) {
             try {
                 sleep(this.random.generateRandomSleepTime());
-                News n = new News(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
+                Message n = new Message(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
                 this.sharedMemory.put(n);
             } catch (InterruptedException e) {
                 break;

@@ -4,12 +4,9 @@ package de.haw.rnp01.newsticker.view;
  * Created by daniel on 21.03.2016.
  */
 
-import de.haw.rnp01.newsticker.model.News;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class NewsView extends JFrame {
 
