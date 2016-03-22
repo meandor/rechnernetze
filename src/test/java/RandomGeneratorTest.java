@@ -29,8 +29,8 @@ public class RandomGeneratorTest {
     public void testGenerateRandomSleepTime() throws Exception {
         long r1 = RandomGenerator.getInstance().generateRandomSleepTime();
         long r2 = RandomGenerator.getInstance().generateRandomSleepTime();
-        assertTrue(r1 >=  1000L && r1 <= 5000L);
-        assertTrue(r2 >= 1000L && r2 <= 5000L);
+        assertEquals(true, r1 >= 1000L && r1 <= 5000L);
+        assertEquals(true, r2 >= 1000L && r2 <= 5000L);
         assertFalse(r1 == r2);
     }
 
@@ -41,6 +41,6 @@ public class RandomGeneratorTest {
         String pattern = "[0-9a-zA-Z]+";
         assertTrue(r1.matches(pattern));
         assertTrue(r2.matches(pattern));
-        assertFalse(r1 == r2);
+        assertFalse(r1.equals(r2));
     }
 }
