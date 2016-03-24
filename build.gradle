@@ -4,11 +4,16 @@ apply plugin: 'idea'
 
 sourceCompatibility = 1.7
 version = '1.0'
-jar {
+
+task uberJar(type: Jar) {
     manifest {
         attributes 'Implementation-Title': 'Rechnernetze Message Ticker',
-                   'Implementation-Version': version
+                   'Implementation-Version': version,
+                   'Main-Class': 'de.haw.rnp.messageticker.Main'
     }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 repositories {
