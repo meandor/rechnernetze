@@ -15,4 +15,6 @@ during startup.
 
 ### Usage
 
+To build the jar: `gradle uberJar` 
+
 The first program argument specifies the number of threads that should be started.
