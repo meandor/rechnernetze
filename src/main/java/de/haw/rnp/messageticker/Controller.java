@@ -84,17 +84,14 @@ public class Controller extends Thread {
             /**
              * Stops and restarts all threads
              */
-            for (Thread t : this.threadPool) {
+            for(int i = 0; i < this.threadPool.size(); i++){
                 if (!this.interruptThreads) {
-                    t.interrupt();
-                    this.view.getStatusLabel().setText("Threads werden pausiert...");
+                    threadPool.get(i).interrupt();
                 } else {
-                    t = new MessageProducer(this.queue);
-                    t.start();
-                    this.view.getStatusLabel().setText("Threads werden gestartet...");
+                    threadPool.set(i, new MessageProducer(this.queue));
+                    threadPool.get(i).start();
                 }
             }
-
             if (!this.interruptThreads) {
                 this.view.getPauseThreads().setText("Threads starten");
                 this.view.getStatusLabel().setText("Alle Threads pausiert.");
