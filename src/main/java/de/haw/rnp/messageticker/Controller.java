@@ -18,6 +18,7 @@ public class Controller extends Thread {
     private LinkedBlockingQueue queue;
     private ArrayList<Thread> threadPool;
     private boolean interruptThreads;
+    private int threadCount;
 
     /**
      * Constructs the Controller with a thread pool.
@@ -26,6 +27,7 @@ public class Controller extends Thread {
      */
     public Controller(int threadCount) {
         super();
+        this.threadCount = threadCount;
         String[] messageTypes = {"INFO", "WARN", "CORR"};
         // Queue can have a size for less delay but too small size can lead to "package" loss
         this.queue = new LinkedBlockingQueue();
@@ -48,6 +50,10 @@ public class Controller extends Thread {
     public void run() {
         for (Thread t : this.threadPool) {
             t.start();
+            if(this.threadCount == 1)
+                this.view.getStatusLabel().setText("Es läuft derzeit " + this.threadCount + " Thread.");
+            else
+                this.view.getStatusLabel().setText("Es laufen derzeit alle " + this.threadCount + " Threads.");
         }
 
         while (true) {
@@ -81,16 +87,23 @@ public class Controller extends Thread {
             for (Thread t : this.threadPool) {
                 if (!this.interruptThreads) {
                     t.interrupt();
+                    this.view.getStatusLabel().setText("Threads werden pausiert...");
                 } else {
                     t = new MessageProducer(this.queue);
                     t.start();
+                    this.view.getStatusLabel().setText("Threads werden gestartet...");
                 }
             }
 
             if (!this.interruptThreads) {
                 this.view.getPauseThreads().setText("Threads starten");
+                this.view.getStatusLabel().setText("Alle Threads pausiert.");
             } else {
                 this.view.getPauseThreads().setText("Threads pausieren");
+                if(this.threadCount == 1)
+                    this.view.getStatusLabel().setText("Es läuft derzeit " + this.threadCount + " Thread.");
+                else
+                    this.view.getStatusLabel().setText("Es laufen derzeit alle " + this.threadCount + " Threads.");
             }
 
             this.interruptThreads = !this.interruptThreads;
