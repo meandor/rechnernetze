@@ -62,6 +62,7 @@ public class MessagesView extends JFrame {
         container.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         this.messageOutputCaret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        this.scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridx = 0;
