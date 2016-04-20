@@ -1,0 +1,170 @@
+GET / HTTP/1.1
+User-Agent: Wget/1.16 (linux-gnu)
+Accept: */*
+Host: scimbe.de
+Connection: Keep-Alive
+
+HTTP/1.1 200 OK
+Date: Wed, 20 Apr 2016 11:17:18 GMT
+Server: Apache/2.2.31 (Unix)
+Last-Modified: Thu, 23 Apr 2015 13:12:58 GMT
+ETag: "1c3c331-2f69-5146409dcffa9"
+Accept-Ranges: bytes
+Content-Length: 12137
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html class="html" lang="de-DE">
+ <head>
+
+  <script type="text/javascript">
+   if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["jquery-1.8.3.min.js", "museutils.js", "jquery.musemenu.js", "jquery.musepolyfill.bgsize.js", "jquery.scrolleffects.js", "jquery.watch.js", "index.css"], "outOfDate":[]};
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62200961-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+  <meta name="generator" content="2014.2.0.284"/>
+  <link rel="shortcut icon" href="images/favicon.ico?4185501845"/>
+  <title>CaDS&#45;HOME</title>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="css/site_global.css?514859337"/>
+  <link rel="stylesheet" type="text/css" href="css/master_a-musters.css?3906980697"/>
+  <link rel="stylesheet" type="text/css" href="css/index.css?4154449156" id="pagesheet"/>
+  <!-- Other scripts -->
+  <script type="text/javascript">
+   document.documentElement.className += ' js';
+</script>
+  <!-- JS includes -->
+  <!--[if lt IE 9]>
+  <script src="scripts/html5shiv.js?4241844378" type="text/javascript"></script>
+  <![endif]-->
+    <!--/*
+
+*/
+-->
+ </head>
+ <body>
+
+  <div class="clearfix" id="page"><!-- column -->
+   <div class="position_content" id="page_position_content">
+    <div class="browser_width" id="u222-bw">
+     <div class="pinned-colelem" id="u222"><!-- simple frame --></div>
+    </div>
+    <div class="clip_frame pinned-colelem" id="u81"><!-- image -->
+     <img class="block" id="u81_img" src="images/becke_vorlaeufiges_logo.png" alt="" width="224" height="106"/>
+    </div>
+    <nav class="MenuBar clearfix pinned-colelem" id="menuu154"><!-- horizontal box -->
+     <div class="MenuItemContainer clearfix grpelem" id="u176"><!-- vertical box -->
+      <a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix colelem" id="u179" href="index.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u180-4"><!-- content --><p>HOME</p></div></a>
+     </div>
+     <div class="MenuItemContainer clearfix grpelem" id="u155"><!-- vertical box -->
+      <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix colelem" id="u158" href="about.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u161-4"><!-- content --><p>ABOUT</p></div></a>
+     </div>
+     <div class="MenuItemContainer clearfix grpelem" id="u183"><!-- vertical box -->
+      <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix colelem" id="u184" href="projects.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u185-4"><!-- content --><p>PROJECTS</p></div></a>
+     </div>
+     <div class="MenuItemContainer clearfix grpelem" id="u162"><!-- vertical box -->
+      <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix colelem" id="u163" href="publication.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u165-4"><!-- content --><p>PUBLICATION</p></div></a>
+     </div>
+     <div class="MenuItemContainer clearfix grpelem" id="u169"><!-- vertical box -->
+      <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix colelem" id="u170" href="for-students.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u171-4"><!-- content --><p>FOR STUDENTS</p></div></a>
+     </div>
+     <div class="MenuItemContainer clearfix grpelem" id="u275"><!-- vertical box -->
+      <a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix colelem" id="u276" href="find-cads.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap clearfix grpelem" id="u277-4"><!-- content --><p>FIND CADS</p></div></a>
+     </div>
+    </nav>
+    <div class="browser_width colelem" id="u236-bw">
+     <div class="museBGSize" id="u236"><!-- simple frame --></div>
+    </div>
+    <div class="clearfix colelem" id="pu150-19"><!-- group -->
+     <div class="clearfix grpelem" id="u150-19" data-muse-uid="U150"><!-- content -->
+      <!-- m_editable region-id="editable-static-tag-U150" template="index.html" data-type="html" data-ice-options="disableImageResize,none" -->
+      <h1 class="Headline_1" id="u150-4">Communication and distributed systems <br/>at the HAW Hamburg</h1>
+      <p id="u150-5">&nbsp;</p>
+      <p class="Flie-text">The ...Communication and Distributed System... (CaDS) group is part of the Department Informatik at the Hamburg University of Applied Sciences (HAW Hamburg). The research objectives include in general networking tasks, distributed systems, and (embedded) system design with applications in wired and wireless networks.</p>
+      <p class="Flie-text">&nbsp;</p>
+      <p class="Flie-text">Currently the group has a special interest on transport protocols like TCP and SCTP and web real&#45;time communication protocols like WebRTC.</p>
+      <p class="Flie-text">&nbsp;</p>
+      <p class="Flie-text">The CaDS group&nbsp; is always looking for motivated students who are interested in the challenges of the future Internet.</p>
+      <p class="Flie-text">&nbsp;</p>
+      <p id="u150-15">&nbsp;</p>
+      <p id="u150-17">Let's communicate...</p>
+<!-- /m_editable -->
+     </div>
+     <div class="clearfix grpelem" id="pu303"><!-- column -->
+      <a class="nonblock nontext rounded-corners clearfix colelem" id="u303" href="https://www.facebook.com/CADS.HAW.HAMBURG" target="_blank"><!-- group --><div class="Flie-text clearfix grpelem" id="u309-4" data-muse-uid="U309"><!-- content --><!-- m_editable region-id="editable-static-tag-U309" template="index.html" data-type="html" data-ice-options="disableImageResize,none" --><p>CaDS on facebook</p><!-- /m_editable --></div></a>
+      <div class="colelem" id="u300"><!-- custom html -->
+                   <a class="twitter-timeline"  href="https://twitter.com/CADS_HAW" data-widget-id="575284942965506048">Tweets von @CADS_HAW </a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+          
+</div>
+     </div>
+    </div>
+    <div class="verticalspacer"></div>
+    <a class="nonblock nontext clip_frame colelem" id="u313" href="https://www.facebook.com/CADS.HAW.HAMBURG" target="_blank"><!-- image --><!-- m_editable region-id="editable-static-tag-U313" template="index.html" data-type="image" data-ice-options="clickable" --><img class="block" id="u313_img" src="images/facebook.png" alt="" width="30" height="30" data-muse-uid="U313" data-muse-src="images/facebook.png"/><!-- /m_editable --></a>
+    <div class="browser_width colelem" id="u223-bw">
+     <div id="u223"><!-- group -->
+      <div class="clearfix" id="u223_align_to_page">
+       <div class="Flie-text clearfix grpelem" id="u243-15"><!-- content -->
+        <p><span id="u243">CaDS</span> .. communication and distributed systems</p>
+        <p>&nbsp;</p>
+        <p>CONTACT</p>
+        <p id="u243-8">Prof. Dr. Martin Becke</p>
+        <p id="u243-9">&nbsp;</p>
+        <p id="u243-11">Room 7.85&nbsp; ..&nbsp; Berliner Tor 7</p>
+        <p id="u243-13">20099 Hamburg&nbsp; ..&nbsp; Germany</p>
+       </div>
+       <a class="nonblock nontext clip_frame grpelem" id="u245" href="mailto:Martin%20Becke%20%3CMartin.Becke@HAW-Hamburg.de%3E"><!-- image --><img class="block" id="u245_img" src="images/contact.png" alt="" width="40" height="40"/></a>
+       <a class="nonblock nontext clip_frame grpelem" id="u251" href="https://www.facebook.com/CADS.HAW.HAMBURG" target="_blank"><!-- image --><img class="block" id="u251_img" src="images/facebook.png" alt="" width="40" height="40"/></a>
+       <a class="nonblock nontext clip_frame grpelem" id="u257" href="https://twitter.com/CADS_HAW" target="_blank"><!-- image --><img class="block" id="u257_img" src="images/twitter.png" alt="" width="40" height="40"/></a>
+      </div>
+     </div>
+    </div>
+    <div class="browser_width colelem" id="u244-bw">
+     <div id="u244"><!-- group -->
+      <div class="clearfix" id="u244_align_to_page">
+       <a class="nonblock nontext Flie-text Link_weiss clearfix grpelem" id="u263-4" href="impressum.html"><!-- content --><p>IMPRESSUM</p></a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- JS includes -->
+  <script type="text/javascript">
+   if (document.location.protocol != 'https:') document.write('\x3Cscript src="http://musecdn2.businesscatalyst.com/scripts/4.0/jquery-1.8.3.min.js" type="text/javascript">\x3C/script>');
+</script>
+  <script type="text/javascript">
+   window.jQuery || document.write('\x3Cscript src="scripts/jquery-1.8.3.min.js" type="text/javascript">\x3C/script>');
+</script>
+  <script src="scripts/museutils.js?4050293121" type="text/javascript"></script>
+  <script src="scripts/jquery.musemenu.js?4027237583" type="text/javascript"></script>
+  <script src="scripts/jquery.musepolyfill.bgsize.js?84270510" type="text/javascript"></script>
+  <script src="scripts/jquery.scrolleffects.js?398671634" type="text/javascript"></script>
+  <script src="scripts/jquery.watch.js?3946357177" type="text/javascript"></script>
+  <!-- Other scripts -->
+  <script type="text/javascript">
+   $(document).ready(function() { try {
+(function(){var a={},b=function(a){if(a.match(/^rgb/))return a=a.replace(/\s+/g,"").match(/([\d\,]+)/gi)[0].split(","),(parseInt(a[0])<<16)+(parseInt(a[1])<<8)+parseInt(a[2]);if(a.match(/^\#/))return parseInt(a.substr(1),16);return 0};(function(){$('link[type="text/css"]').each(function(){var b=($(this).attr("href")||"").match(/\/?css\/([\w\-]+\.css)\?(\d+)/);b&&b[1]&&b[2]&&(a[b[1]]=b[2])})})();(function(){$("body").append('<div class="version" style="display:none; width:1px; height:1px;"></div>');
+for(var c=$(".version"),d=0;d<Muse.assets.required.length;){var f=Muse.assets.required[d],g=f.match(/([\w\-\.]+)\.(\w+)$/),k=g&&g[1]?g[1]:null,g=g&&g[2]?g[2]:null;switch(g.toLowerCase()){case "css":k=k.replace(/\W/gi,"_").replace(/^([^a-z])/gi,"_$1");c.addClass(k);var g=b(c.css("color")),h=b(c.css("background-color"));g!=0||h!=0?(Muse.assets.required.splice(d,1),"undefined"!=typeof a[f]&&(g!=a[f]>>>24||h!=(a[f]&16777215))&&Muse.assets.outOfDate.push(f)):d++;c.removeClass(k);break;case "js":k.match(/^jquery-[\d\.]+/gi)&&
+typeof $!="undefined"?Muse.assets.required.splice(d,1):d++;break;default:throw Error("Unsupported file type: "+g);}}c.remove();if(Muse.assets.outOfDate.length||Muse.assets.required.length)c="Einige der Dateien auf dem Server fehlen oder sind ung..ltig. L..schen Sie den Browser-Cache und versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an den Autor der Website.",(d=location&&location.search&&location.search.match&&location.search.match(/muse_debug/gi))&&Muse.assets.outOfDate.length&&(c+="\nOut of date: "+Muse.assets.outOfDate.join(",")),d&&Muse.assets.required.length&&(c+="\nMissing: "+Muse.assets.required.join(",")),alert(c)})()})();
+/* body */
+Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
+Muse.Utils.prepHyperlinks(true);/* body */
+Muse.Utils.initWidget('.MenuBar', function(elem) { return $(elem).museMenu(); });/* unifiedNavBar */
+$('#u236').registerBackgroundPositionScrollEffect([{"in":[-Infinity,0],"speed":[0,0.5]},{"in":[0,Infinity],"speed":[0,0.5]}]);/* scroll effect */
+Muse.Utils.resizeHeight()/* resize height */
+Muse.Utils.fullPage('#page');/* 100% height page */
+Muse.Utils.showWidgetsWhenReady();/* body */
+Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
+} catch(e) { if (e && 'function' == typeof e.notify) e.notify(); else Muse.Assert.fail('Error calling selector function:' + e); }});
+</script>
+   </body>
+</html>

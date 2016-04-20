@@ -1,0 +1,492 @@
+eth0      Link encap:Ethernet  HWaddr 98:90:96:D8:85:16
+          inet addr:141.22.27.104  Bcast:0.0.0.0  Mask:255.255.254.0
+          inet6 addr: fe80::9a90:96ff:fed8:8516/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:138135 errors:0 dropped:3112 overruns:0 frame:0
+          TX packets:26434 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:61171369 (58.3 Mb)  TX bytes:3723581 (3.5 Mb)
+          Interrupt:20 Memory:f7e00000-f7e20000
+
+eth1      Link encap:Ethernet  HWaddr 00:1B:21:40:EB:48
+          inet addr:192.168.18.131  Bcast:0.0.0.0  Mask:255.255.255.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+          Memory:f7c20000-f7c3ffff
+
+eth2      Link encap:Ethernet  HWaddr 00:1B:21:40:EB:49
+          inet addr:172.16.1.7  Bcast:0.0.0.0  Mask:255.255.255.0
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 b)  TX bytes:0 (0.0 b)
+          Memory:f7c00000-f7c1ffff
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:99 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:99 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:12887 (12.5 Kb)  TX bytes:12887 (12.5 Kb)
+
+
+
+
+ping:
+
+
+networker@lab25:~> ping 127.0.0.1
+PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.046 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.055 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.027 ms
+64 bytes from 127.0.0.1: icmp_seq=5 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=6 ttl=64 time=0.058 ms
+64 bytes from 127.0.0.1: icmp_seq=7 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=8 ttl=64 time=0.057 ms
+64 bytes from 127.0.0.1: icmp_seq=9 ttl=64 time=0.052 ms
+64 bytes from 127.0.0.1: icmp_seq=10 ttl=64 time=0.040 ms
+64 bytes from 127.0.0.1: icmp_seq=11 ttl=64 time=0.030 ms
+64 bytes from 127.0.0.1: icmp_seq=12 ttl=64 time=0.057 ms
+^C
+--- 127.0.0.1 ping statistics ---
+12 packets transmitted, 12 received, 0% packet loss, time 10999ms
+rtt min/avg/max/mdev = 0.027/0.048/0.058/0.011 ms
+
+
+networker@lab25:~> ping 0.0.0.0
+PING 0.0.0.0 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.019 ms
+64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.024 ms
+64 bytes from 127.0.0.1: icmp_seq=3 ttl=64 time=0.025 ms
+64 bytes from 127.0.0.1: icmp_seq=4 ttl=64 time=0.057 ms
+64 bytes from 127.0.0.1: icmp_seq=5 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=6 ttl=64 time=0.056 ms
+64 bytes from 127.0.0.1: icmp_seq=7 ttl=64 time=0.056 ms
+64 bytes from 127.0.0.1: icmp_seq=8 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=9 ttl=64 time=0.025 ms
+64 bytes from 127.0.0.1: icmp_seq=10 ttl=64 time=0.030 ms
+64 bytes from 127.0.0.1: icmp_seq=11 ttl=64 time=0.052 ms
+64 bytes from 127.0.0.1: icmp_seq=12 ttl=64 time=0.056 ms
+64 bytes from 127.0.0.1: icmp_seq=13 ttl=64 time=0.056 ms
+64 bytes from 127.0.0.1: icmp_seq=14 ttl=64 time=0.057 ms
+64 bytes from 127.0.0.1: icmp_seq=15 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=16 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=17 ttl=64 time=0.058 ms
+64 bytes from 127.0.0.1: icmp_seq=18 ttl=64 time=0.057 ms
+64 bytes from 127.0.0.1: icmp_seq=19 ttl=64 time=0.057 ms
+64 bytes from 127.0.0.1: icmp_seq=20 ttl=64 time=0.057 ms
+64 bytes from 127.0.0.1: icmp_seq=21 ttl=64 time=0.053 ms
+64 bytes from 127.0.0.1: icmp_seq=22 ttl=64 time=0.052 ms
+^C
+--- 0.0.0.0 ping statistics ---
+22 packets transmitted, 22 received, 0% packet loss, time 20999ms
+rtt min/avg/max/mdev = 0.019/0.048/0.058/0.013 ms
+
+
+networker@lab25:~> ping -b 255.255.255.255
+WARNING: pinging broadcast address
+PING 255.255.255.255 (255.255.255.255) 56(84) bytes of data.
+64 bytes from 141.22.27.143: icmp_seq=1 ttl=255 time=0.499 ms
+64 bytes from 141.22.26.1: icmp_seq=1 ttl=255 time=0.522 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=1 ttl=128 time=0.527 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=1 ttl=64 time=0.854 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=1 ttl=64 time=1.19 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=1 ttl=60 time=1.24 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=1 ttl=60 time=1.65 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=1 ttl=60 time=2.04 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=1 ttl=64 time=15.5 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=2 ttl=128 time=0.337 ms
+64 bytes from 141.22.27.143: icmp_seq=2 ttl=255 time=0.380 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=2 ttl=255 time=0.385 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=2 ttl=64 time=0.390 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=2 ttl=64 time=0.394 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=2 ttl=60 time=0.399 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=2 ttl=255 time=0.403 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=2 ttl=60 time=0.408 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=2 ttl=64 time=0.411 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=2 ttl=60 time=0.608 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=3 ttl=128 time=0.318 ms
+64 bytes from 141.22.27.143: icmp_seq=3 ttl=255 time=0.345 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=3 ttl=64 time=0.348 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=3 ttl=255 time=0.351 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=3 ttl=64 time=0.381 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=3 ttl=60 time=0.393 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=3 ttl=64 time=0.396 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=3 ttl=60 time=0.483 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=3 ttl=255 time=0.572 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=3 ttl=60 time=0.588 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=4 ttl=255 time=0.288 ms
+64 bytes from 141.22.27.2: icmp_seq=4 ttl=128 time=0.341 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=4 ttl=255 time=0.347 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=4 ttl=64 time=0.415 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=4 ttl=60 time=0.441 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=4 ttl=64 time=0.449 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=4 ttl=64 time=0.455 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=4 ttl=60 time=0.558 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=4 ttl=255 time=0.608 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=4 ttl=60 time=0.645 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=5 ttl=128 time=0.340 ms
+64 bytes from 141.22.27.143: icmp_seq=5 ttl=255 time=0.382 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=5 ttl=255 time=0.388 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=5 ttl=64 time=0.393 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=5 ttl=64 time=0.397 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=5 ttl=60 time=0.401 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=5 ttl=64 time=0.406 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=5 ttl=60 time=0.477 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=5 ttl=255 time=0.507 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=5 ttl=60 time=0.569 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=6 ttl=128 time=0.342 ms
+64 bytes from 141.22.27.143: icmp_seq=6 ttl=255 time=0.385 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=6 ttl=255 time=0.390 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=6 ttl=64 time=0.395 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=6 ttl=60 time=0.399 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=6 ttl=64 time=0.403 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=6 ttl=60 time=0.408 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=6 ttl=255 time=0.413 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=6 ttl=64 time=0.417 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=6 ttl=60 time=0.579 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=7 ttl=128 time=0.348 ms
+64 bytes from 141.22.27.143: icmp_seq=7 ttl=255 time=0.400 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=7 ttl=255 time=0.408 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=7 ttl=64 time=0.414 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=7 ttl=255 time=0.420 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=7 ttl=64 time=0.425 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=7 ttl=64 time=0.432 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=7 ttl=60 time=0.456 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=7 ttl=60 time=0.481 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=7 ttl=60 time=0.560 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=8 ttl=128 time=0.350 ms
+64 bytes from 141.22.27.143: icmp_seq=8 ttl=255 time=0.404 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=8 ttl=255 time=0.411 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=8 ttl=64 time=0.417 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=8 ttl=255 time=0.422 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=8 ttl=64 time=0.428 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=8 ttl=60 time=0.434 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=8 ttl=64 time=0.440 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=8 ttl=60 time=0.561 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=8 ttl=60 time=0.599 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=9 ttl=128 time=0.335 ms
+64 bytes from 141.22.27.143: icmp_seq=9 ttl=255 time=0.393 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=9 ttl=255 time=0.400 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=9 ttl=64 time=0.412 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=9 ttl=255 time=0.420 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=9 ttl=64 time=0.426 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=9 ttl=64 time=0.432 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=9 ttl=60 time=0.438 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=9 ttl=60 time=0.543 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=9 ttl=60 time=0.584 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=10 ttl=255 time=0.265 ms
+64 bytes from 141.22.27.2: icmp_seq=10 ttl=128 time=0.305 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=10 ttl=255 time=0.312 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=10 ttl=60 time=0.406 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=10 ttl=64 time=0.445 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=10 ttl=64 time=0.462 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=10 ttl=64 time=0.488 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=10 ttl=60 time=0.504 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=10 ttl=255 time=0.532 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=10 ttl=60 time=0.548 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=11 ttl=128 time=0.352 ms
+64 bytes from 141.22.27.143: icmp_seq=11 ttl=255 time=0.399 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=11 ttl=255 time=0.406 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=11 ttl=64 time=0.412 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=11 ttl=64 time=0.417 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=11 ttl=255 time=0.422 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=11 ttl=60 time=0.427 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=11 ttl=64 time=0.433 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=11 ttl=60 time=0.462 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=11 ttl=60 time=0.593 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=12 ttl=128 time=0.319 ms
+64 bytes from 141.22.27.143: icmp_seq=12 ttl=255 time=0.354 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=12 ttl=64 time=0.358 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=12 ttl=255 time=0.398 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=12 ttl=64 time=0.417 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=12 ttl=64 time=0.421 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=12 ttl=60 time=0.425 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=12 ttl=60 time=0.428 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=12 ttl=60 time=0.591 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=12 ttl=255 time=34.7 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=13 ttl=128 time=0.311 ms
+64 bytes from 141.22.27.143: icmp_seq=13 ttl=255 time=0.350 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=13 ttl=255 time=0.359 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=13 ttl=64 time=0.367 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=13 ttl=64 time=0.478 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=13 ttl=64 time=0.499 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=13 ttl=60 time=0.507 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=13 ttl=60 time=0.556 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=13 ttl=60 time=0.622 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=13 ttl=255 time=0.771 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=14 ttl=128 time=0.348 ms
+64 bytes from 141.22.27.143: icmp_seq=14 ttl=255 time=0.395 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=14 ttl=255 time=0.402 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=14 ttl=64 time=0.408 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=14 ttl=255 time=0.417 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=14 ttl=64 time=0.423 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=14 ttl=64 time=0.429 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=14 ttl=60 time=0.500 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=14 ttl=60 time=0.522 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=14 ttl=60 time=0.595 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=15 ttl=128 time=0.348 ms
+64 bytes from 141.22.27.143: icmp_seq=15 ttl=255 time=0.397 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=15 ttl=255 time=0.403 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=15 ttl=64 time=0.409 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=15 ttl=255 time=0.414 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=15 ttl=64 time=0.418 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=15 ttl=64 time=0.424 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=15 ttl=60 time=0.446 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=15 ttl=60 time=0.551 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=15 ttl=60 time=0.591 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=16 ttl=128 time=0.350 ms
+64 bytes from 141.22.27.143: icmp_seq=16 ttl=255 time=0.402 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=16 ttl=255 time=0.409 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=16 ttl=64 time=0.416 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=16 ttl=60 time=0.421 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=16 ttl=60 time=0.426 ms (DUP!)
+64 bytes from 141.22.27.145: icmp_seq=16 ttl=64 time=0.433 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=16 ttl=255 time=0.439 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=16 ttl=64 time=0.444 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=16 ttl=60 time=0.603 ms (DUP!)
+
+
+
+
+networker@lab25:~> ping -b 141.22.27.255
+WARNING: pinging broadcast address
+PING 141.22.27.255 (141.22.27.255) 56(84) bytes of data.
+64 bytes from 141.22.27.143: icmp_seq=1 ttl=255 time=0.216 ms
+64 bytes from 141.22.27.2: icmp_seq=1 ttl=128 time=0.230 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=1 ttl=255 time=0.262 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=1 ttl=64 time=0.483 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=1 ttl=64 time=0.586 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=1 ttl=64 time=0.669 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=1 ttl=64 time=0.872 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=1 ttl=255 time=0.881 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=1 ttl=64 time=0.984 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=1 ttl=64 time=0.992 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=1 ttl=64 time=0.994 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=1 ttl=60 time=0.995 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=1 ttl=64 time=1.37 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=1 ttl=60 time=1.95 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=1 ttl=60 time=2.27 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=2 ttl=128 time=0.274 ms
+64 bytes from 141.22.27.143: icmp_seq=2 ttl=255 time=0.301 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=2 ttl=64 time=0.304 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=2 ttl=255 time=0.307 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=2 ttl=64 time=0.309 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=2 ttl=64 time=0.311 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=2 ttl=64 time=0.314 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=2 ttl=64 time=0.317 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=2 ttl=64 time=0.375 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=2 ttl=64 time=0.396 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=2 ttl=64 time=0.401 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=2 ttl=60 time=0.469 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=2 ttl=60 time=0.484 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=2 ttl=60 time=0.489 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=2 ttl=255 time=0.629 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=3 ttl=64 time=0.308 ms
+64 bytes from 141.22.27.2: icmp_seq=3 ttl=128 time=0.331 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=3 ttl=255 time=0.333 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=3 ttl=64 time=0.335 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=3 ttl=255 time=0.337 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=3 ttl=64 time=0.338 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=3 ttl=64 time=0.340 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=3 ttl=64 time=0.342 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=3 ttl=64 time=0.343 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=3 ttl=64 time=0.345 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=3 ttl=64 time=0.369 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=3 ttl=60 time=0.481 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=3 ttl=60 time=0.493 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=3 ttl=255 time=0.496 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=3 ttl=60 time=0.566 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=4 ttl=255 time=0.217 ms
+64 bytes from 141.22.27.217: icmp_seq=4 ttl=64 time=0.229 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=4 ttl=128 time=0.231 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=4 ttl=64 time=0.233 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=4 ttl=64 time=0.234 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=4 ttl=64 time=0.237 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=4 ttl=255 time=0.239 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=4 ttl=64 time=0.332 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=4 ttl=64 time=0.343 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=4 ttl=64 time=0.346 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=4 ttl=64 time=0.349 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=4 ttl=60 time=0.421 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=4 ttl=60 time=0.564 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=4 ttl=60 time=0.571 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=4 ttl=255 time=17.5 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=5 ttl=128 time=0.242 ms
+64 bytes from 141.22.27.143: icmp_seq=5 ttl=255 time=0.255 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=5 ttl=64 time=0.258 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=5 ttl=255 time=0.261 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=5 ttl=64 time=0.266 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=5 ttl=64 time=0.269 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=5 ttl=64 time=0.317 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=5 ttl=64 time=0.326 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=5 ttl=64 time=0.329 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=5 ttl=255 time=0.331 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=5 ttl=64 time=0.373 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=5 ttl=64 time=0.380 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=5 ttl=60 time=0.484 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=5 ttl=60 time=0.491 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=5 ttl=60 time=0.536 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=6 ttl=128 time=0.298 ms
+64 bytes from 141.22.27.217: icmp_seq=6 ttl=64 time=0.322 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=6 ttl=255 time=0.325 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=6 ttl=64 time=0.326 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=6 ttl=64 time=0.328 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=6 ttl=64 time=0.330 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=6 ttl=64 time=0.331 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=6 ttl=64 time=0.333 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=6 ttl=64 time=0.334 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=6 ttl=64 time=0.336 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=6 ttl=60 time=0.482 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=6 ttl=60 time=0.540 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=6 ttl=60 time=0.545 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=6 ttl=255 time=30.2 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=6 ttl=255 time=34.6 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=7 ttl=128 time=0.257 ms
+64 bytes from 141.22.27.143: icmp_seq=7 ttl=255 time=0.272 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=7 ttl=64 time=0.275 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=7 ttl=64 time=0.278 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=7 ttl=64 time=0.279 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=7 ttl=64 time=0.281 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=7 ttl=64 time=0.282 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=7 ttl=255 time=0.284 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=7 ttl=64 time=0.343 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=7 ttl=64 time=0.354 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=7 ttl=64 time=0.406 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=7 ttl=60 time=0.482 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=7 ttl=60 time=0.539 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=7 ttl=60 time=0.549 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=7 ttl=255 time=0.675 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=8 ttl=255 time=0.218 ms
+64 bytes from 141.22.27.2: icmp_seq=8 ttl=128 time=0.231 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=8 ttl=64 time=0.233 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=8 ttl=255 time=0.269 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=8 ttl=64 time=0.279 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=8 ttl=64 time=0.282 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=8 ttl=64 time=0.284 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=8 ttl=64 time=0.286 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=8 ttl=64 time=0.338 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=8 ttl=64 time=0.346 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=8 ttl=255 time=0.350 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=8 ttl=64 time=0.353 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=8 ttl=60 time=0.500 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=8 ttl=60 time=0.538 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=8 ttl=60 time=0.546 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=9 ttl=128 time=0.252 ms
+64 bytes from 141.22.27.217: icmp_seq=9 ttl=64 time=0.264 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=9 ttl=255 time=0.266 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=9 ttl=64 time=0.268 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=9 ttl=64 time=0.270 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=9 ttl=64 time=0.271 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=9 ttl=255 time=0.273 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=9 ttl=64 time=0.324 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=9 ttl=64 time=0.332 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=9 ttl=64 time=0.335 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=9 ttl=255 time=0.337 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=9 ttl=64 time=0.377 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=9 ttl=60 time=0.450 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=9 ttl=60 time=0.571 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=9 ttl=60 time=0.579 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=10 ttl=128 time=0.313 ms
+64 bytes from 141.22.27.143: icmp_seq=10 ttl=255 time=0.335 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=10 ttl=64 time=0.338 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=10 ttl=255 time=0.340 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=10 ttl=64 time=0.349 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=10 ttl=64 time=0.351 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=10 ttl=64 time=0.354 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=10 ttl=64 time=0.358 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=10 ttl=64 time=0.361 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=10 ttl=255 time=0.364 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=10 ttl=64 time=0.366 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=10 ttl=64 time=0.368 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=10 ttl=60 time=0.467 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=10 ttl=60 time=0.536 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=10 ttl=60 time=0.542 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=11 ttl=255 time=0.192 ms
+64 bytes from 141.22.27.2: icmp_seq=11 ttl=128 time=0.205 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=11 ttl=64 time=0.208 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=11 ttl=64 time=0.253 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=11 ttl=64 time=0.264 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=11 ttl=255 time=0.266 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=11 ttl=64 time=0.268 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=11 ttl=64 time=0.321 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=11 ttl=64 time=0.367 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=11 ttl=64 time=0.381 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=11 ttl=64 time=0.384 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=11 ttl=60 time=0.462 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=11 ttl=255 time=0.467 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=11 ttl=60 time=0.552 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=11 ttl=60 time=0.558 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=12 ttl=128 time=0.278 ms
+64 bytes from 141.22.27.217: icmp_seq=12 ttl=64 time=0.290 ms (DUP!)
+64 bytes from 141.22.27.143: icmp_seq=12 ttl=255 time=0.292 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=12 ttl=64 time=0.294 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=12 ttl=255 time=0.296 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=12 ttl=64 time=0.297 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=12 ttl=64 time=0.299 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=12 ttl=64 time=0.301 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=12 ttl=64 time=0.330 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=12 ttl=64 time=0.407 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=12 ttl=255 time=0.417 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=12 ttl=64 time=0.419 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=12 ttl=60 time=0.421 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=12 ttl=60 time=0.550 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=12 ttl=60 time=0.555 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=13 ttl=128 time=0.300 ms
+64 bytes from 141.22.27.143: icmp_seq=13 ttl=255 time=0.324 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=13 ttl=255 time=0.326 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=13 ttl=64 time=0.328 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=13 ttl=64 time=0.330 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=13 ttl=64 time=0.332 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=13 ttl=64 time=0.334 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=13 ttl=64 time=0.336 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=13 ttl=64 time=0.338 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=13 ttl=64 time=0.340 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=13 ttl=64 time=0.372 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=13 ttl=60 time=0.464 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=13 ttl=60 time=0.544 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=13 ttl=60 time=0.550 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=13 ttl=255 time=0.685 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=14 ttl=128 time=0.313 ms
+64 bytes from 141.22.27.143: icmp_seq=14 ttl=255 time=0.336 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=14 ttl=64 time=0.339 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=14 ttl=64 time=0.341 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=14 ttl=64 time=0.343 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=14 ttl=64 time=0.344 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=14 ttl=255 time=0.346 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=14 ttl=64 time=0.347 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=14 ttl=64 time=0.349 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=14 ttl=64 time=0.373 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=14 ttl=255 time=0.380 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=14 ttl=64 time=0.382 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=14 ttl=60 time=0.463 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=14 ttl=60 time=0.476 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=14 ttl=60 time=0.525 ms (DUP!)
+64 bytes from 141.22.27.2: icmp_seq=15 ttl=128 time=0.303 ms
+64 bytes from 141.22.27.143: icmp_seq=15 ttl=255 time=0.329 ms (DUP!)
+64 bytes from 141.22.27.217: icmp_seq=15 ttl=64 time=0.333 ms (DUP!)
+64 bytes from 141.22.26.189: icmp_seq=15 ttl=255 time=0.335 ms (DUP!)
+64 bytes from 141.22.27.215: icmp_seq=15 ttl=64 time=0.337 ms (DUP!)
+64 bytes from 141.22.27.206: icmp_seq=15 ttl=64 time=0.338 ms (DUP!)
+64 bytes from 141.22.27.205: icmp_seq=15 ttl=64 time=0.340 ms (DUP!)
+64 bytes from 141.22.27.200: icmp_seq=15 ttl=64 time=0.342 ms (DUP!)
+64 bytes from 141.22.27.243: icmp_seq=15 ttl=64 time=0.344 ms (DUP!)
+64 bytes from 141.22.26.1: icmp_seq=15 ttl=255 time=0.392 ms (DUP!)
+64 bytes from 141.22.27.210: icmp_seq=15 ttl=64 time=0.408 ms (DUP!)
+64 bytes from 141.22.27.159: icmp_seq=15 ttl=64 time=0.412 ms (DUP!)
+64 bytes from 141.22.26.101: icmp_seq=15 ttl=60 time=0.490 ms (DUP!)
+64 bytes from 141.22.26.99: icmp_seq=15 ttl=60 time=0.545 ms (DUP!)
+64 bytes from 141.22.26.100: icmp_seq=15 ttl=60 time=0.554 ms (DUP!)
+^C
+--- 141.22.27.255 ping statistics ---
+15 packets transmitted, 15 received, +210 duplicates, 0% packet loss, time 14004ms
+rtt min/avg/max/mdev = 0.192/0.762/34.665/3.225 ms
+
