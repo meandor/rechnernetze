@@ -17,7 +17,7 @@ public class RandomGeneratorTest {
 
     @Test
     public void testGenerateRandomMessageType() throws Exception {
-        ArrayList<String> possibilities = new ArrayList<>();
+        ArrayList<String> possibilities = new ArrayList();
         possibilities.add("INFO");
         possibilities.add("WARN");
         possibilities.add("CORR");

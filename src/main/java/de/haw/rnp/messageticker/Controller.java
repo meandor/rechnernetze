@@ -12,10 +12,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * Controller for the MVC Pattern.
  */
-public class Controller extends Thread {
+public class Controller extends Thread { //runable machen
 
     private MessagesView view;
-    private LinkedBlockingQueue queue;
+    private LinkedBlockingQueue queue; //interface nutzen
     private ArrayList<Thread> threadPool;
     private boolean interruptThreads;
     private int threadCount;

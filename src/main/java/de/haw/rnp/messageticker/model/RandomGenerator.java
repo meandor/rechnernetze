@@ -45,8 +45,8 @@ public class RandomGenerator {
      * @return sleep time from 1000 - 5000 ms
      */
     public long generateRandomSleepTime() {
-        return ((long) (this.generator.nextInt(4000) + 1000));
-    }
+        return ((long) (this.generator.nextInt(4000) + 1000)); //magic number raus
+    }//
 
     /**
      * Random message
