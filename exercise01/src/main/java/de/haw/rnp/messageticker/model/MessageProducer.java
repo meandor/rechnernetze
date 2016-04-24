@@ -23,6 +23,7 @@ public class MessageProducer extends Thread {
     /**
      * Uses the RandomGenerator to produce random messages at random intervals (1s-5s).
      */
+    @Override
     public void run() {
         while (!isInterrupted()) {
             try {
