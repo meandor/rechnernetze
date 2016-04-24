@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * Controller for the MVC Pattern.
  */
-public class Controller extends Thread { //runable machen
+public class Controller implements Runnable {
 
     private MessagesView view;
     private LinkedBlockingQueue queue; //interface nutzen
@@ -31,7 +31,7 @@ public class Controller extends Thread { //runable machen
         String[] messageTypes = {"INFO", "WARN", "CORR"};
         // Queue can have a size for less delay but too small size can lead to "package" loss
         this.queue = new LinkedBlockingQueue();
-        this.threadPool = new ArrayList<Thread>();
+        this.threadPool = new ArrayList<>();
         this.view = new MessagesView(messageTypes);
         GeneralPurposeListener l = new GeneralPurposeListener(this);
         this.view.registerSendButtonListener(l);

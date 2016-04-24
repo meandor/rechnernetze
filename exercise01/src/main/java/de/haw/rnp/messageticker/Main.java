@@ -8,6 +8,7 @@ public class Main {
         }
         Controller controller = new Controller(threadCount);
         controller.showView();
-        controller.start();
+        Thread controllerThread = new Thread(controller);
+        controllerThread.start();
     }
 }
