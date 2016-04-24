@@ -1,0 +1,5 @@
+language: java
+
+env:
+  - TEST_DIR=exercice01
+script: cd $TEST_DIR && gradle test
