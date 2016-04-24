@@ -5,12 +5,12 @@ import java.util.Random;
 /**
  * Generator for random messages and other stuff with the singleton pattern.
  */
-public class RandomGenerator {
+class RandomGenerator {
 
     private String[] messageTypes = {"INFO", "WARN", "CORR"};
     private Random generator = new Random();
     private static RandomGenerator instance;
-    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String ALLOWED_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
     /**
      * Overwrites and cancels normal constructor.
@@ -36,7 +36,8 @@ public class RandomGenerator {
      * @return {"INFO", "WARN", "CORR"} any of those
      */
     public String generateRandomMessageType() {
-        return this.messageTypes[this.generator.nextInt(3)];
+        int messageTypeSize = this.messageTypes.length;
+        return this.messageTypes[this.generator.nextInt(messageTypeSize)];
     }
 
     /**
@@ -44,8 +45,9 @@ public class RandomGenerator {
      *
      * @return sleep time from 1000 - 5000 ms
      */
-    public long generateRandomSleepTime() {
-        return ((long) (this.generator.nextInt(4000) + 1000)); //magic number raus
+    public long generateRandomSleepTime(int minSleepTime, int maxSleepTime) {
+        int normalizedInterval = (maxSleepTime - minSleepTime);
+        return ((long) (this.generator.nextInt(normalizedInterval) + minSleepTime));
     }//
 
     /**
@@ -56,7 +58,7 @@ public class RandomGenerator {
     public String generateRandomMessage() {
         StringBuilder sb = new StringBuilder(20);
         for (int i = 0; i < 20; i++)
-            sb.append(AB.charAt(this.generator.nextInt(AB.length())));
+            sb.append(ALLOWED_CHARS.charAt(this.generator.nextInt(ALLOWED_CHARS.length())));
         return sb.toString();
     }
 }

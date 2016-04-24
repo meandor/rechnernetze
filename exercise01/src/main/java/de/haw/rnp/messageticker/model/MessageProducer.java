@@ -26,7 +26,7 @@ public class MessageProducer extends Thread {
     public void run() {
         while (!isInterrupted()) {
             try {
-                sleep(this.random.generateRandomSleepTime());
+                sleep(this.random.generateRandomSleepTime(1000, 5000));
                 Message n = new Message(this.random.generateRandomMessageType(), this.random.generateRandomMessage());
                 this.sharedMemory.put(n);
             } catch (InterruptedException e) {
