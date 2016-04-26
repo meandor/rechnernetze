@@ -90,9 +90,9 @@ Das Frame ist die physikalische Darstellung des gesamten Pakets. Im Ethernet wer
 
 Es ist generell kein großer Unterschied zum vorherigen Erscheinungsbild zu erkennen. Der einzige Unterschied besteht darin, dass das HTTP nicht mehr direkt eingebunden ist, sondern über das Secure Sockets Layer mit TLSv1.2 (siehe Abbildung \ref{fig:https-package}).\\
 
-Nun beginnt der Nachrichtenaustausch allerdings in Form eines http-Request über ein "Handshake Protocol: Client Hello" und ein ACK-Paket, gefolgt von "Handshake Protocol: Server Hello" vom Server.
+Nun beginnt der Nachrichtenaustausch allerdings in Form eines http-Request über ein \glqq Handshake Protocol: Client Hello\grqq und ein ACK-Paket, gefolgt von \glqq Handshake Protocol: Server Hello\grqq vom Server.
 
-Als nächstes überträgt der Server uns in mehreren Segmenten ein Zertifikat, welches der Client mit einem ACK-Paket bestätigt. Der Client sendet darauf hin "Client Key Exchange, Change Cipher Spec".\\
+Als nächstes überträgt der Server uns in mehreren Segmenten ein Zertifikat, welches der Client mit einem ACK-Paket bestätigt. Der Client sendet darauf hin \glqq Client Key Exchange, Change Cipher Spec\grqq.\\
 
 Die weitere Kommunikation ist ab hier verschlüsselt. Sensible Daten, die nicht für die Kommunikation an sich benötigt werden, können so sicher ausgetauscht werden (siehe Abbildung \ref{fig:ssl-data}).
 
@@ -121,7 +121,7 @@ Beim Aufruf der HTTP-Adresse werden wir auf die Seite https://www.haw-hamburg.de
 
 Rufen wir direkt die HTTPS-Adresse auf, werden wir aufgefordert das Zertifikat zu akzeptieren und gelangen dann zu einem Raumbuchungssystem der HAW.
 
-Da wir beim HTTP-Aufruf Port 80 anfragen, gibt uns der Server via HTTP den Code "302 Found" zurück mit einem Verweis auf die oben genannte Adresse, welche dann direkt aufgerufen wird.\\
+Da wir beim HTTP-Aufruf Port 80 anfragen, gibt uns der Server via HTTP den Code \glqq 302 Found\grqq zurück mit einem Verweis auf die oben genannte Adresse, welche dann direkt aufgerufen wird.\\
 
 Mit dem HTTPS-Aufruf wird allerdings direkt der Port 443 adressiert, wo es Serverseitig keine Weiterleitung auf die allgemeine Webseite gibt.
 
@@ -153,7 +153,7 @@ lo & 127.0.0.1 & 255.0.0.0 & 127.0.0.0 & 127.255.255.255 \\
 
 Beim ping unserer Loopback-Adresse (lo) haben wir selbst – wie erwartet - auch wieder geantwortet.\\
 
-Bei einen ping auf die Broadcast-Adresse 141.22.27.255 (eth0) haben verschiedene Teilnehmer des Subnetzes geantwortet, wobei häufig ein "(DUP!)" für Duplikate als Hinweis mit ausgegeben wurde.\\
+Bei einen ping auf die Broadcast-Adresse 141.22.27.255 (eth0) haben verschiedene Teilnehmer des Subnetzes geantwortet, wobei häufig ein (DUP!) für Duplikate als Hinweis mit ausgegeben wurde.\\
 
 Zuerst gab es bei einen ping auf die Broadcast-Adresse 192.168.18.255 (eth1) keine Antwort, da die entsprechenden Netzwerkkomponenten (Switch) nicht eingeschaltet waren. 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.20)  26 APR 2016 16:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.20)  26 APR 2016 16:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1171,10 +1171,10 @@ y)> <./resources/ssl-data.png (PNG copy)>]
 [7 <./resources/http-aufruf.png (PNG copy)> <./resources/https-aufruf.png (PNG 
 copy)>] (./SS16_RN_Praktikum1_2278900_2121225.aux) ) 
 Here is how much of TeX's memory you used:
- 14261 strings out of 494935
- 283364 string characters out of 6178121
+ 14250 strings out of 494935
+ 283216 string characters out of 6178121
  342479 words of memory out of 5000000
- 17253 multiletter control sequences out of 15000+600000
+ 17242 multiletter control sequences out of 15000+600000
  25314 words of font info for 71 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  47i,12n,47p,10449b,536s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1186,10 +1186,10 @@ c1440.600pk> </home/daniel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600p
 k> </home/daniel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1440.600pk> </home/
 daniel/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm2074.600pk> </home/daniel/.te
 xmf-var/fonts/pk/ljfour/jknappen/ec/eccc1095.600pk>
-Output written on SS16_RN_Praktikum1_2278900_2121225.pdf (7 pages, 587991 bytes
+Output written on SS16_RN_Praktikum1_2278900_2121225.pdf (7 pages, 588300 bytes
 ).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
+ 290 PDF objects out of 1000 (max. 8388607)
  51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
