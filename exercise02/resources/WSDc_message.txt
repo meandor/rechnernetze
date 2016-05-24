@@ -1,0 +1,29 @@
+title Send and Recieve Message
+
+note over User, NetworkManager, Active Peer: send message
+end note
+
+User->NetworkManager: sendMessage()
+activate User
+activate NetworkManager
+
+User-> User: appendMessage()
+deactivate User
+deactivate NetworkManager
+
+NetworkManager -> Active Peer: sendMessage()
+activate Active Peer
+
+Active Peer -> Active Peer : recieveMessage()
+deactivate Active Peer 
+
+note over User, NetworkManager, Active Peer : recieve message
+end note
+
+Active Peer -> NetworkManager : sendMessage()
+activate NetworkManager
+
+NetworkManager->NetworkManager : recieveMessage()
+
+NetworkManager -> User: appendMesage()
+deactivate NetworkManager

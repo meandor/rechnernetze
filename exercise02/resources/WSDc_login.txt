@@ -1,0 +1,22 @@
+title Login
+
+User->NetworkManager: initialConnect()
+activate NetworkManager
+
+NetworkManager->NetworkManager: createNode()
+
+NetworkManager->Active Peer: connectSocket()
+deactivate NetworkManager
+
+User->NetworkManager: login()
+activate NetworkManager
+
+loop
+	NetworkManager->Active Peer: propagateLogin()
+	activate Active Peer
+	Active Peer -> Active Peer: createNode()
+	deactivate Active Peer
+end
+
+NetworkManager -> User: showChatView()
+deactivate NetworkManager
