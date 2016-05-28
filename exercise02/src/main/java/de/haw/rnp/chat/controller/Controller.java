@@ -1,5 +1,6 @@
 package de.haw.rnp.chat.controller;
 
+import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 
 import java.util.ArrayList;
@@ -7,9 +8,6 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/**
- * Created by daniel on 28.05.16.
- */
 public class Controller {
     private BlockingQueue messageQueue;
     private User loggedInUser;
@@ -23,5 +21,21 @@ public class Controller {
 
     public static Controller getInstance() {
         return controller;
+    }
+
+    public BlockingQueue getMessageQueue() {
+        return messageQueue;
+    }
+
+    public boolean addMessage(Message message) {
+        return this.messageQueue.add(message);
+    }
+
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public List<User> getUserList() {
+        return userList;
     }
 }
