@@ -3,20 +3,21 @@ package de.haw.rnp.chat.model;
 import de.haw.rnp.chat.networkmanager.Node;
 
 /**
- * This class represents a User, containing a name and a node.
+ * This class represents a User, containing a name and a clientNode.
  */
 public class User {
     private String name;
-    private Node node;
+    private Node clientNode;
+    private Node serverNode;
 
     /**
      * @param name the name of the user
-     * @param node  the node attached to a user
+     * @param clientNode  the clientNode attached to a user
      */
 
-    public User(String name, Node node){
+    public User(String name, Node clientNode){
         this.setName(name);
-        this.setNode(node);
+        this.setClientNode(clientNode);
     }
 
 
@@ -28,16 +29,24 @@ public class User {
         this.name = name;
     }
 
-    public Node getNode() {
-        return node;
+    public Node getClientNode() {
+        return clientNode;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    public void setClientNode(Node clientNode) {
+        this.clientNode = clientNode;
+    }
+
+    public Node getServerNode() {
+        return serverNode;
+    }
+
+    public void setServerNode(Node serverNode) {
+        this.serverNode = serverNode;
     }
 
     @Override
     public String toString(){
-        return "Name: " + this.name + " Node: " + this.node;
+        return "Name: " + this.name + " Node: " + this.clientNode;
     }
 }
