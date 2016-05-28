@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MessageHandler {
 
-    void processMessage(String protocolMessage);
+    void processMessage(byte[] protocolMessage);
 
     User login(String name, InetAddress hostName, int port);
 
