@@ -32,7 +32,11 @@ public class ChatProtocolMessageHandlerTest {
 
     @Test
     public void login() throws Exception {
-
+        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 5050);
+        ServerStartTask task = new ServerStartTask(server);
+        this.messageHandler.getExecutor().execute(task);
+        Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
+        this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 1337, "FOO", InetAddress.getByName("10.0.0.1"), 1337);
     }
 
     @Test
@@ -65,9 +69,9 @@ public class ChatProtocolMessageHandlerTest {
         Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 1337);
         ServerStartTask task = new ServerStartTask(server);
         this.messageHandler.getExecutor().execute(task);
-        User user = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
+        Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
         assertTrue(1337 == server.getPort());
-        assertEquals("", user.getName());
+        assertEquals(InetAddress.getByName("127.0.0.1"), node.getHostName());
         //TODO: Test message sending!
     }
 
