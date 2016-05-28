@@ -102,4 +102,24 @@ public class ChatProtocolMessageHandlerTest {
         assertEquals((byte) 0x00, result[2]);
         assertEquals((byte) 0x0F, result[3]);
     }
+
+    @Test
+    public void createCommonHeader() throws Exception {
+        byte[] senderIP = InetAddress.getByName("10.0.0.3").getAddress();
+        byte[] port = this.messageHandler.intToByteArray(11);
+        byte[] length = this.messageHandler.intToByteArray(13);
+        byte[] result = this.messageHandler.createCommonHeader((byte) 0x01, senderIP, port, length);
+        assertEquals(0x1, result[0]);
+        assertEquals(0x1, result[1]);
+        assertEquals(0x0, result[2]);
+        assertEquals(0x0, result[3]);
+        assertEquals(0xA, result[4]);
+        assertEquals(0x0, result[5]);
+        assertEquals(0x0, result[6]);
+        assertEquals(0x3, result[7]);
+        assertEquals(0x0, result[8]);
+        assertEquals(0xB, result[9]);
+        assertEquals(0x0, result[10]);
+        assertEquals(0xD, result[11]);
+    }
 }

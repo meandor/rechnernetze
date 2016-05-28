@@ -33,15 +33,21 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         return ByteBuffer.allocate(4).putInt(number).array();
     }
 
-    public byte[] createCommonHeader(byte messageType, byte[] senderIP, byte[] fieldCount) {
-        return new byte[]{
-                0x01, messageType, 0x00, 0x00, // common header
-                0x0A, 0x00, 0x00, 0x01,
-                0x00, 0x0A, 0x00, 0x02};
+    public byte[] createCommonHeader(byte messageType, byte[] senderIP, byte[] port, byte[] fieldCount) {
+        byte[] result = new byte[12];
+        byte[] firstRow = new byte[]{0x01, messageType, 0x00, 0x00};
+
+        System.arraycopy(firstRow, 0, result, 0, firstRow.length);
+        System.arraycopy(senderIP, 0, result, 4, senderIP.length);
+        System.arraycopy(port, 2, result, 8, 2);
+        System.arraycopy(fieldCount, 2, result, 10, 2);
+
+        return result;
     }
 
-    private byte[] createLoginMessage(InetAddress hostName, int port ) {
+    private byte[] createLoginMessage(InetAddress hostName, int port) {
 
+        //byte[] commonHeader = this.createCommonHeader(0x01, )
 
         return new byte[]{
                 0x01, 0x01, 0x00, 0x00, // common header
@@ -78,7 +84,7 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public User login(String name, InetAddress hostName, int port) {
-        User user = this.initialConnect(hostName,port);
+        User user = this.initialConnect(hostName, port);
         user.setName(name);
         //user.getNode().
         return user;
