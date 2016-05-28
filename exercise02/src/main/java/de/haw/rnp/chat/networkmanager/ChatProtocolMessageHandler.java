@@ -120,14 +120,13 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public User login(String senderName, InetAddress senderHostName, int senderPort, InetAddress receiverHostName, int receiverPort) {
-        User user = this.initialConnect(receiverHostName, receiverPort);
-        user.setName(senderName);
+    public User login(Node clientNode, InetAddress senderHostName, int senderPort, String loginName, InetAddress loginHostName, int loginPort) {
+        User user = new User(loginName, clientNode);
         Node serverNode = this.factory.createNode(senderHostName, senderPort);
         user.setServerNode(serverNode);
         ServerStartTask task = new ServerStartTask(serverNode);
         this.executor.execute(task);
-        byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, senderName, receiverHostName, receiverPort);
+        byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, loginName, loginHostName, loginPort);
         try {
             user.getClientNode().getOut().write(loginMessage);
         } catch (IOException e) {
@@ -162,18 +161,17 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public User initialConnect(InetAddress hostName, int port) {
-        User user = null;
+    public Node initialConnect(InetAddress hostName, int port) {
+        Node clientNode = null;
         try {
             if (hostName.isReachable(2000)) {
-                Node node = this.factory.createNode(hostName, port);
-                ClientStartTask task = new ClientStartTask(node);
+                clientNode = this.factory.createNode(hostName, port);
+                ClientStartTask task = new ClientStartTask(clientNode);
                 this.executor.execute(task);
-                user = new User("", node);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return user;
+        return clientNode;
     }
 }

@@ -13,7 +13,7 @@ public interface MessageHandler {
 
     void processMessage(byte[] protocolMessage);
 
-    User login(String senderName, InetAddress senderHostName, int senderPort, InetAddress receiverHostName, int receiverPort);
+    User login(Node clientNode, InetAddress senderHostName, int senderPort,String loginName,  InetAddress loginHostName, int loginPort);
 
     void logout(User user);
 
@@ -25,5 +25,5 @@ public interface MessageHandler {
 
     void changeName(String name, InetAddress hostName, int port);
 
-    User initialConnect(InetAddress hostName, int port);
+    Node initialConnect(InetAddress hostName, int port);
 }
