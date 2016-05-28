@@ -9,15 +9,10 @@ import java.net.UnknownHostException;
 public class TCPNode extends Node {
     private Socket clientSocket;
     private ServerSocket serverSocket;
-    private OutputStream out;
     private BufferedReader in;
 
     public TCPNode(int port, InetAddress hostName) {
         super(port, hostName);
-    }
-
-    public OutputStream getOut() {
-        return out;
     }
 
     public BufferedReader getIn() {
