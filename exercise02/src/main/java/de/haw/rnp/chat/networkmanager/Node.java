@@ -1,5 +1,6 @@
 package de.haw.rnp.chat.networkmanager;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 
@@ -7,6 +8,7 @@ public abstract class Node {
     protected int port;
     protected InetAddress hostName;
     protected OutputStream out;
+    protected InputStream in;
 
     public Node(int port, InetAddress hostName) {
         this.port = port;
@@ -31,6 +33,10 @@ public abstract class Node {
 
     public OutputStream getOut() {
         return out;
+    }
+
+    public InputStream getIn() {
+        return in;
     }
 
     public abstract void startClientNode();
