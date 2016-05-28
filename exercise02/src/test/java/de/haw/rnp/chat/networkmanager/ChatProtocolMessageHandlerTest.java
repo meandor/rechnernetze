@@ -1,9 +1,14 @@
 package de.haw.rnp.chat.networkmanager;
 
+import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.InetAddress;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ChatProtocolMessageHandlerTest {
 
@@ -75,7 +80,13 @@ public class ChatProtocolMessageHandlerTest {
 
     @Test
     public void initialConnect() throws Exception {
-
+        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"),1337);
+        ServerStartTask task = new ServerStartTask(server);
+        this.messageHandler.getExecutor().execute(task);
+        User user = this.messageHandler.initialConnect(server.getHostName(),server.getPort());
+        assertTrue(1337 == server.getPort());
+        assertEquals("", user.getName());
+        //TODO: Test message sending!
     }
 
 }

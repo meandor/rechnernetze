@@ -3,11 +3,13 @@ package de.haw.rnp.chat.networkmanager;
 import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
 
-import java.io.InputStream;
-import java.net.Inet4Address;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Handles all protocol messages that are forwarded between the peers.
@@ -17,9 +19,21 @@ import java.util.List;
 public class ChatProtocolMessageHandler implements MessageHandler {
 
     private Controller controller;
+    private TCPNodeFactory factory;
+    private ExecutorService executor;
 
     public ChatProtocolMessageHandler(Controller controller) {
         this.controller = controller;
+        this.factory = new TCPNodeFactory();
+        this.executor = Executors.newCachedThreadPool();
+    }
+
+    public TCPNodeFactory getFactory() {
+        return factory;
+    }
+
+    public ExecutorService getExecutor() {
+        return executor;
     }
 
     @Override
@@ -68,6 +82,17 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public User initialConnect(InetAddress hostName, int port) {
-        return null;
+        User user = null;
+        try {
+            if (hostName.isReachable(2000)) {
+                Node node = this.factory.createNode(hostName, port);
+                ClientStartTask task = new ClientStartTask(node);
+                this.executor.execute(task);
+                user = new User("", node);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }
