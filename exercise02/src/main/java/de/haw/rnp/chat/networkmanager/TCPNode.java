@@ -1,9 +1,6 @@
 package de.haw.rnp.chat.networkmanager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,14 +9,14 @@ import java.net.UnknownHostException;
 public class TCPNode extends Node {
     private Socket clientSocket;
     private ServerSocket serverSocket;
-    private PrintWriter out;
+    private OutputStream out;
     private BufferedReader in;
 
     public TCPNode(int port, InetAddress hostName) {
         super(port, hostName);
     }
 
-    public PrintWriter getOut() {
+    public OutputStream getOut() {
         return out;
     }
 
@@ -30,7 +27,7 @@ public class TCPNode extends Node {
     public void startClientNode() {
         try {
             this.clientSocket = new Socket(this.hostName, this.port);
-            this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+            this.out = this.clientSocket.getOutputStream();
             this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
         } catch (UnknownHostException e) {
             System.err.println("Unknown host " + this.hostName.getHostAddress());
@@ -41,7 +38,7 @@ public class TCPNode extends Node {
         }
     }
 
-    public void stopClientNode()  {
+    public void stopClientNode() {
         try {
             this.clientSocket.close();
             this.out.close();
@@ -69,7 +66,7 @@ public class TCPNode extends Node {
         System.out.println("Client connected to Server");
 
         try {
-            this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+            this.out = this.clientSocket.getOutputStream();
             this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
         } catch (IOException e) {
             System.err.println("Trouble reading i/o");
