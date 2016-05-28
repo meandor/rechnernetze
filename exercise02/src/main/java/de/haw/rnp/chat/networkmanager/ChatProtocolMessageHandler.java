@@ -84,10 +84,17 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         return result;
     }
 
-    private byte[] createLoginMessage(InetAddress senderHostName, int senderPort, String loginUserName, InetAddress loginUserHostName, int loginUserPort) {
-        byte[] name = loginUserName.getBytes(StandardCharsets.UTF_8);
+    public byte[] createLoginMessage(InetAddress senderHostName, int senderPort, String loginUserName, InetAddress loginUserHostName, int loginUserPort) {
         byte[] commonHeader = this.createCommonHeader((byte) 0x01, senderHostName.getAddress(), this.intToByteArray(senderPort), this.intToByteArray(3));
-        return commonHeader;
+        byte[] ipField = this.IPField(loginUserHostName);
+        byte[] portField = this.portField(loginUserPort);
+        byte[] nameByte = this.nameField(loginUserName);
+        byte[] result = new byte[(26 + nameByte.length)];
+        System.arraycopy(commonHeader, 0, result, 0, 12);
+        System.arraycopy(ipField, 0, result, 12, 8);
+        System.arraycopy(portField, 0, result, 20, 6);
+        System.arraycopy(nameByte, 0, result, 26, nameByte.length);
+        return result;
     }
 
     public TCPNodeFactory getFactory() {

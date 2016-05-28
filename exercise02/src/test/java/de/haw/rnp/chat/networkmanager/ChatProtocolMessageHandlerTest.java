@@ -13,28 +13,10 @@ import static org.junit.Assert.assertTrue;
 public class ChatProtocolMessageHandlerTest {
 
     private ChatProtocolMessageHandler messageHandler;
-    private byte[] message;
 
     @Before
     public void setUp() throws Exception {
         this.messageHandler = new ChatProtocolMessageHandler(null);
-        this.message = this.createTextMessage();
-    }
-
-    private byte[] createTextMessage() {
-        return new byte[]{0x01, 0x03, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x01, 0x00, 0x0A, 0x00, 0x02, 0x05, 0x41};
-    }
-
-    private byte[] createLoginMessage() {
-        return new byte[]{
-                0x01, 0x01, 0x00, 0x00, // common header
-                0x0A, 0x00, 0x00, 0x01,
-                0x00, 0x0A, 0x00, 0x02,
-
-                0x00, 0x01, 0x00, 0x04, // field 1
-                0x0A, 0x00, 0x00, 0x02,
-                0x00, 0x02, 0x00, 0x02, //field 2
-                0x00, 0x10};
     }
 
     @Test
@@ -80,10 +62,10 @@ public class ChatProtocolMessageHandlerTest {
 
     @Test
     public void initialConnect() throws Exception {
-        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"),1337);
+        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 1337);
         ServerStartTask task = new ServerStartTask(server);
         this.messageHandler.getExecutor().execute(task);
-        User user = this.messageHandler.initialConnect(server.getHostName(),server.getPort());
+        User user = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
         assertTrue(1337 == server.getPort());
         assertEquals("", user.getName());
         //TODO: Test message sending!
@@ -169,5 +151,43 @@ public class ChatProtocolMessageHandlerTest {
         assertEquals((byte) 0x42, result[4]);
         assertEquals((byte) 0x41, result[5]);
         assertEquals((byte) 0x52, result[6]);
+    }
+
+    @Test
+    public void createLoginMessage() throws Exception {
+        byte[] result = this.messageHandler.createLoginMessage(InetAddress.getByName("10.0.0.1"), 20, "FOO", InetAddress.getByName("127.0.0.1"), 13);
+        assertEquals(0x1, result[0]);
+        assertEquals(0x1, result[1]);
+        assertEquals(0x0, result[2]);
+        assertEquals(0x0, result[3]);
+        assertEquals(0xA, result[4]);
+        assertEquals(0x0, result[5]);
+        assertEquals(0x0, result[6]);
+        assertEquals(0x1, result[7]);
+        assertEquals(0x0, result[8]);
+        assertEquals(0x14, result[9]);
+        assertEquals(0x0, result[10]);
+        assertEquals(0x3, result[11]);
+        assertEquals(0x0, result[12]);
+        assertEquals(0x1, result[13]);
+        assertEquals(0x0, result[14]);
+        assertEquals(0x4, result[15]);
+        assertEquals(0x7F, result[16]);
+        assertEquals(0x0, result[17]);
+        assertEquals(0x0, result[18]);
+        assertEquals(0x1, result[19]);
+        assertEquals(0x0, result[20]);
+        assertEquals(0x2, result[21]);
+        assertEquals(0x0, result[22]);
+        assertEquals(0x2, result[23]);
+        assertEquals(0x0, result[24]);
+        assertEquals((byte) 0xD, result[25]);
+        assertEquals(0x0, result[26]);
+        assertEquals(0x4, result[27]);
+        assertEquals(0x0, result[28]);
+        assertEquals(0x3, result[29]);
+        assertEquals((byte) 0x46, result[30]);
+        assertEquals((byte) 0x4f, result[31]);
+        assertEquals((byte) 0x4f, result[32]);
     }
 }
