@@ -35,6 +35,10 @@ public class Controller {
         return loggedInUser;
     }
 
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
     public List<User> getUserList() {
         return userList;
     }
