@@ -42,7 +42,7 @@ public class TCPNode extends Node {
         try {
             this.serverSocket = new ServerSocket(this.port);
         } catch (IOException e) {
-            System.err.println("Port is not available");
+            System.err.println("Port is not available: " + this.port);
             e.printStackTrace();
         }
 
