@@ -89,4 +89,17 @@ public class ChatProtocolMessageHandlerTest {
         //TODO: Test message sending!
     }
 
+    @Test
+    public void intToByteArray() throws Exception {
+        byte[] result = this.messageHandler.intToByteArray(1);
+        assertEquals((byte) 0x00, result[0]);
+        assertEquals((byte) 0x00, result[1]);
+        assertEquals((byte) 0x00, result[2]);
+        assertEquals((byte) 0x01, result[3]);
+        result = this.messageHandler.intToByteArray(15);
+        assertEquals((byte) 0x00, result[0]);
+        assertEquals((byte) 0x00, result[1]);
+        assertEquals((byte) 0x00, result[2]);
+        assertEquals((byte) 0x0F, result[3]);
+    }
 }

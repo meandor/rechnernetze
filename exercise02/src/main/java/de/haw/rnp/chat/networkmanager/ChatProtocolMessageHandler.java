@@ -7,6 +7,7 @@ import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,6 +27,31 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         this.controller = controller;
         this.factory = new TCPNodeFactory();
         this.executor = Executors.newCachedThreadPool();
+    }
+
+    public byte[] intToByteArray(int number) {
+        return ByteBuffer.allocate(4).putInt(number).array();
+    }
+
+    public byte[] createCommonHeader(byte messageType, byte[] senderIP, byte[] fieldCount) {
+        return new byte[]{
+                0x01, messageType, 0x00, 0x00, // common header
+                0x0A, 0x00, 0x00, 0x01,
+                0x00, 0x0A, 0x00, 0x02};
+    }
+
+    private byte[] createLoginMessage(InetAddress hostName, int port ) {
+
+
+        return new byte[]{
+                0x01, 0x01, 0x00, 0x00, // common header
+                0x0A, 0x00, 0x00, 0x01,
+                0x00, 0x0A, 0x00, 0x02,
+
+                0x00, 0x01, 0x00, 0x04, // field 1
+                0x0A, 0x00, 0x00, 0x02,
+                0x00, 0x02, 0x00, 0x02, //field 2
+                0x00, 0x10};
     }
 
     public TCPNodeFactory getFactory() {
@@ -52,7 +78,10 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public User login(String name, InetAddress hostName, int port) {
-        return null;
+        User user = this.initialConnect(hostName,port);
+        user.setName(name);
+        //user.getNode().
+        return user;
     }
 
     @Override
