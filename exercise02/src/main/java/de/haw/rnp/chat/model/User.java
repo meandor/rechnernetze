@@ -1,5 +1,7 @@
 package de.haw.rnp.chat.model;
 
+import de.haw.rnp.chat.networkmanager.Node;
+
 /**
  * This class represents a User, containing a name and a node.
  */
