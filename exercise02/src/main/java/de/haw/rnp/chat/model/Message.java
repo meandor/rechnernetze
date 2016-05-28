@@ -1,40 +1,29 @@
 package de.haw.rnp.chat.model;
 
 /**
- * This class represents a message. Every message has a content and a type.
+ * This class represents a message.
  */
 public class Message {
-    private String type;
-    private String content;
+    private String text;
 
     /**
      * Constructs a new content model.
-     * @param type the type of the news as String
-     * @param content actual content of the news
+     * @param text the type of the news as String
      */
-    public Message(String type, String content) {
-        this.type = type;
-        this.content = content;
+    public Message(String text) {
+        this.text = text;
     }
 
-    public String getType() {
-        return type;
+    public String getText() {
+        return text;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setText(String content) {
+        this.text = content;
     }
 
     @Override
     public String toString() {
-        return type + ": " + content;
+        return text;
     }
 }

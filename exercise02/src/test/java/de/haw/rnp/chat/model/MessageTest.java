@@ -14,33 +14,22 @@ public class MessageTest {
 
     @Before
     public void setup() {
-        message = new Message("foo", "bar");
+        message = new Message("foobar");
     }
 
     @Test
-    public void getType() throws Exception {
-        assertEquals("foo", message.getType());
-    }
-
-    @Test
-    public void setType() throws Exception {
-        message.setType("foobar");
+    public void getText() throws Exception {
         assertEquals("foobar", message.getType());
     }
 
     @Test
-    public void getContent() throws Exception {
-        assertEquals("bar", message.getContent());
-    }
-
-    @Test
-    public void setContent() throws Exception {
-        message.setContent("1337");
-        assertEquals("1337", message.getContent());
+    public void setText() throws Exception {
+        message.setType("foo");
+        assertEquals("foo", message.getType());
     }
 
     @Test
     public void testToString() {
-        assertEquals("foo: bar", message.toString());
+        assertEquals("foobar", message.toString());
     }
 }
