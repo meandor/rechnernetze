@@ -53,7 +53,7 @@ public class TCPNode extends Node {
             e.printStackTrace();
         }
 
-        System.out.println("Client connected to Server");
+        System.out.println("Client connected to Server " + this.hostName.getHostAddress() + ":"+ this.port);
 
         try {
             this.out = this.clientSocket.getOutputStream();
