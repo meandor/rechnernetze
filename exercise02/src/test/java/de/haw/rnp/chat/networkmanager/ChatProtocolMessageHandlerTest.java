@@ -37,7 +37,7 @@ public class ChatProtocolMessageHandlerTest {
         ServerStartTask task = new ServerStartTask(server);
         this.messageHandler.getExecutor().execute(task);
         Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
-        User user = this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 1337, "FOO", InetAddress.getByName("10.0.0.1"), 1337);
+        User user = this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 27515, "FOO", InetAddress.getByName("10.0.0.1"), 27515);
         assertNotNull(user);
         assertEquals("FOO", user.getName());
     }
