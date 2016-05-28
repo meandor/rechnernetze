@@ -4,10 +4,12 @@ import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,19 +47,47 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         return result;
     }
 
-    private byte[] createLoginMessage(InetAddress hostName, int port) {
+    public byte[] IPField(InetAddress hostName) {
+        byte[] result = new byte[8];
+        result[1] = 0x1;
+        result[3] = 0x4;
+        System.arraycopy(hostName.getAddress(), 0, result, 4, 4);
+        return result;
+    }
 
-        //byte[] commonHeader = this.createCommonHeader(0x01, )
+    public byte[] portField(int port) {
+        byte[] result = new byte[6];
+        result[1] = 0x2;
+        result[3] = 0x2;
+        byte[] portByte = this.intToByteArray(port);
+        result[4] = portByte[2];
+        System.out.format("asd 0x%x ", portByte[3]);
+        result[5] = portByte[3];
+        return result;
+    }
 
-        return new byte[]{
-                0x01, 0x01, 0x00, 0x00, // common header
-                0x0A, 0x00, 0x00, 0x01,
-                0x00, 0x0A, 0x00, 0x02,
+    public byte[] nameField(String name) {
+        byte[] nameByte = name.getBytes(StandardCharsets.UTF_8);
+        byte[] result = new byte[4 + nameByte.length];
+        result[1] = 0x4;
+        result[3] = (byte) nameByte.length;
+        System.arraycopy(nameByte, 0, result, 4, nameByte.length);
+        return result;
+    }
 
-                0x00, 0x01, 0x00, 0x04, // field 1
-                0x0A, 0x00, 0x00, 0x02,
-                0x00, 0x02, 0x00, 0x02, //field 2
-                0x00, 0x10};
+    public byte[] textField(String text) {
+        byte[] textByte = text.getBytes(StandardCharsets.UTF_8);
+        byte[] result = new byte[4 + textByte.length];
+        result[1] = 0x5;
+        result[3] = (byte) textByte.length;
+        System.arraycopy(textByte, 0, result, 4, textByte.length);
+        return result;
+    }
+
+    private byte[] createLoginMessage(InetAddress senderHostName, int senderPort, String loginUserName, InetAddress loginUserHostName, int loginUserPort) {
+        byte[] name = loginUserName.getBytes(StandardCharsets.UTF_8);
+        byte[] commonHeader = this.createCommonHeader((byte) 0x01, senderHostName.getAddress(), this.intToByteArray(senderPort), this.intToByteArray(3));
+        return commonHeader;
     }
 
     public TCPNodeFactory getFactory() {
@@ -83,10 +113,19 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public User login(String name, InetAddress hostName, int port) {
-        User user = this.initialConnect(hostName, port);
-        user.setName(name);
-        //user.getNode().
+    public User login(String senderName, InetAddress senderHostName, int senderPort, InetAddress receiverHostName, int receiverPort) {
+        User user = this.initialConnect(receiverHostName, receiverPort);
+        user.setName(senderName);
+        Node serverNode = this.factory.createNode(senderHostName, senderPort);
+        user.setServerNode(serverNode);
+        ServerStartTask task = new ServerStartTask(serverNode);
+        this.executor.execute(task);
+        byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, senderName, receiverHostName, receiverPort);
+        try {
+            user.getClientNode().getOut().write(loginMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return user;
     }
 

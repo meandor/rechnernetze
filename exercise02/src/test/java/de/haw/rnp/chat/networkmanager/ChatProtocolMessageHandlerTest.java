@@ -122,4 +122,52 @@ public class ChatProtocolMessageHandlerTest {
         assertEquals(0x0, result[10]);
         assertEquals(0xD, result[11]);
     }
+
+    @Test
+    public void IPField() throws Exception {
+        byte[] result = this.messageHandler.IPField(InetAddress.getByName("127.0.0.1"));
+        assertEquals(0x0, result[0]);
+        assertEquals(0x1, result[1]);
+        assertEquals(0x0, result[2]);
+        assertEquals(0x4, result[3]);
+        assertEquals(0x7F, result[4]);
+        assertEquals(0x0, result[5]);
+        assertEquals(0x0, result[6]);
+        assertEquals(0x1, result[7]);
+    }
+
+    @Test
+    public void portField() throws Exception {
+        byte[] result = this.messageHandler.portField(5000);
+        assertEquals(0x0, result[0]);
+        assertEquals(0x2, result[1]);
+        assertEquals(0x0, result[2]);
+        assertEquals(0x2, result[3]);
+        assertEquals(0x13, result[4]);
+        assertEquals((byte) 0x88, result[5]);
+    }
+
+    @Test
+    public void nameField() throws Exception {
+        byte[] result = this.messageHandler.nameField("FOO");
+        assertEquals(0x0, result[0]);
+        assertEquals(0x4, result[1]);
+        assertEquals(0x0, result[2]);
+        assertEquals(0x3, result[3]);
+        assertEquals((byte) 0x46, result[4]);
+        assertEquals((byte) 0x4f, result[5]);
+        assertEquals((byte) 0x4f, result[6]);
+    }
+
+    @Test
+    public void textField() throws Exception {
+        byte[] result = this.messageHandler.textField("BAR");
+        assertEquals(0x0, result[0]);
+        assertEquals(0x5, result[1]);
+        assertEquals(0x0, result[2]);
+        assertEquals(0x3, result[3]);
+        assertEquals((byte) 0x42, result[4]);
+        assertEquals((byte) 0x41, result[5]);
+        assertEquals((byte) 0x52, result[6]);
+    }
 }
