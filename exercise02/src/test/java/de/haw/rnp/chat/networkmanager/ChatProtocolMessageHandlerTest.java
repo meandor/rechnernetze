@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.net.InetAddress;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class ChatProtocolMessageHandlerTest {
@@ -36,7 +37,9 @@ public class ChatProtocolMessageHandlerTest {
         ServerStartTask task = new ServerStartTask(server);
         this.messageHandler.getExecutor().execute(task);
         Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
-        this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 1337, "FOO", InetAddress.getByName("10.0.0.1"), 1337);
+        User user = this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 1337, "FOO", InetAddress.getByName("10.0.0.1"), 1337);
+        assertNotNull(user);
+        assertEquals("FOO", user.getName());
     }
 
     @Test
