@@ -26,4 +26,12 @@ public abstract class Node {
     public void setHostName(InetAddress hostName) {
         this.hostName = hostName;
     }
+
+    public abstract void startClientNode();
+
+    public abstract void stopClientNode();
+
+    public abstract void startServerNode();
+
+    public abstract void stopServerNode();
 }

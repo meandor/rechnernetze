@@ -33,7 +33,7 @@ public class TCPNode extends Node {
         }
     }
 
-    public void stopClientNode() {
+    public void stopClientNode()  {
         try {
             this.clientSocket.close();
             this.out.close();
@@ -43,7 +43,7 @@ public class TCPNode extends Node {
         }
     }
 
-    public void startServerNode() throws IOException {
+    public void startServerNode() {
         try {
             this.serverSocket = new ServerSocket(this.port);
         } catch (IOException e) {
@@ -60,13 +60,22 @@ public class TCPNode extends Node {
 
         System.out.println("Client connected to Server");
 
-        this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
-        this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+        try {
+            this.out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+            this.in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
+        } catch (IOException e) {
+            System.err.println("Trouble reading i/o");
+            e.printStackTrace();
+        }
     }
 
-    public void stopServerNode() throws IOException {
-        this.out.close();
-        this.in.close();
-        this.serverSocket.close();
+    public void stopServerNode() {
+        try {
+            this.out.close();
+            this.in.close();
+            this.serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
