@@ -19,6 +19,14 @@ public class TCPNode extends Node {
         super(port, hostName);
     }
 
+    public PrintWriter getOut() {
+        return out;
+    }
+
+    public BufferedReader getIn() {
+        return in;
+    }
+
     public void startClientNode() {
         try {
             this.clientSocket = new Socket(this.hostName, this.port);
