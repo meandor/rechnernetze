@@ -39,11 +39,13 @@ public abstract class Node {
         return in;
     }
 
-    public abstract void startClientNode();
+    public abstract boolean startClientNode();
 
     public abstract void stopClientNode();
 
-    public abstract void startServerNode();
+    public abstract boolean startServerNode();
 
     public abstract void stopServerNode();
+
+    public abstract void readServerInput();
 }

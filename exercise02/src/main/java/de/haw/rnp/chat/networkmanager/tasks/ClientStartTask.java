@@ -2,7 +2,9 @@ package de.haw.rnp.chat.networkmanager.tasks;
 
 import de.haw.rnp.chat.networkmanager.Node;
 
-public class ClientStartTask implements Runnable {
+import java.util.concurrent.Callable;
+
+public class ClientStartTask implements Callable {
 
     private Node node;
 
@@ -11,7 +13,7 @@ public class ClientStartTask implements Runnable {
     }
 
     @Override
-    public void run() {
-        this.node.startClientNode();
+    public Object call() throws Exception {
+        return this.node.startClientNode();
     }
 }
