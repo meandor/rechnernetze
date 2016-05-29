@@ -40,18 +40,19 @@ public class ChatView {
         displayTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
             displayTextArea.setScrollTop(Double.MAX_VALUE);
         });
-        grid.add(displayTextArea, 0, 0, 2, 2);
+        grid.add(displayTextArea, 0, 0, 3, 2);
 
         messageTextArea = new TextArea();
-        messageTextArea.setPrefRowCount(1);
+        messageTextArea.setPrefRowCount(2);
 
         grid.add(messageTextArea, 0,3,1,1);
 
-        logoutButton = new Button("Logout");
-        grid.add(logoutButton, 1,3);
-
         userlistBox = new ChoiceBox(FXCollections.observableArrayList("empty"));
-        grid.add(userlistBox, 1,4);
+        userlistBox.setValue("empty");
+        grid.add(userlistBox, 1,3);
+
+        logoutButton = new Button("Logout");
+        grid.add(logoutButton, 2,3);
 
         return new Scene(grid);
     }
