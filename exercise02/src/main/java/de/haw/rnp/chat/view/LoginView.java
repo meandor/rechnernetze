@@ -19,9 +19,13 @@ public class LoginView {
     private Label userName;
     private Label hostName;
     private Label portName;
+    private Label localHostName;
+    private Label localPortName;
     private TextField userTextField;
     private TextField hostTextField;
     private TextField portTextField;
+    private TextField localHostTextField;
+    private TextField localPortTextField;
     private Button signin;
 
     private Scene scene;
@@ -59,8 +63,20 @@ public class LoginView {
         portTextField = new TextField();
         grid.add(portTextField, 1, 3);
 
+        localHostName = new Label("Local Host:");
+        grid.add(localHostName, 0, 4);
+
+        localHostTextField = new TextField();
+        grid.add(localHostTextField, 1, 4);
+
+        localPortName = new Label("Local Port:");
+        grid.add(localPortName, 0, 5);
+
+        localPortTextField = new TextField();
+        grid.add(localPortTextField, 1, 5);
+
         signin = new Button("Sign in");
-        grid.add(signin, 1, 4);
+        grid.add(signin, 1, 6);
 
         return new Scene(grid);
     }
@@ -79,6 +95,14 @@ public class LoginView {
 
     public TextField getHostTextField() {
         return hostTextField;
+    }
+
+    public TextField getLocalHostTextField() {
+        return localHostTextField;
+    }
+
+    public TextField getLocalPortTextField() {
+        return localPortTextField;
     }
 
     public Button getSignin() {

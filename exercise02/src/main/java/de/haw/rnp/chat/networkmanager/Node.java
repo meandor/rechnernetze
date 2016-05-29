@@ -3,6 +3,8 @@ package de.haw.rnp.chat.networkmanager;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
+import java.util.concurrent.BlockingQueue;
 
 public abstract class Node {
     protected int port;
@@ -48,4 +50,8 @@ public abstract class Node {
     public abstract void stopServerNode();
 
     public abstract void readServerInput();
+
+    public abstract void awaitConnections();
+
+    public abstract BlockingQueue<Socket> getIncomingSockets();
 }

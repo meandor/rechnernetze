@@ -4,16 +4,16 @@ import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
-import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -38,7 +38,7 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     public byte[] intToByteArray(int number) {
-        return ByteBuffer.allocate(4).putInt(number).array();
+        return ByteBuffer.allocate(Integer.BYTES).putInt(number).array();
     }
 
     public byte[] createCommonHeader(byte messageType, byte[] senderIP, byte[] port, byte[] fieldCount) {
@@ -102,6 +102,17 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         return result;
     }
 
+    public byte[] createLogoutMessage(InetAddress senderHostName, int senderPort, InetAddress logoutHostName, int logoutPort) {
+        byte[] commonHeader = this.createCommonHeader((byte) 0x02, senderHostName.getAddress(), this.intToByteArray(senderPort), this.intToByteArray(2));
+        byte[] ipField = this.IPField(logoutHostName);
+        byte[] portField = this.portField(logoutPort);
+        byte[] result = new byte[26];
+        System.arraycopy(commonHeader, 0, result, 0, 12);
+        System.arraycopy(ipField, 0, result, 12, 8);
+        System.arraycopy(portField, 0, result, 20, 6);
+        return result;
+    }
+
     public TCPNodeFactory getFactory() {
         return factory;
     }
@@ -125,16 +136,30 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public User login(Node clientNode, InetAddress senderHostName, int senderPort, String loginName, InetAddress loginHostName, int loginPort) {
-        User user = new User(loginName, clientNode); //clientnode: my connection to the other peer
-        Node serverNode = this.factory.createNode(senderHostName, senderPort); //me
+    public User login(Node clientNode, String loginName, InetAddress loginHostName, int loginPort) {
+        User user = new User(loginName, clientNode, loginHostName, loginPort); //clientnode: my connection to the other peer
+        Node serverNode = null; //me
+        try {
+            serverNode = this.factory.createNode(InetAddress.getLocalHost(), loginPort);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         user.setServerNode(serverNode);
         ServerStartTask task = new ServerStartTask(serverNode);
-        Future<Boolean> result = this.executor.submit(task);
-        byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, loginName, loginHostName, loginPort);
-        byte[] loginMessageAck = this.createLoginMessage(clientNode.getHostName(), clientNode.getPort(), loginName, loginHostName, loginPort);
+        Future<Boolean> serverStarted = this.executor.submit(task);
         try {
-            user.getClientNode().getOut().write(loginMessage); //TODO: Wait for ack (login propagate) to successfully login?
+            if (serverStarted.get()) {
+                ServerAwaitConnectionsTask task2 = new ServerAwaitConnectionsTask(serverNode);
+                this.executor.execute(task2);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        byte[] loginMessage = this.createLoginMessage(serverNode.getHostName(), loginPort, loginName, serverNode.getHostName(), loginPort);
+        try {
+            user.getClientNode().getOut().write(loginMessage);
+            ClientCloseTask closeClient = new ClientCloseTask(user.getClientNode());
+            this.executor.execute(closeClient);
             return user;
         } catch (IOException e) {
             e.printStackTrace();
@@ -143,8 +168,18 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public void logout(User user) {
-
+    public void logout(User logoutUser, User recipient) {
+        InetAddress hostName = logoutUser.getHostName();
+        int port = logoutUser.getPort();
+        byte[] logoutMessage = this.createLogoutMessage(hostName, port, hostName, port);
+        logoutUser.setClientNode(this.initialConnect(recipient.getHostName(), recipient.getPort()));
+        try {
+            logoutUser.getClientNode().getOut().write(logoutMessage);
+            ClientCloseTask task = new ClientCloseTask(logoutUser.getClientNode());
+            this.executor.execute(task);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -171,19 +206,13 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     public Node initialConnect(InetAddress hostName, int port) {
         Node clientNode = null;
         try {
-            if (hostName.isReachable(2000)) {
-                clientNode = this.factory.createNode(hostName, port);
-                ClientStartTask task = new ClientStartTask(clientNode);
-                Future<Boolean> result = this.executor.submit(task);
-                if (result.get()) {
-                    return clientNode;
-                }
+            clientNode = this.factory.createNode(hostName, port);
+            ClientStartTask task = new ClientStartTask(clientNode);
+            Future<Boolean> clientStarted = this.executor.submit(task);
+            if (clientStarted.get()) {
+                return clientNode;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return clientNode;

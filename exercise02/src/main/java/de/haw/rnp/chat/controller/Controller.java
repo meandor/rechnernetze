@@ -51,12 +51,13 @@ public class Controller implements IControllerService{
     }
 
     @Override
-    public String login(String userName, InetAddress address, int port) {
+    public String login(String userName, InetAddress address, InetAddress localAddress, int  port, int localport) {
         Node node = messageHandler.initialConnect(address, port);
-        User user = messageHandler.login(node,,,userName,address,port);
-        if(!user.equals(null))
+        //User user = messageHandler.login(node,userName,port);
+        /*if(!user.equals(null))
             loggedInUser = user;
-        return loggedInUser.getName();
+        return loggedInUser.getName();*/
+        return "asd";
     }
 
     @Override
@@ -72,6 +73,10 @@ public class Controller implements IControllerService{
         Message ms = new Message(message, loggedInUser, user);
         messageHandler.sendMessage(ms);
         return true;
+    }
+
+    public MessageHandler getMessageHandler() {
+        return messageHandler;
     }
 
     private User getUserByName(String userName){

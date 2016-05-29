@@ -6,9 +6,10 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
-public class ViewController implements IView{
+public class ViewController implements IView {
     private Stage stage;
     private LoginView loginView;
     private ChatView chatView;
@@ -16,30 +17,41 @@ public class ViewController implements IView{
     private boolean isLogged;
     private String userName;
 
-    public ViewController(Stage stage, IControllerService controllerService){
+    public ViewController(Stage stage, IControllerService controllerService) {
         this.stage = stage;
         this.controllerService = controllerService;
         this.isLogged = false;
         initLoginView();
     }
 
-    private boolean validateFields(String user, String host, String port){
-        if(user.length() <= 0)
+    private boolean validateFields(String user, String host, String port, String localHost, String localport) {
+        if (user.length() <= 0 && host.length() <= 0 && port.length() <= 0 & localHost.length() <= 0 & localport.length() <= 0)
             return false;
         return true;
     }
 
-    private void initLoginView(){
+    private void initLoginView() {
         loginView = new LoginView();
 
         loginView.getSignin().setOnAction(action -> {
             String user = loginView.getUserTextField().getText();
             String host = loginView.getHostTextField().getText();
             String port = loginView.getPortTextField().getText();
-            if(validateFields(user, host, port)){
-                userName = controllerService.login(user, InetAddress.getLoopbackAddress(), 100);
-                isLogged = true;
-                initChatView();
+            String localHost = loginView.getLocalHostTextField().getText();
+            String localport = loginView.getLocalPortTextField().getText();
+            if (validateFields(user, host, port, localHost, localport)) {
+                try {
+                    userName = controllerService.login(
+                            user,
+                            InetAddress.getByName(host),
+                            InetAddress.getByName(localHost),
+                            Integer.parseInt(port),
+                            Integer.parseInt(localport));
+                    isLogged = true;
+                    initChatView();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -47,19 +59,24 @@ public class ViewController implements IView{
         stage.show();
     }
 
-    private void initChatView(){
+    private void initChatView() {
         chatView = new ChatView();
 
         chatView.getMessageTextArea().setOnKeyPressed(event -> {
-            if(event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0){
+            if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 String text = chatView.getMessageTextArea().getText();
                 String recipient = chatView.getUserlistBox().getValue().toString();
+<<<<<<< HEAD
                 controllerService.sendMessage(recipient,text);
                 chatView.getDisplayTextArea().appendText(userName + "send to" + recipient +":\n" + text + "\n");
+=======
+                controllerService.sendMessage(recipient, text);
+                chatView.getDisplayTextArea().appendText(userName + ":\n" + text + "\n");
+>>>>>>> 525c98834e4f26b1ef1050773fcde931830bd555
                 chatView.getMessageTextArea().clear();
             }
         });
-        
+
         chatView.getLogoutButton().setOnAction(action -> {
             this.controllerService.logout();
             setUserLoggedOff();
@@ -69,7 +86,7 @@ public class ViewController implements IView{
         stage.show();
     }
 
-    private void setUserLoggedOff(){
+    private void setUserLoggedOff() {
         this.chatView = null;
         this.userName = "";
         this.isLogged = false;
@@ -86,19 +103,18 @@ public class ViewController implements IView{
 
     @Override
     public void updateUserlist(List<String> usernames) {
-        if(isLogged && !usernames.isEmpty()){
+        if (isLogged && !usernames.isEmpty()) {
             chatView.getUserlistBox().setItems(FXCollections.observableArrayList(usernames));
             chatView.getUserlistBox().setValue(usernames.get(0));
-        }
-        else if(isLogged && usernames.isEmpty()){
+        } else if (isLogged && usernames.isEmpty()) {
             chatView.getUserlistBox().setItems(FXCollections.observableArrayList("empty"));
             chatView.getUserlistBox().setValue("empty");
         }
     }
 
     @Override
-    public void appendMessage(String from, String message){
-        if(isLogged){
+    public void appendMessage(String from, String message) {
+        if (isLogged) {
             chatView.getDisplayTextArea().appendText("Message from " + from + ":\n" + message);
         }
     }
