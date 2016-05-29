@@ -1,0 +1,92 @@
+package de.haw.rnp.chat.view;
+
+import de.haw.rnp.chat.controller.IControllerService;
+import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+
+import java.net.InetAddress;
+import java.util.List;
+
+public class ViewController implements IView{
+    private Stage stage;
+    private LoginView loginView;
+    private ChatView chatView;
+    private IControllerService controllerService;
+    private boolean isLogged;
+    private String userName;
+
+    public ViewController(Stage stage, IControllerService controllerService){
+        this.stage = stage;
+        this.controllerService = controllerService;
+        this.isLogged = false;
+        initLoginView();
+    }
+
+    private boolean validateFields(String user, String host, String port){
+        if(user.length() <= 0)
+            return false;
+        return true;
+    }
+
+    private void initLoginView(){
+        loginView = new LoginView();
+
+        loginView.getSignin().setOnAction(action -> {
+            String user = loginView.getUserTextField().getText();
+            String host = loginView.getHostTextField().getText();
+            String port = loginView.getPortTextField().getText();
+            if(validateFields(user, host, port)){
+                userName = controllerService.login(user, InetAddress.getLoopbackAddress(), 100);
+                isLogged = true;
+                initChatView();
+                //this.controller.login(user, host, port);
+            }
+        });
+
+        stage.setScene(loginView.getScene());
+        stage.show();
+    }
+
+    private void initChatView(){
+        chatView = new ChatView();
+
+        chatView.getMessageTextArea().setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0){
+                String text = chatView.getMessageTextArea().getText();
+                //send message to users...
+                //controllerService.sendMessage(text)
+                chatView.getDisplayTextArea().appendText(userName + ":\n" + text + "\n");
+                chatView.getMessageTextArea().setText("");
+            }
+        });
+        
+        chatView.getLogoutButton().setOnAction(action -> {
+            this.controllerService.logout();
+            setUserLoggedOff();
+            initLoginView();
+        });
+        stage.setScene(chatView.getScene());
+        stage.show();
+    }
+
+    private void setUserLoggedOff(){
+        this.chatView = null;
+        this.userName = "";
+        this.isLogged = false;
+        //delete user credentials
+    }
+
+    @Override
+    public void setUserLoggedIn(String userName) {
+        this.isLogged = true;
+        this.userName = userName;
+        this.loginView = null;
+        initChatView();
+    }
+
+    @Override
+    public void updateUserlist(List<String> usernames) {
+        if(isLogged)
+            updateUserlist(usernames);
+    }
+}

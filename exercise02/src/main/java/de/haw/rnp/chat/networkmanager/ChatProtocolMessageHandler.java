@@ -1,6 +1,7 @@
 package de.haw.rnp.chat.networkmanager;
 
 import de.haw.rnp.chat.controller.Controller;
+import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
@@ -26,7 +27,7 @@ import java.util.concurrent.Future;
  */
 public class ChatProtocolMessageHandler implements MessageHandler {
 
-    private Controller controller;
+    private IControllerService controller;
     private TCPNodeFactory factory;
     private ExecutorService executor;
 
@@ -153,7 +154,7 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public void receiveMessage(Message message) {
-        this.controller.addMessage(message);
+        this.controller.addMessageToQueue(message);
     }
 
     @Override
