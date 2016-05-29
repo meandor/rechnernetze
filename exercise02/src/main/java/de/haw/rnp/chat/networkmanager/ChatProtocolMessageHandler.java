@@ -133,7 +133,7 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, loginName, loginHostName, loginPort);
         byte[] loginMessageAck = this.createLoginMessage(clientNode.getHostName(), clientNode.getPort(), loginName, loginHostName, loginPort);
         try {
-            user.getClientNode().getOut().write(loginMessage);
+            user.getClientNode().getOut().write(loginMessage); //TODO: Wait for ack (login propagate) to successfully login?
             return user;
         } catch (IOException e) {
             e.printStackTrace();
