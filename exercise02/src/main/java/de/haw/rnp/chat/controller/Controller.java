@@ -62,7 +62,7 @@ public class Controller implements IControllerService{
 
     @Override
     public void logout() {
-        messageHandler.logout(loggedInUser);
+        messageHandler.logout(loggedInUser, userList.get(0));
     }
 
     @Override

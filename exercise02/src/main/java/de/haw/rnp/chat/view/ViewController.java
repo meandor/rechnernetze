@@ -66,13 +66,8 @@ public class ViewController implements IView {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 String text = chatView.getMessageTextArea().getText();
                 String recipient = chatView.getUserlistBox().getValue().toString();
-<<<<<<< HEAD
                 controllerService.sendMessage(recipient,text);
                 chatView.getDisplayTextArea().appendText(userName + "send to" + recipient +":\n" + text + "\n");
-=======
-                controllerService.sendMessage(recipient, text);
-                chatView.getDisplayTextArea().appendText(userName + ":\n" + text + "\n");
->>>>>>> 525c98834e4f26b1ef1050773fcde931830bd555
                 chatView.getMessageTextArea().clear();
             }
         });
