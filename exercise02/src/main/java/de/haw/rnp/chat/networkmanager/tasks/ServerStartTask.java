@@ -4,12 +4,10 @@ import de.haw.rnp.chat.networkmanager.Node;
 
 import java.util.concurrent.Callable;
 
-public class ServerStartTask implements Callable<Boolean> {
-
-    private Node node;
+public class ServerStartTask extends GeneralTask implements Callable<Boolean> {
 
     public ServerStartTask(Node node) {
-        this.node = node;
+        super(node);
     }
 
     @Override

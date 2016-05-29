@@ -2,16 +2,14 @@ package de.haw.rnp.chat.networkmanager.tasks;
 
 import de.haw.rnp.chat.networkmanager.Node;
 
-public class ServerAwaitConnectionsTask implements Runnable {
+public class ServerAwaitConnectionsTask extends GeneralTask implements Runnable {
 
-    private Node serverNode;
-
-    public ServerAwaitConnectionsTask(Node serverNode) {
-        this.serverNode = serverNode;
+    public ServerAwaitConnectionsTask(Node node) {
+        super(node);
     }
 
     @Override
     public void run() {
-        this.serverNode.awaitConnections();
+        this.node.awaitConnections();
     }
 }
