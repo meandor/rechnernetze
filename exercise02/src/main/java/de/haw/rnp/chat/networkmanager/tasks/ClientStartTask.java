@@ -4,7 +4,7 @@ import de.haw.rnp.chat.networkmanager.Node;
 
 import java.util.concurrent.Callable;
 
-public class ClientStartTask implements Callable {
+public class ClientStartTask implements Callable<Boolean> {
 
     private Node node;
 
@@ -13,7 +13,7 @@ public class ClientStartTask implements Callable {
     }
 
     @Override
-    public Object call() throws Exception {
+    public Boolean call() throws Exception {
         return this.node.startClientNode();
     }
 }
