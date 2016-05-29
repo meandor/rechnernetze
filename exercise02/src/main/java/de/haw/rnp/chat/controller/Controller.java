@@ -4,6 +4,7 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.ChatProtocolMessageHandler;
 import de.haw.rnp.chat.networkmanager.MessageHandler;
+import de.haw.rnp.chat.networkmanager.Node;
 import de.haw.rnp.chat.view.IView;
 import de.haw.rnp.chat.view.ViewController;
 import javafx.application.Application;
@@ -54,20 +55,25 @@ public class Controller implements IControllerService{
 
     @Override
     public String login(String userName, InetAddress address, int port) {
-        return null;
+        Node node = messageHandler.initialConnect(address, port);
+        User user = messageHandler.login(node,,,userName,address,port);
+        if(!user.equals(null))
+            loggedInUser = user;
+        return loggedInUser.getName();
     }
 
     @Override
     public void logout() {
-
+        messageHandler.logout(loggedInUser);
     }
 
     @Override
-    public boolean sendMessage(String message, String username) {
-        User user = getUserByName(username);
+    public boolean sendMessage(String recipient, String message) {
+        User user = getUserByName(recipient);
         if(user.equals(null))
             return false;
-        //sendMessage
+        Message ms = new Message(message, loggedInUser, user);
+        messageHandler.sendMessage(ms);
         return true;
     }
 

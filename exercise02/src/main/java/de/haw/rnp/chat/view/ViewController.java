@@ -40,7 +40,6 @@ public class ViewController implements IView{
                 userName = controllerService.login(user, InetAddress.getLoopbackAddress(), 100);
                 isLogged = true;
                 initChatView();
-                //this.controller.login(user, host, port);
             }
         });
 
@@ -54,8 +53,8 @@ public class ViewController implements IView{
         chatView.getMessageTextArea().setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0){
                 String text = chatView.getMessageTextArea().getText();
-                //send message to users...
-                //controllerService.sendMessage(text)
+                String recipient = chatView.getUserlistBox().getValue().toString();
+                controllerService.sendMessage(recipient,text);
                 chatView.getDisplayTextArea().appendText(userName + ":\n" + text + "\n");
                 chatView.getMessageTextArea().clear();
             }
