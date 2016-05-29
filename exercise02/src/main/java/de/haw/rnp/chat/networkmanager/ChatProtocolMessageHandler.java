@@ -101,6 +101,17 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         return result;
     }
 
+    public byte[] createLogoutMessage(InetAddress senderHostName, int senderPort, InetAddress logoutHostName, int logoutPort) {
+        byte[] commonHeader = this.createCommonHeader((byte) 0x02, senderHostName.getAddress(), this.intToByteArray(senderPort), this.intToByteArray(2));
+        byte[] ipField = this.IPField(logoutHostName);
+        byte[] portField = this.portField(logoutPort);
+        byte[] result = new byte[26];
+        System.arraycopy(commonHeader, 0, result, 0, 12);
+        System.arraycopy(ipField, 0, result, 12, 8);
+        System.arraycopy(portField, 0, result, 20, 6);
+        return result;
+    }
+
     public TCPNodeFactory getFactory() {
         return factory;
     }
@@ -155,7 +166,9 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public void logout(User user) {
-
+        //senuser
+        /*byte[] logoutMessage = this.createLogoutMessage();
+        user.getClientNode().getOut().write();*/
     }
 
     @Override
