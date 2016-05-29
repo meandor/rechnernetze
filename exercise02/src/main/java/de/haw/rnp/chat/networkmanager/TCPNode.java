@@ -75,8 +75,13 @@ public class TCPNode extends Node {
                     if (s.getInputStream().available() != 0) {
                         byte[] data = new byte[s.getInputStream().available()];
                         int count = s.getInputStream().read(data);
-                        for (byte b: data) {
-                            System.out.format("0x%x ",b);
+                        int align = 1;
+                        for (byte b : data) {
+                            System.out.format("0x%x ", b);
+                            if ((align % 4) == 0 && align > 1) {
+                                System.out.print("\n");
+                            }
+                            align++;
                         }
                     }
                 } catch (IOException e) {
