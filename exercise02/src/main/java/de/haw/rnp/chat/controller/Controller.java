@@ -54,7 +54,7 @@ public class Controller implements IControllerService{
     }
 
     @Override
-    public String login(String userName, InetAddress address, int port) {
+    public String login(String userName, InetAddress address, InetAddress localAddress, int  port, int localport) {
         Node node = messageHandler.initialConnect(address, port);
         //User user = messageHandler.login(node,userName,port);
         /*if(!user.equals(null))

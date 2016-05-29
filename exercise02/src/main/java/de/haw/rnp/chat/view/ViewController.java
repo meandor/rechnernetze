@@ -24,8 +24,8 @@ public class ViewController implements IView {
         initLoginView();
     }
 
-    private boolean validateFields(String user, String host, String port) {
-        if (user.length() <= 0)
+    private boolean validateFields(String user, String host, String port, String localHost, String localport) {
+        if (user.length() <= 0 && host.length() <= 0 && port.length() <= 0 & localHost.length() <= 0 & localport.length() <= 0)
             return false;
         return true;
     }
@@ -37,9 +37,16 @@ public class ViewController implements IView {
             String user = loginView.getUserTextField().getText();
             String host = loginView.getHostTextField().getText();
             String port = loginView.getPortTextField().getText();
-            if (validateFields(user, host, port)) {
+            String localHost = loginView.getLocalHostTextField().getText();
+            String localport = loginView.getLocalPortTextField().getText();
+            if (validateFields(user, host, port, localHost, localport)) {
                 try {
-                    userName = controllerService.login(user, InetAddress.getByName(host), Integer.parseInt(port));
+                    userName = controllerService.login(
+                            user,
+                            InetAddress.getByName(host),
+                            InetAddress.getByName(localHost),
+                            Integer.parseInt(port),
+                            Integer.parseInt(localport));
                     isLogged = true;
                     initChatView();
                 } catch (UnknownHostException e) {
