@@ -38,7 +38,7 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     public byte[] intToByteArray(int number) {
-        return ByteBuffer.allocate(4).putInt(number).array();
+        return ByteBuffer.allocate(Integer.BYTES).putInt(number).array();
     }
 
     public byte[] createCommonHeader(byte messageType, byte[] senderIP, byte[] port, byte[] fieldCount) {
