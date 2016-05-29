@@ -5,13 +5,17 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class TCPNode extends Node {
     private Socket clientSocket;
     private ServerSocket serverSocket;
+    private BlockingQueue<Socket> incomingSockets;
 
     public TCPNode(int port, InetAddress hostName) {
         super(port, hostName);
+        this.incomingSockets = new LinkedBlockingQueue<>();
     }
 
     public boolean startClientNode() {
@@ -43,26 +47,9 @@ public class TCPNode extends Node {
     public boolean startServerNode() {
         try {
             this.serverSocket = new ServerSocket(this.port);
-        } catch (IOException e) {
-            System.err.println("Port is not available: " + this.port);
-            e.printStackTrace();
-        }
-
-        try {
-            this.clientSocket = this.serverSocket.accept();
-        } catch (IOException e) {
-            System.err.println("Client Accept failed");
-            e.printStackTrace();
-        }
-
-        System.out.println("Client connected to Server " + this.hostName.getHostAddress() + ":" + this.port);
-
-        try {
-            this.out = this.clientSocket.getOutputStream();
-            this.in = this.clientSocket.getInputStream();
             return true;
         } catch (IOException e) {
-            System.err.println("Trouble reading i/o");
+            System.err.println("Port is not available: " + this.port);
             e.printStackTrace();
         }
         return false;
@@ -91,5 +78,24 @@ public class TCPNode extends Node {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void awaitConnections() {
+        while (true) {
+            try {
+                Socket incomingSocket = serverSocket.accept();
+                this.incomingSockets.offer(incomingSocket);
+            } catch (IOException e) {
+                System.err.println("Client Accept failed");
+                e.printStackTrace();
+            }
+
+            System.out.println("Client connected to Server " + this.hostName.getHostAddress() + ":" + this.port);
+        }
+    }
+
+    @Override
+    public BlockingQueue<Socket> getIncomingSockets() {
+        return this.incomingSockets;
     }
 }

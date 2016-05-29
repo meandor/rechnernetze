@@ -11,18 +11,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class User {
     private String name;
     private Node clientNode;
-    private BlockingQueue<Node> incomingNodes;
     private Node serverNode;
 
     /**
-     * @param name the name of the user
-     * @param clientNode  the clientNode attached to a user
+     * @param name       the name of the user
+     * @param clientNode the clientNode attached to a user
      */
 
-    public User(String name, Node clientNode){
+    public User(String name, Node clientNode) {
         this.setName(name);
         this.setClientNode(clientNode);
-        this.incomingNodes = new LinkedBlockingQueue<>();
     }
 
 
@@ -50,16 +48,8 @@ public class User {
         this.serverNode = serverNode;
     }
 
-    public boolean addIncomingClientNode(Node n) {
-        return this.incomingNodes.offer(n);
-    }
-
-    public BlockingQueue<Node> getIncomingNodes() {
-        return incomingNodes;
-    }
-
     @Override
-    public String toString(){
+    public String toString() {
         return "Name: " + this.name + " Node: " + this.clientNode;
     }
 }
