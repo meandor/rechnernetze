@@ -1,6 +1,7 @@
 package de.haw.rnp.chat.view;
 
 import de.haw.rnp.chat.controller.IControllerService;
+import javafx.collections.FXCollections;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
@@ -56,7 +57,7 @@ public class ViewController implements IView{
                 //send message to users...
                 //controllerService.sendMessage(text)
                 chatView.getDisplayTextArea().appendText(userName + ":\n" + text + "\n");
-                chatView.getMessageTextArea().setText("");
+                chatView.getMessageTextArea().clear();
             }
         });
         
@@ -86,7 +87,20 @@ public class ViewController implements IView{
 
     @Override
     public void updateUserlist(List<String> usernames) {
-        if(isLogged)
-            updateUserlist(usernames);
+        if(isLogged && !usernames.isEmpty()){
+            chatView.getUserlistBox().setItems(FXCollections.observableArrayList(usernames));
+            chatView.getUserlistBox().setValue(usernames.get(0));
+        }
+        else if(isLogged && usernames.isEmpty()){
+            chatView.getUserlistBox().setItems(FXCollections.observableArrayList("empty"));
+            chatView.getUserlistBox().setValue("empty");
+        }
+    }
+
+    @Override
+    public void appendMessage(String from, String message){
+        if(isLogged){
+            chatView.getDisplayTextArea().appendText("Message from " + from + ":\n" + message);
+        }
     }
 }

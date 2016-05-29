@@ -8,4 +8,5 @@ import java.util.List;
 public interface IView {
     public void setUserLoggedIn(String userName);
     public void updateUserlist(List<String> usernames);
+    public void appendMessage(String from, String message);
 }
