@@ -136,8 +136,8 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public User login(Node clientNode, String loginName, int loginPort) {
-        User user = new User(loginName, clientNode); //clientnode: my connection to the other peer
+    public User login(Node clientNode, String loginName, InetAddress loginHostName, int loginPort) {
+        User user = new User(loginName, clientNode, loginHostName, loginPort); //clientnode: my connection to the other peer
         Node serverNode = null; //me
         try {
             serverNode = this.factory.createNode(InetAddress.getLocalHost(), loginPort);
@@ -168,10 +168,18 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public void logout(User user) {
-
-        /*byte[] logoutMessage = this.createLogoutMessage();
-        user.getClientNode().getOut().write();*/
+    public void logout(User logoutUser, User recipient) {
+        InetAddress hostName = logoutUser.getHostName();
+        int port = logoutUser.getPort();
+        byte[] logoutMessage = this.createLogoutMessage(hostName, port, hostName, port);
+        logoutUser.setClientNode(this.initialConnect(recipient.getHostName(), recipient.getPort()));
+        try {
+            logoutUser.getClientNode().getOut().write(logoutMessage);
+            ClientCloseTask task = new ClientCloseTask(logoutUser.getClientNode());
+            this.executor.execute(task);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

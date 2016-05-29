@@ -14,9 +14,9 @@ public interface MessageHandler {
 
     void processMessage(byte[] protocolMessage);
 
-    User login(Node clientNode, String loginName, int loginPort);
+    User login(Node clientNode, String loginName, InetAddress loginHostName, int loginPort);
 
-    void logout(User user);
+    void logout(User user, User recipient);
 
     void sendMessage(Message message);
 
