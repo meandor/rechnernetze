@@ -23,6 +23,7 @@ public class TCPNode extends Node {
             this.clientSocket = new Socket(this.hostName, this.port);
             this.out = this.clientSocket.getOutputStream();
             this.in = this.clientSocket.getInputStream();
+            System.out.println("Client started");
             return true;
         } catch (UnknownHostException e) {
             System.err.println("Unknown host " + this.hostName.getHostAddress());
@@ -47,6 +48,8 @@ public class TCPNode extends Node {
     public boolean startServerNode() {
         try {
             this.serverSocket = new ServerSocket(this.port);
+            this.hostName = this.serverSocket.getInetAddress();
+            System.out.println("Server started at " + this.hostName.getHostAddress() + ":" + this.port);
             return true;
         } catch (IOException e) {
             System.err.println("Port is not available: " + this.port);
@@ -66,17 +69,20 @@ public class TCPNode extends Node {
     }
 
     public void readServerInput() {
-        int count;
-        byte[] data = new byte[4];
-        try {
-            while ((count = this.in.read(data)) != 0) {
-                for (byte b : data) {
-                    System.out.format("0x%x ", b);
+        while (true) {
+            for (Socket s : this.getIncomingSockets()) {
+                try {
+                    if (s.getInputStream().available() != 0) {
+                        byte[] data = new byte[s.getInputStream().available()];
+                        int count = s.getInputStream().read(data);
+                        for (byte b: data) {
+                            System.out.format("0x%x ",b);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                System.out.println("");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

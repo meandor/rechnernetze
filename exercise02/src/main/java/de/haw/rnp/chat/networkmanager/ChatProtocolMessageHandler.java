@@ -5,15 +5,14 @@ import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
-import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -125,16 +124,28 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     }
 
     @Override
-    public User login(Node clientNode, InetAddress senderHostName, int senderPort, String loginName, InetAddress loginHostName, int loginPort) {
+    public User login(Node clientNode, String loginName, int loginPort) {
         User user = new User(loginName, clientNode); //clientnode: my connection to the other peer
-        Node serverNode = this.factory.createNode(senderHostName, senderPort); //me
+        Node serverNode = null; //me
+        try {
+            serverNode = this.factory.createNode(InetAddress.getLocalHost(), loginPort);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         user.setServerNode(serverNode);
         ServerStartTask task = new ServerStartTask(serverNode);
-        Future<Boolean> result = this.executor.submit(task);
-        byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, loginName, loginHostName, loginPort);
-        byte[] loginMessageAck = this.createLoginMessage(clientNode.getHostName(), clientNode.getPort(), loginName, loginHostName, loginPort);
+        Future<Boolean> serverStarted = this.executor.submit(task);
         try {
-            user.getClientNode().getOut().write(loginMessage); //TODO: Wait for ack (login propagate) to successfully login?
+            if (serverStarted.get()) {
+                ServerAwaitConnectionsTask task2 = new ServerAwaitConnectionsTask(serverNode);
+                this.executor.execute(task2);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        byte[] loginMessage = this.createLoginMessage(serverNode.getHostName(), loginPort, loginName, serverNode.getHostName(), loginPort);
+        try {
+            user.getClientNode().getOut().write(loginMessage);
             return user;
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,19 +182,13 @@ public class ChatProtocolMessageHandler implements MessageHandler {
     public Node initialConnect(InetAddress hostName, int port) {
         Node clientNode = null;
         try {
-            if (hostName.isReachable(2000)) {
-                clientNode = this.factory.createNode(hostName, port);
-                ClientStartTask task = new ClientStartTask(clientNode);
-                Future<Boolean> result = this.executor.submit(task);
-                if (result.get()) {
-                    return clientNode;
-                }
+            clientNode = this.factory.createNode(hostName, port);
+            ClientStartTask task = new ClientStartTask(clientNode);
+            Future<Boolean> clientStarted = this.executor.submit(task);
+            if (clientStarted.get()) {
+                return clientNode;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return clientNode;
