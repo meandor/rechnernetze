@@ -4,6 +4,7 @@ import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
@@ -157,6 +158,8 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         byte[] loginMessage = this.createLoginMessage(serverNode.getHostName(), loginPort, loginName, serverNode.getHostName(), loginPort);
         try {
             user.getClientNode().getOut().write(loginMessage);
+            ClientCloseTask closeClient = new ClientCloseTask(user.getClientNode());
+            this.executor.execute(closeClient);
             return user;
         } catch (IOException e) {
             e.printStackTrace();
@@ -166,7 +169,7 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public void logout(User user) {
-        //senuser
+
         /*byte[] logoutMessage = this.createLogoutMessage();
         user.getClientNode().getOut().write();*/
     }

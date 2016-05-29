@@ -40,6 +40,7 @@ public class TCPNode extends Node {
             this.clientSocket.close();
             this.out.close();
             this.in.close();
+            System.out.println("Client closed");
         } catch (IOException e) {
             e.printStackTrace();
         }
