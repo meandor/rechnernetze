@@ -9,14 +9,11 @@ import de.haw.rnp.chat.view.IView;
 import de.haw.rnp.chat.view.ViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import static javafx.application.Application.launch;
 
 public class Controller implements IControllerService{
     private BlockingQueue messageQueue;
