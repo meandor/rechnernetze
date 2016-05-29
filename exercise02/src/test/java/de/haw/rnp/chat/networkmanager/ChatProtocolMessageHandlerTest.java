@@ -1,11 +1,14 @@
 package de.haw.rnp.chat.networkmanager;
 
 import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.InetAddress;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,11 +38,17 @@ public class ChatProtocolMessageHandlerTest {
     public void login() throws Exception {
         Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 5050);
         ServerStartTask task = new ServerStartTask(server);
-        this.messageHandler.getExecutor().execute(task);
+        Future<Boolean> serverConnected = this.messageHandler.getExecutor().submit(task);
         Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
-        User user = this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 27515, "FOO", InetAddress.getByName("10.0.0.1"), 27515);
-        assertNotNull(user);
-        assertEquals("FOO", user.getName());
+        if (serverConnected.get()) {
+            ServerReadTask task2 = new ServerReadTask(server);
+            this.messageHandler.getExecutor().execute(task2);
+            User user = this.messageHandler.login(node, InetAddress.getByName("10.0.0.1"), 27515, "FOO", InetAddress.getByName("10.0.0.1"), 27515);
+            assertNotNull(user);
+            assertEquals("FOO", user.getName());
+        } else {
+            assert false;
+        }
     }
 
     @Test
@@ -71,11 +80,10 @@ public class ChatProtocolMessageHandlerTest {
     public void initialConnect() throws Exception {
         Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 1337);
         ServerStartTask task = new ServerStartTask(server);
-        this.messageHandler.getExecutor().execute(task);
+        Future<Boolean> result = this.messageHandler.getExecutor().submit(task);
         Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
         assertTrue(1337 == server.getPort());
         assertEquals(InetAddress.getByName("127.0.0.1"), node.getHostName());
-        //TODO: Test message sending!
     }
 
     @Test

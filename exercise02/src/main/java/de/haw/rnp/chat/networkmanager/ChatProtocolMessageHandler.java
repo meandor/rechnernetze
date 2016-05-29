@@ -4,15 +4,20 @@ import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Handles all protocol messages that are forwarded between the peers.
@@ -61,7 +66,6 @@ public class ChatProtocolMessageHandler implements MessageHandler {
         result[3] = 0x2;
         byte[] portByte = this.intToByteArray(port);
         result[4] = portByte[2];
-        System.out.format("asd 0x%x ", portByte[3]);
         result[5] = portByte[3];
         return result;
     }
@@ -121,18 +125,20 @@ public class ChatProtocolMessageHandler implements MessageHandler {
 
     @Override
     public User login(Node clientNode, InetAddress senderHostName, int senderPort, String loginName, InetAddress loginHostName, int loginPort) {
-        User user = new User(loginName, clientNode);
-        Node serverNode = this.factory.createNode(senderHostName, senderPort);
+        User user = new User(loginName, clientNode); //clientnode: my connection to the other peer
+        Node serverNode = this.factory.createNode(senderHostName, senderPort); //me
         user.setServerNode(serverNode);
         ServerStartTask task = new ServerStartTask(serverNode);
-        this.executor.execute(task);
+        Future<Boolean> result = this.executor.submit(task);
         byte[] loginMessage = this.createLoginMessage(senderHostName, senderPort, loginName, loginHostName, loginPort);
+        byte[] loginMessageAck = this.createLoginMessage(clientNode.getHostName(), clientNode.getPort(), loginName, loginHostName, loginPort);
         try {
             user.getClientNode().getOut().write(loginMessage);
+            return user;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return user;
+        return null;
     }
 
     @Override
@@ -167,9 +173,16 @@ public class ChatProtocolMessageHandler implements MessageHandler {
             if (hostName.isReachable(2000)) {
                 clientNode = this.factory.createNode(hostName, port);
                 ClientStartTask task = new ClientStartTask(clientNode);
-                this.executor.execute(task);
+                Future<Boolean> result = this.executor.submit(task);
+                if (result.get()) {
+                    return clientNode;
+                }
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
         return clientNode;
