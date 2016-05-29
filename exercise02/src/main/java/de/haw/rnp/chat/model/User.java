@@ -2,12 +2,16 @@ package de.haw.rnp.chat.model;
 
 import de.haw.rnp.chat.networkmanager.Node;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * This class represents a User, containing a name and a clientNode.
  */
 public class User {
     private String name;
     private Node clientNode;
+    private BlockingQueue<Node> incomingNodes;
     private Node serverNode;
 
     /**
@@ -18,6 +22,7 @@ public class User {
     public User(String name, Node clientNode){
         this.setName(name);
         this.setClientNode(clientNode);
+        this.incomingNodes = new LinkedBlockingQueue<>();
     }
 
 
@@ -43,6 +48,14 @@ public class User {
 
     public void setServerNode(Node serverNode) {
         this.serverNode = serverNode;
+    }
+
+    public boolean addIncomingClientNode(Node n) {
+        return this.incomingNodes.offer(n);
+    }
+
+    public BlockingQueue<Node> getIncomingNodes() {
+        return incomingNodes;
     }
 
     @Override
