@@ -1,14 +1,16 @@
 package de.haw.rnp.chat.model;
 
+import java.util.List;
+
 /**
  * This class represents a message.
  */
 public class Message {
     private String text;
     private User sender;
-    private User receiver;
+    private List<User> receiver;
 
-    public Message(String text, User sender, User receiver) {
+    public Message(String text, User sender, List<User> receiver) {
         this.text = text;
         this.sender = sender;
         this.receiver = receiver;
@@ -30,12 +32,20 @@ public class Message {
         this.sender = sender;
     }
 
-    public User getReceiver() {
+    public List<User> getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(List<User> receiver) {
         this.receiver = receiver;
+    }
+
+    public boolean addReceiver(User u) {
+        return this.receiver.add(u);
+    }
+
+    public boolean removeReceiver(User u) {
+        return this.receiver.remove(u);
     }
 
     @Override
