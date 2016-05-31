@@ -49,13 +49,8 @@ public class Controller implements IControllerService {
             if (server != null) {
                 ServerCloseTask closeTask = new ServerCloseTask(this.server);
                 Future<Boolean> closed = this.outgoingMessageHandler.getExecutor().submit(closeTask);
-                try {
-                    if (closed.get()) {
-                        this.executor.shutdownNow();
-                    }
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                this.waitingConnection.stop();
+                this.executor.shutdownNow();
             }
             Platform.exit();
         });
@@ -117,8 +112,8 @@ public class Controller implements IControllerService {
         Future<Boolean> serverStarted = this.outgoingMessageHandler.getExecutor().submit(startServerTask);
         try {
             if (serverStarted.get()) {
-                waitingConnection = new ServerAwaitConnectionsTask(server);
-                this.outgoingMessageHandler.getExecutor().execute(waitingConnection);
+                this.waitingConnection = new ServerAwaitConnectionsTask(server);
+                this.executor.execute(this.waitingConnection);
                 return true;
             }
         } catch (InterruptedException | ExecutionException e) {

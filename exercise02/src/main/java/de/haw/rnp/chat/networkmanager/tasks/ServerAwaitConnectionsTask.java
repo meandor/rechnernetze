@@ -12,6 +12,9 @@ public class ServerAwaitConnectionsTask extends GeneralTask implements Runnable 
     public void run() {
         while (!this.stopped) {
             this.node.awaitConnections();
+            if (Thread.interrupted()) {
+                break;
+            }
         }
     }
 }
