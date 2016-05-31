@@ -17,5 +17,5 @@ public enum MessageType {
     }
 
     private static MessageType[] allValues = values();
-    public static MessageType fromByte(byte n) {return allValues[Byte.toUnsignedInt(n)];}
+    public static MessageType fromByte(byte n) {return allValues[Byte.toUnsignedInt(n)-1];}
 }

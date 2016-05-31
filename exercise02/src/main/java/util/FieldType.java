@@ -16,11 +16,11 @@ public enum FieldType {
         this.code = code;
     }
 
-    public byte getCode() {
-        return ChatUtil.intToByte(code);
+    public byte[] getCode() {
+        return ChatUtil.intToTwoBytesArray(code);
     }
 
     private static FieldType[] allValues = values();
 
-    public static FieldType fromInt(int n) {return allValues[n];}
+    public static FieldType fromInt(int n) {return allValues[n-1];}
 }
