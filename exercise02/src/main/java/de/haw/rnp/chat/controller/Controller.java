@@ -84,7 +84,8 @@ public class Controller implements IControllerService {
         return true;
     }
 
-    private boolean startServer(InetAddress hostName, int port) {
+    @Override
+    public boolean startServer(InetAddress hostName, int port) {
         Node serverNode = this.outgoingMessageHandler.getFactory().createNode(hostName,port);
         ServerStartTask startServerTask = new ServerStartTask(serverNode);
         Future<Boolean> serverStarted = this.outgoingMessageHandler.getExecutor().submit(startServerTask);

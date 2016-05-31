@@ -13,21 +13,49 @@ public class ViewController implements IView {
     private Stage stage;
     private LoginView loginView;
     private ChatView chatView;
+    private ServerView serverView;
     private IControllerService controllerService;
     private boolean isLogged;
     private String userName;
+    private InetAddress serverHostName;
+    private int serverPort;
 
     public ViewController(Stage stage, IControllerService controllerService) {
         this.stage = stage;
         this.controllerService = controllerService;
         this.isLogged = false;
-        initLoginView();
+        initServerView();
     }
 
-    private boolean validateFields(String user, String host, String port, String localHost, String localport) {
-        if (user.length() <= 0 && host.length() <= 0 && port.length() <= 0 & localHost.length() <= 0 & localport.length() <= 0)
-            return false;
-        return true;
+    private boolean validateFields(String user, String host, String port) {
+        return (user.length() > 0 && host.length() > 0 && port.length() > 0);
+    }
+
+    private void initServerView() {
+        this.serverView = new ServerView();
+
+        this.serverView.getStartServer().setOnAction(event -> {
+            String hostName = serverView.getHostNameField().getText();
+            String port = serverView.getPortField().getText();
+
+            if (validateFields("1", hostName, port)) {
+                InetAddress serverHostName = null;
+                try {
+                    serverHostName = InetAddress.getByName(hostName);
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                int serverPort = Integer.parseInt(port);
+                if (controllerService.startServer(serverHostName, serverPort)) {
+                    this.serverHostName = serverHostName;
+                    this.serverPort = serverPort;
+                    initLoginView();
+                }
+            }
+        });
+
+        stage.setScene(serverView.getScene());
+        stage.show();
     }
 
     private void initLoginView() {
@@ -37,16 +65,9 @@ public class ViewController implements IView {
             String user = loginView.getUserTextField().getText();
             String host = loginView.getHostTextField().getText();
             String port = loginView.getPortTextField().getText();
-            String localHost = loginView.getLocalHostTextField().getText();
-            String localport = loginView.getLocalPortTextField().getText();
-            if (validateFields(user, host, port, localHost, localport)) {
+            if (validateFields(user, host, port)) {
                 try {
-                    userName = controllerService.login(
-                            user,
-                            InetAddress.getByName(host),
-                            InetAddress.getByName(localHost),
-                            Integer.parseInt(port),
-                            Integer.parseInt(localport));
+                    userName = controllerService.login(user, InetAddress.getByName(host), serverHostName, Integer.parseInt(port), serverPort);
                     isLogged = true;
                     initChatView();
                 } catch (UnknownHostException e) {
@@ -66,8 +87,8 @@ public class ViewController implements IView {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 String text = chatView.getMessageTextArea().getText();
                 String recipient = chatView.getUserlistBox().getValue().toString();
-                controllerService.sendMessage(recipient,text);
-                chatView.getDisplayTextArea().appendText(userName + "send to" + recipient +":\n" + text + "\n");
+                controllerService.sendMessage(recipient, text);
+                chatView.getDisplayTextArea().appendText(userName + "send to" + recipient + ":\n" + text + "\n");
                 chatView.getMessageTextArea().clear();
             }
         });
