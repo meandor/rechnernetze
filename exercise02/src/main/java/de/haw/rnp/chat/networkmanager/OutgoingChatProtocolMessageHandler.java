@@ -6,6 +6,7 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.model.LoginMessage;
 import de.haw.rnp.chat.networkmanager.model.LogoutMessage;
+import de.haw.rnp.chat.networkmanager.model.MyNameMessage;
 import de.haw.rnp.chat.networkmanager.tasks.*;
 
 import java.io.IOException;
@@ -104,7 +105,17 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
 
     @Override
     public void sendName(InetAddress activePeerHostName, int activePeerPort, String name, InetAddress nameHostName, int namePort) {
-
+        // Establish Connection to the active peer
+        Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+        MyNameMessage myNameMessage = new MyNameMessage(nameHostName, namePort, name);
+        try {
+            clientNode.getOut().write(myNameMessage.getFullMessage());
+            ClientCloseTask closeClient = new ClientCloseTask(clientNode);
+            // Closing the connection to the active peer
+            this.executor.submit(closeClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -64,6 +64,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
             ServerAwaitConnectionsTask serverAwaitConnectionsTask = new ServerAwaitConnectionsTask(this.server);
             this.messageHandler.getExecutor().execute(serverAwaitConnectionsTask);
             this.messageHandler.logout(this.server.getHostName(), this.server.getPort(), InetAddress.getByName("10.0.0.1"), 15533);
+            assert true;
         } else {
             assert false;
         }
@@ -76,7 +77,20 @@ public class OutgoingChatProtocolMessageHandlerTest {
 
     @Test
     public void sendName() throws Exception {
-
+        // Start new test server
+        this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 27115);
+        ServerStartTask serverStartTask = new ServerStartTask(this.server);
+        Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
+        if (serverStarted.get()) {
+            ServerReadTask read = new ServerReadTask(this.server);
+            this.messageHandler.getExecutor().execute(read);
+            ServerAwaitConnectionsTask serverAwaitConnectionsTask = new ServerAwaitConnectionsTask(this.server);
+            this.messageHandler.getExecutor().execute(serverAwaitConnectionsTask);
+            this.messageHandler.sendName(this.server.getHostName(), this.server.getPort(), "FOO", InetAddress.getByName("10.0.0.1"), 15533);
+            assert true;
+        } else {
+            assert false;
+        }
     }
 
     @Test
@@ -94,6 +108,9 @@ public class OutgoingChatProtocolMessageHandlerTest {
             //Stop Client
             ClientCloseTask clientCloseTask = new ClientCloseTask(node);
             this.messageHandler.getExecutor().submit(clientCloseTask);
+            assert true;
+        } else {
+            assert false;
         }
     }
 }
