@@ -61,9 +61,9 @@ public class TCPNode extends Node {
 
     public void stopServerNode() {
         try {
+            this.serverSocket.close();
             this.out.close();
             this.in.close();
-            this.serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

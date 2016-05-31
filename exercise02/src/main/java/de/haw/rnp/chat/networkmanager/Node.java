@@ -6,6 +6,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * A Node can be a server or a client.
+ */
 public abstract class Node {
     protected int port;
     protected InetAddress hostName;
