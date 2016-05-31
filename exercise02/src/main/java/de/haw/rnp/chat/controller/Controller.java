@@ -127,10 +127,12 @@ public class Controller implements IControllerService {
         return false;
     }
 
+    @Override
     public User getLoggedInUser() {
         return loggedInUser;
     }
 
+    @Override
     public void setLoggedInUser(User loggedInUser) {
         this.loggedInUser = loggedInUser;
     }

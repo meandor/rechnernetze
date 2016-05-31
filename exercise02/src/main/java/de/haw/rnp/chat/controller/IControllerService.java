@@ -13,5 +13,7 @@ public interface IControllerService {
     boolean startServer(InetAddress hostName, int port);
     boolean addMessageToQueue(Message message);
     boolean addUser(User u);
+    User getLoggedInUser();
+    void setLoggedInUser(User u);
     ExecutorService getExecutor();
 }

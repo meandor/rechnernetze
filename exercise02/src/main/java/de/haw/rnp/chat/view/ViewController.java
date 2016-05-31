@@ -14,16 +14,14 @@ public class ViewController implements IView {
     private LoginView loginView;
     private ChatView chatView;
     private ServerView serverView;
-    private IControllerService controllerService;
-    private boolean loggedIn;
+    private IControllerService controller;
     private String userName;
     private InetAddress serverHostName;
     private int serverPort;
 
-    public ViewController(Stage stage, IControllerService controllerService) {
+    public ViewController(Stage stage, IControllerService controller) {
         this.stage = stage;
-        this.controllerService = controllerService;
-        this.loggedIn = false;
+        this.controller = controller;
         initServerView();
     }
 
@@ -46,7 +44,7 @@ public class ViewController implements IView {
                     e.printStackTrace();
                 }
                 int serverPort = Integer.parseInt(port);
-                if (controllerService.startServer(serverHostName, serverPort)) {
+                if (controller.startServer(serverHostName, serverPort)) {
                     this.serverHostName = serverHostName;
                     this.serverPort = serverPort;
                     initLoginView();
@@ -67,8 +65,7 @@ public class ViewController implements IView {
             String port = loginView.getPortTextField().getText();
             if (validateFields(user, host, port)) {
                 try {
-                    userName = controllerService.login(user, InetAddress.getByName(host), serverHostName, Integer.parseInt(port), serverPort);
-                    loggedIn = true;
+                    controller.login(user, InetAddress.getByName(host), serverHostName, Integer.parseInt(port), serverPort);
                     initChatView();
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
@@ -87,14 +84,14 @@ public class ViewController implements IView {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 String text = chatView.getMessageTextArea().getText();
                 String recipient = chatView.getUserlistBox().getValue().toString();
-                controllerService.sendMessage(recipient, text);
+                controller.sendMessage(recipient, text);
                 chatView.getDisplayTextArea().appendText(userName + "send to" + recipient + ":\n" + text + "\n");
                 chatView.getMessageTextArea().clear();
             }
         });
 
         chatView.getLogoutButton().setOnAction(action -> {
-            this.controllerService.logout();
+            this.controller.logout();
             setUserLoggedOff();
             initLoginView();
         });
@@ -105,13 +102,11 @@ public class ViewController implements IView {
     private void setUserLoggedOff() {
         this.chatView = null;
         this.userName = "";
-        this.loggedIn = false;
-        //delete user credentials
+        controller.setLoggedInUser(null);
     }
 
     @Override
     public void setUserLoggedIn(String userName) {
-        this.loggedIn = true;
         this.userName = userName;
         this.loginView = null;
         initChatView();
@@ -119,10 +114,10 @@ public class ViewController implements IView {
 
     @Override
     public void updateUserlist(List<String> usernames) {
-        if (loggedIn && !usernames.isEmpty()) {
+        if (controller.getLoggedInUser() != null && !usernames.isEmpty()) {
             chatView.getUserlistBox().setItems(FXCollections.observableArrayList(usernames));
             chatView.getUserlistBox().setValue(usernames.get(0));
-        } else if (loggedIn && usernames.isEmpty()) {
+        } else if (controller.getLoggedInUser() != null && usernames.isEmpty()) {
             chatView.getUserlistBox().setItems(FXCollections.observableArrayList("empty"));
             chatView.getUserlistBox().setValue("empty");
         }
@@ -130,7 +125,7 @@ public class ViewController implements IView {
 
     @Override
     public void appendMessage(String from, String message) {
-        if (loggedIn) {
+        if (controller.getLoggedInUser() != null) {
             chatView.getDisplayTextArea().appendText("Message from " + from + ":\n" + message);
         }
     }
