@@ -1,4 +1,4 @@
-package de.haw.rnp.chat.networkmanager;
+package de.haw.rnp.chat.networkmanager.model;
 
 import util.ChatUtil;
 import util.FieldType;
@@ -6,8 +6,10 @@ import util.MessageType;
 import util.Triplet;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,11 +19,10 @@ public class ProtocolMessage {
     //constant byte lengths
     private static final int IP_LENGTH = 4;
     private static final int PORT_LENGTH = 2;
-    private static final int NAME_MIN = 3;
-    private static final int NAME_MAX = 24;
+    private static final int FIELDTYPE_LENGTH = 2;
     private static final int USERLIST_MULTI = IP_LENGTH + PORT_LENGTH + 2;
-    private static final int RESERVED = 2;
     private static final int BYTE_LENGTH = 1;
+    private static final int HEADER_LENGTH = 12;
 
     //CommonHeader
     private int version;
@@ -40,6 +41,36 @@ public class ProtocolMessage {
         this.fieldCount = fieldCount;
         this.reserved = new byte[]{0x0,0x0};
         this.fields = new ArrayList<>();
+    }
+
+    public ProtocolMessage(byte[] protocolMessage) {
+        readHeader(Arrays.copyOf(protocolMessage, HEADER_LENGTH));
+        readFields(Arrays.copyOfRange(protocolMessage, HEADER_LENGTH-1, protocolMessage.length));
+    }
+
+    private void readFields(byte[] fieldArr){
+        for(int pos = 0; pos < fieldArr.length; ){
+            byte[] fieldTypeByte = Arrays.copyOfRange(fieldArr, pos, pos + FIELDTYPE_LENGTH);
+            FieldType fieldType = FieldType.fromInt(ChatUtil.byteArrayToInt(fieldTypeByte));
+            pos += FIELDTYPE_LENGTH;
+            int length = ChatUtil.byteArrayToInt(Arrays.copyOfRange(fieldArr, pos, pos + FIELDTYPE_LENGTH));
+            pos += FIELDTYPE_LENGTH;
+            byte[] field = Arrays.copyOfRange(fieldArr, pos, pos + length);
+            pos += length;
+            fields.add(new Triplet<>(fieldType, length, field));
+        }
+    }
+
+    private void readHeader(byte[] header){
+        version = Byte.toUnsignedInt(header[0]);
+        messageType = MessageType.fromByte(header[1]);
+        try {
+            senderIp = InetAddress.getByAddress(Arrays.copyOfRange(header, 4, 8));
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        senderPort = ChatUtil.byteArrayToInt(Arrays.copyOfRange(header, 8, 10));
+        fieldCount = ChatUtil.byteArrayToInt(Arrays.copyOfRange(header, 10, 12));
     }
 
     public byte[] getMessageAsByteArray(){
@@ -100,6 +131,26 @@ public class ProtocolMessage {
             result = ChatUtil.concat(result, user.getKey().getAddress(), reserved, port);
         }
         return result;
+    }
+
+    private HashMap<InetAddress, Integer> byteArrayToUserList(Triplet<FieldType, Integer, byte[]> triplet){
+        HashMap<InetAddress, Integer> hashmap = new HashMap<>();
+        int noOfEntries = Integer.divideUnsigned(triplet.getSecond(), USERLIST_MULTI);
+        byte[] entries = Arrays.copyOfRange(triplet.getThird(), FIELDTYPE_LENGTH*2 - 1, triplet.getThird().length);
+        for(int counter = 0; counter < noOfEntries; counter++){
+            InetAddress ip = null;
+            try {
+                ip = InetAddress.getByAddress(Arrays.copyOf(entries, IP_LENGTH));
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            int pos = IP_LENGTH + PORT_LENGTH;
+            int offset = IP_LENGTH + (2*PORT_LENGTH);
+            int port = ChatUtil.byteArrayToInt(Arrays.copyOfRange(entries, pos, offset));
+            hashmap.put(ip, port);
+            entries = Arrays.copyOfRange(entries, offset, entries.length);
+        }
+        return hashmap;
     }
 
     private boolean validateMinFields(int num){

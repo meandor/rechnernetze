@@ -19,4 +19,8 @@ public enum FieldType {
     public byte getCode() {
         return ChatUtil.intToByte(code);
     }
+
+    private static FieldType[] allValues = values();
+
+    public static FieldType fromInt(int n) {return allValues[n];}
 }
