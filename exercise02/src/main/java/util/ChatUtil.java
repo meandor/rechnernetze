@@ -38,4 +38,10 @@ public final class ChatUtil {
         }
         return result;
     }
+
+    public static int byteArrayToInt(byte[] b)
+    {
+        return   b[1] & 0xFF |
+                (b[0] & 0xFF) << 8;
+    }
 }
