@@ -3,6 +3,7 @@ package de.haw.rnp.chat.networkmanager;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import org.junit.After;
 import org.junit.Before;
@@ -37,6 +38,8 @@ public class OutgoingChatProtocolMessageHandlerTest {
         ServerStartTask serverStartTask = new ServerStartTask(this.server);
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
         if (serverStarted.get()) {
+            ServerReadTask read = new ServerReadTask(this.server);
+            this.messageHandler.getExecutor().execute(read);
             ServerAwaitConnectionsTask serverAwaitConnectionsTask = new ServerAwaitConnectionsTask(this.server);
             this.messageHandler.getExecutor().execute(serverAwaitConnectionsTask);
             User u = this.messageHandler.login(this.server.getHostName(), this.server.getPort(), "FOO", InetAddress.getByName("10.0.0.1"), 15533);
@@ -44,12 +47,26 @@ public class OutgoingChatProtocolMessageHandlerTest {
             assertEquals("FOO", u.getName());
             assertEquals("10.0.0.1", u.getHostName().getHostAddress());
             assertEquals(15533, u.getPort());
+        } else {
+            assert false;
         }
     }
 
     @Test
     public void logout() throws Exception {
-
+        // Start new test server
+        this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 27015);
+        ServerStartTask serverStartTask = new ServerStartTask(this.server);
+        Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
+        if (serverStarted.get()) {
+            ServerReadTask read = new ServerReadTask(this.server);
+            this.messageHandler.getExecutor().execute(read);
+            ServerAwaitConnectionsTask serverAwaitConnectionsTask = new ServerAwaitConnectionsTask(this.server);
+            this.messageHandler.getExecutor().execute(serverAwaitConnectionsTask);
+            this.messageHandler.logout(this.server.getHostName(), this.server.getPort(), InetAddress.getByName("10.0.0.1"), 15533);
+        } else {
+            assert false;
+        }
     }
 
     @Test
@@ -58,17 +75,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
     }
 
     @Test
-    public void receiveMessage() throws Exception {
-
-    }
-
-    @Test
     public void sendName() throws Exception {
-
-    }
-
-    @Test
-    public void changeName() throws Exception {
 
     }
 

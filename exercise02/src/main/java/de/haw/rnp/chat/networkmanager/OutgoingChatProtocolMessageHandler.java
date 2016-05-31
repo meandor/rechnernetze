@@ -84,7 +84,17 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
 
     @Override
     public void logout(InetAddress activePeerHostName, int activePeerPort, InetAddress logoutHostName, int logoutPort) {
-
+        // Establish Connection to the active peer
+        Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+        LogoutMessage logoutMessage = new LogoutMessage(logoutHostName, logoutPort, logoutHostName, logoutPort);
+        try {
+            clientNode.getOut().write(logoutMessage.getFullMessage());
+            ClientCloseTask closeClient = new ClientCloseTask(clientNode);
+            // Closing the connection to the active peer
+            this.executor.submit(closeClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
