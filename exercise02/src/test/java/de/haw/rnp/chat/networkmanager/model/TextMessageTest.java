@@ -23,12 +23,13 @@ public class TextMessageTest {
         ArrayList<User> userList = new ArrayList<>();
         userList.add(u1);
         userList.add(u2);
-        this.message = new TextMessage(InetAddress.getByName("10.0.0.1"), 15000, "FOO",userList);
+        this.message = new TextMessage(InetAddress.getByName("10.0.0.1"), 15000, "FOO", userList);
     }
 
     @Test
     public void getMessageTest() throws Exception {
         byte[] result = this.message.getFullMessage();
+        assertEquals(47, result.length);
         assertEquals(0x1, result[0]);
         assertEquals(0x3, result[1]);
         assertEquals(0x0, result[2]);
@@ -49,42 +50,37 @@ public class TextMessageTest {
         assertEquals((byte) 0x46, result[16]);
         assertEquals((byte) 0x4f, result[17]);
         assertEquals((byte) 0x4f, result[18]);
+
         assertEquals(0x0, result[19]);
-
-        assertEquals(0x0, result[20]);
-        assertEquals(0x1, result[21]);
-        assertEquals(0x0, result[22]);
-        assertEquals(0x4, result[23]);
-        assertEquals(0xA, result[24]);
+        assertEquals(0x1, result[20]);
+        assertEquals(0x0, result[21]);
+        assertEquals(0x4, result[22]);
+        assertEquals(0xA, result[23]);
+        assertEquals(0x0, result[24]);
         assertEquals(0x0, result[25]);
-        assertEquals(0x0, result[26]);
-        assertEquals(0x1, result[27]);
+        assertEquals(0x1, result[26]);
 
-        assertEquals(0x0, result[28]);
-        assertEquals(0x2, result[29]);
-        assertEquals(0x0, result[30]);
-        assertEquals(0x2, result[31]);
-        assertEquals(0x3C, result[32]);
-        assertEquals(((byte) 0x8c), result[33]);
-        assertEquals(0x0, result[34]);
+        assertEquals(0x0, result[27]);
+        assertEquals(0x2, result[28]);
+        assertEquals(0x0, result[29]);
+        assertEquals(0x2, result[30]);
+        assertEquals(0x3C, result[31]);
+        assertEquals(((byte) 0x8c), result[32]);
+
+        assertEquals(0x0, result[33]);
+        assertEquals(0x1, result[34]);
         assertEquals(0x0, result[35]);
-
-        assertEquals(0x0, result[36]);
-        assertEquals(0x1, result[37]);
+        assertEquals(0x4, result[36]);
+        assertEquals(0xA, result[37]);
         assertEquals(0x0, result[38]);
-        assertEquals(0x4, result[39]);
-        assertEquals(0xA, result[40]);
-        assertEquals(0x0, result[41]);
-        assertEquals(0x0, result[42]);
-        assertEquals(0x2, result[43]);
+        assertEquals(0x0, result[39]);
+        assertEquals(0x2, result[40]);
 
-        assertEquals(0x0, result[44]);
-        assertEquals(0x2, result[45]);
-        assertEquals(0x0, result[46]);
-        assertEquals(0x2, result[47]);
-        assertEquals(0x3A, result[48]);
-        assertEquals(((byte) 0x98), result[49]);
-        assertEquals(0x0, result[50]);
-        assertEquals(0x0, result[51]);
+        assertEquals(0x0, result[41]);
+        assertEquals(0x2, result[42]);
+        assertEquals(0x0, result[43]);
+        assertEquals(0x2, result[44]);
+        assertEquals(0x3A, result[45]);
+        assertEquals(((byte) 0x98), result[46]);
     }
 }

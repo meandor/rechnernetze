@@ -31,6 +31,7 @@ public class LoginMessageTest {
             System.out.println("counter " + x);
         }*/
         //assertArrayEquals(result, message2.getMessageAsByteArray());
+        assertEquals(33, result.length);
         assertEquals(0x1, result[0]);
         assertEquals(0x1, result[1]);
         assertEquals(0x0, result[2]);
@@ -86,6 +87,7 @@ public class LoginMessageTest {
     @Test
     public void IPField() throws Exception {
         byte[] result = this.message.IPField(InetAddress.getByName("127.0.0.1"));
+        assertEquals(8, result.length);
         assertEquals(0x0, result[0]);
         assertEquals(0x1, result[1]);
         assertEquals(0x0, result[2]);
@@ -111,6 +113,7 @@ public class LoginMessageTest {
     @Test
     public void nameField() throws Exception {
         byte[] result = this.message.nameField("FOO");
+        assertEquals(7, result.length);
         assertEquals(0x0, result[0]);
         assertEquals(0x4, result[1]);
         assertEquals(0x0, result[2]);
@@ -123,6 +126,7 @@ public class LoginMessageTest {
     @Test
     public void textField() throws Exception {
         byte[] result = this.message.textField("BAR");
+        assertEquals(7, result.length);
         assertEquals(0x0, result[0]);
         assertEquals(0x5, result[1]);
         assertEquals(0x0, result[2]);

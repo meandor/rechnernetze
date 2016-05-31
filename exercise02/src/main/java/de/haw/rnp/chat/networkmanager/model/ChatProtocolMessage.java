@@ -65,7 +65,7 @@ public abstract class ChatProtocolMessage {
 
     protected byte[] nameField(String name) {
         byte[] nameByte = name.getBytes(StandardCharsets.US_ASCII);
-        byte[] result = new byte[4 + this.paddedSize(nameByte.length)];
+        byte[] result = new byte[4 + nameByte.length];
         result[1] = 0x4;
         result[3] = (byte) nameByte.length;
         System.arraycopy(nameByte, 0, result, 4, nameByte.length);
@@ -74,7 +74,7 @@ public abstract class ChatProtocolMessage {
 
     protected byte[] textField(String text) {
         byte[] textByte = text.getBytes(StandardCharsets.US_ASCII);
-        byte[] result = new byte[4 + this.paddedSize(textByte.length)];
+        byte[] result = new byte[4 + textByte.length];
         result[1] = 0x5;
         result[3] = (byte) textByte.length;
         System.arraycopy(textByte, 0, result, 4, textByte.length);
@@ -82,7 +82,7 @@ public abstract class ChatProtocolMessage {
     }
 
     protected byte[] userListField(List<User> userList) {
-        int size = userList.size() * 16;
+        int size = userList.size() * 14;
         byte[] result = new byte[size];
         int position = 0;
         for (User u : userList) {
@@ -91,7 +91,7 @@ public abstract class ChatProtocolMessage {
             System.arraycopy(ipField, 0, result, position, ipField.length);
             position += 8;
             System.arraycopy(portField, 0, result, position, portField.length);
-            position += 8;
+            position += 6;
         }
         return result;
     }
@@ -110,15 +110,5 @@ public abstract class ChatProtocolMessage {
             position += field.length;
         }
         return result;
-    }
-
-    /**
-     * Returns a size that is aligned to 4 bytes.
-     *
-     * @param actualSize int of the size of the field
-     * @return the size aligned by 4 bytes
-     */
-    private int paddedSize(int actualSize) {
-        return (4 * (actualSize / 4 + 1));
     }
 }
