@@ -2,8 +2,12 @@ package de.haw.rnp.chat.controller;
 
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.Node;
 import de.haw.rnp.chat.networkmanager.OutgoingChatProtocolMessageHandler;
 import de.haw.rnp.chat.networkmanager.OutgoingMessageHandler;
+import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerCloseTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import de.haw.rnp.chat.view.IView;
 import de.haw.rnp.chat.view.ViewController;
 import javafx.stage.Stage;
@@ -12,6 +16,8 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Controller implements IControllerService {
@@ -76,6 +82,24 @@ public class Controller implements IControllerService {
         Message ms = new Message(message, loggedInUser, userList);
         outgoingMessageHandler.sendMessage(ms);
         return true;
+    }
+
+    private boolean startServer(InetAddress hostName, int port) {
+        Node serverNode = this.outgoingMessageHandler.getFactory().createNode(hostName,port);
+        ServerStartTask startServerTask = new ServerStartTask(serverNode);
+        Future<Boolean> serverStarted = this.outgoingMessageHandler.getExecutor().submit(startServerTask);
+        try {
+            if (serverStarted.get()) {
+                ServerAwaitConnectionsTask awaitConnectionsTask = new ServerAwaitConnectionsTask(serverNode);
+                this.outgoingMessageHandler.getExecutor().execute(awaitConnectionsTask);
+                return true;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            ServerCloseTask closeTask = new ServerCloseTask(serverNode);
+            this.outgoingMessageHandler.getExecutor().submit(closeTask);
+        }
+        return false;
     }
 
     private User getUserByName(String userName) {

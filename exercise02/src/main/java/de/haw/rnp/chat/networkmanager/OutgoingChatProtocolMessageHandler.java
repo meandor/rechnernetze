@@ -46,20 +46,6 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
     public User login(InetAddress activePeerHostName, int activePeerPort, String loginName, InetAddress loginHostName, int loginPort) {
         // Create a server node for the user
         Node serverNode = this.factory.createNode(loginHostName, loginPort);
-        // Start the server node
-        ServerStartTask startServerTask = new ServerStartTask(serverNode);
-        Future<Boolean> serverStarted = this.executor.submit(startServerTask);
-        try {
-            if (serverStarted.get()) {
-                ServerAwaitConnectionsTask awaitConnectionsTask = new ServerAwaitConnectionsTask(serverNode);
-                this.executor.execute(awaitConnectionsTask);
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            ServerCloseTask closeTask = new ServerCloseTask(serverNode);
-            this.executor.submit(closeTask);
-            return null;
-        }
 
         // Establish Connection to the active peer
         Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
