@@ -103,15 +103,20 @@ public class Controller implements IControllerService {
 
     @Override
     public boolean sendMessage(String recipient, String message) {
-        User user = getUserByName(recipient);
-        if (user == null) {
-            return false;
+        ArrayList<User> usersList = new ArrayList<>();
+        String[] recipients = recipient.split(",");
+        for (String u : recipients) {
+            User user = getUserByName(u);
+            if (user != null) {
+                usersList.add(user);
+            }
         }
-        ArrayList<User> userList = new ArrayList<>();
-        userList.add(user);
-        Message ms = new Message(message, loggedInUser, userList);
-        outgoingMessageHandler.sendMessage(ms);
-        return true;
+        if (usersList.size() > 0) {
+            Message ms = new Message(message, loggedInUser, usersList);
+            outgoingMessageHandler.sendMessage(ms);
+            return true;
+        }
+        return false;
     }
 
     @Override

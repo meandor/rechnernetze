@@ -5,7 +5,7 @@ import de.haw.rnp.chat.model.User;
 import java.util.concurrent.BlockingQueue;
 
 public interface IView {
-    void setUserLoggedIn(String userName);
+    void setUserLoggedIn();
 
     void updateUserlist(BlockingQueue<User> users);
 

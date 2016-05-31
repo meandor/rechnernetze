@@ -19,15 +19,14 @@ public class ViewController implements IView {
     private ChatView chatView;
     private ServerView serverView;
     private IControllerService controller;
-    private String userName;
     private InetAddress serverHostName;
     private int serverPort;
 
     public ViewController(Stage stage, IControllerService controller) {
         this.stage = stage;
         this.controller = controller;
-        //initServerView();
-        initChatView(controller.getUserList());
+        initServerView();
+        //initChatView(controller.getUserList());
     }
 
     private boolean validateFields(String user, String host, String port) {
@@ -65,7 +64,7 @@ public class ViewController implements IView {
         loginView = new LoginView();
 
         loginView.getSignin().setOnAction(action -> {
-            String user = loginView.getUserTextField().getText() + " - me ";
+            String user = loginView.getUserTextField().getText() + " - me";
             String host = loginView.getHostTextField().getText();
             String port = loginView.getPortTextField().getText();
             if (validateFields(user, host, port)) {
@@ -90,9 +89,10 @@ public class ViewController implements IView {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 String text = chatView.getMessageTextArea().getText();
                 String recipient = chatView.getReceiver().getText();
-                controller.sendMessage(recipient, text);
-                chatView.getDisplayTextArea().appendText(userName + "send to" + recipient + ":\n" + text + "\n");
-                chatView.getMessageTextArea().clear();
+                if (controller.sendMessage(recipient, text)) {
+                    chatView.getDisplayTextArea().appendText(controller.getLoggedInUser().getName() + " send to " + recipient + ":\n" + text + "\n");
+                    chatView.getMessageTextArea().clear();
+                }
             }
         });
 
@@ -107,13 +107,11 @@ public class ViewController implements IView {
 
     private void setUserLoggedOff() {
         this.chatView = null;
-        this.userName = "";
         controller.setLoggedInUser(null);
     }
 
     @Override
-    public void setUserLoggedIn(String userName) {
-        this.userName = userName;
+    public void setUserLoggedIn() {
         this.loginView = null;
         initChatView(controller.getUserList());
     }
