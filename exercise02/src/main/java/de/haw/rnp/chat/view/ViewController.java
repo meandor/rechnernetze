@@ -63,7 +63,7 @@ public class ViewController implements IView {
         loginView = new LoginView();
 
         loginView.getSignin().setOnAction(action -> {
-            String user = loginView.getUserTextField().getText();
+            String user = loginView.getUserTextField().getText() + " - me ";
             String host = loginView.getHostTextField().getText();
             String port = loginView.getPortTextField().getText();
             if (validateFields(user, host, port)) {

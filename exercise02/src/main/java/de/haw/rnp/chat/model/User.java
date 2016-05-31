@@ -3,10 +3,6 @@ package de.haw.rnp.chat.model;
 import de.haw.rnp.chat.networkmanager.Node;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * This class represents a User.
@@ -65,6 +61,6 @@ public class User {
 
     @Override
     public String toString() {
-        return this.name + " (" + this.hostName.getHostName() + ":" + this.port + ")";
+        return this.name + " (" + this.hostName.getHostAddress() + ":" + this.port + ")";
     }
 }

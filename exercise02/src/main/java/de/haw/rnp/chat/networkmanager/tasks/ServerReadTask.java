@@ -12,6 +12,9 @@ public class ServerReadTask extends GeneralTask implements Runnable {
     public void run() {
         while (!this.stopped) {
             this.node.readServerInput();
+            if (Thread.interrupted()) {
+                break;
+            }
         }
     }
 }

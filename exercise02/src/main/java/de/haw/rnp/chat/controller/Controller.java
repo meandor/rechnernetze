@@ -7,6 +7,7 @@ import de.haw.rnp.chat.networkmanager.OutgoingChatProtocolMessageHandler;
 import de.haw.rnp.chat.networkmanager.OutgoingMessageHandler;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerCloseTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import de.haw.rnp.chat.view.IView;
 import de.haw.rnp.chat.view.ViewController;
@@ -40,12 +41,12 @@ public class Controller implements IControllerService {
     private Controller() {
         this.messageQueue = new LinkedBlockingQueue<>();
         this.userList = new LinkedBlockingQueue<>();
-        try {
+        /*try {
             User u = new User("asd", 8080, InetAddress.getByName("10.0.0.1"));
             this.userList.add(u);
         } catch (UnknownHostException e) {
             e.printStackTrace();
-        }
+        }*/
         this.executor = Executors.newCachedThreadPool();
         this.outgoingMessageHandler = new OutgoingChatProtocolMessageHandler(this);
     }
@@ -96,7 +97,7 @@ public class Controller implements IControllerService {
         if (activePeer != null) {
             InetAddress activePeerHostName = activePeer.getHostName();
             int activePeerPort = activePeer.getPort();
-            outgoingMessageHandler.logout(activePeerHostName, activePeerPort, loggedInUser.getHostName(), loggedInUser.getPort());
+            outgoingMessageHandler.logout(activePeerHostName, activePeerPort, this.loggedInUser.getHostName(), this.loggedInUser.getPort());
         }
     }
 
@@ -120,6 +121,8 @@ public class Controller implements IControllerService {
         Future<Boolean> serverStarted = this.outgoingMessageHandler.getExecutor().submit(startServerTask);
         try {
             if (serverStarted.get()) {
+                ServerReadTask readTask = new ServerReadTask(server);
+                this.executor.submit(readTask);
                 this.waitingConnection = new ServerAwaitConnectionsTask(server);
                 this.executor.execute(this.waitingConnection);
                 return true;
