@@ -68,8 +68,9 @@ public class Controller implements IControllerService {
     @Override
     public boolean sendMessage(String recipient, String message) {
         User user = getUserByName(recipient);
-        if (user.equals(null))
+        if (user == null) {
             return false;
+        }
         ArrayList<User> userList = new ArrayList<>();
         userList.add(user);
         Message ms = new Message(message, loggedInUser, userList);
