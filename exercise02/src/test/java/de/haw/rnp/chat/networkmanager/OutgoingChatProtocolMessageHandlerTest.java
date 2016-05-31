@@ -33,7 +33,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
     public void login() throws Exception {
         // Start new test server
         this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 8080);
-        ServerStartTask serverStartTask = new ServerStartTask(this.server);
+        ServerStartTask serverStartTask = new ServerStartTask(this.server, Controller.getInstance());
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
         if (serverStarted.get()) {
             ServerReadTask read = new ServerReadTask(this.server);
@@ -54,7 +54,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
     public void logout() throws Exception {
         // Start new test server
         this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 27015);
-        ServerStartTask serverStartTask = new ServerStartTask(this.server);
+        ServerStartTask serverStartTask = new ServerStartTask(this.server, Controller.getInstance());
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
         if (serverStarted.get()) {
             ServerReadTask read = new ServerReadTask(this.server);
@@ -72,7 +72,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
     public void sendMessage() throws Exception {
         // Start new test server
         this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 27555);
-        ServerStartTask serverStartTask = new ServerStartTask(this.server);
+        ServerStartTask serverStartTask = new ServerStartTask(this.server, Controller.getInstance());
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
         if (serverStarted.get()) {
             ServerReadTask read = new ServerReadTask(this.server);
@@ -95,7 +95,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
     public void sendName() throws Exception {
         // Start new test server
         this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 27115);
-        ServerStartTask serverStartTask = new ServerStartTask(this.server);
+        ServerStartTask serverStartTask = new ServerStartTask(this.server, Controller.getInstance());
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
         if (serverStarted.get()) {
             ServerReadTask read = new ServerReadTask(this.server);
@@ -115,7 +115,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
     @Test
     public void initialConnect() throws Exception {
         this.server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 5050);
-        ServerStartTask task = new ServerStartTask(this.server);
+        ServerStartTask task = new ServerStartTask(this.server, Controller.getInstance());
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(task);
         if (serverStarted.get()) {
             ServerAwaitConnectionsTask task2 = new ServerAwaitConnectionsTask(server);

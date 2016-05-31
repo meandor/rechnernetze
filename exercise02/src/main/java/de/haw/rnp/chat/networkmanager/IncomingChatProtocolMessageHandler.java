@@ -15,7 +15,7 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
 
     private IControllerService controller;
 
-    private IncomingChatProtocolMessageHandler(IControllerService controller) {
+    public IncomingChatProtocolMessageHandler(IControllerService controller) {
         this.controller = controller;
     }
 
