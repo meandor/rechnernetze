@@ -60,7 +60,7 @@ public abstract class ChatProtocolMessage {
 
     protected byte[] nameField(String name) {
         byte[] nameByte = name.getBytes(StandardCharsets.US_ASCII);
-        byte[] result = new byte[4 + nameByte.length];
+        byte[] result = new byte[4 + this.paddedSize(nameByte.length)];
         result[1] = 0x4;
         result[3] = (byte) nameByte.length;
         System.arraycopy(nameByte, 0, result, 4, nameByte.length);
@@ -68,8 +68,8 @@ public abstract class ChatProtocolMessage {
     }
 
     protected byte[] textField(String text) {
-        byte[] textByte = text.getBytes(StandardCharsets.UTF_8);
-        byte[] result = new byte[4 + textByte.length];
+        byte[] textByte = text.getBytes(StandardCharsets.US_ASCII);
+        byte[] result = new byte[4 + this.paddedSize(textByte.length)];
         result[1] = 0x5;
         result[3] = (byte) textByte.length;
         System.arraycopy(textByte, 0, result, 4, textByte.length);
@@ -77,16 +77,16 @@ public abstract class ChatProtocolMessage {
     }
 
     protected byte[] userListField(List<ChatUser> userList) {
-        final int size = userList.size() * 8;
+        int size = userList.size() * 16;
         byte[] result = new byte[size];
         int position = 0;
         for (ChatUser u : userList) {
             byte[] ipField = this.IPField(u.getIp());
             byte[] portField = this.portField(u.getPort());
             System.arraycopy(ipField, 0, result, position, ipField.length);
-            position += 4;
+            position += 8;
             System.arraycopy(portField, 0, result, position, portField.length);
-            position += 4;
+            position += 8;
         }
         return result;
     }
@@ -100,5 +100,9 @@ public abstract class ChatProtocolMessage {
             position += field.length;
         }
         return result;
+    }
+
+    private int paddedSize(int actualSize) {
+        return (4*(actualSize/4 + 1));
     }
 }
