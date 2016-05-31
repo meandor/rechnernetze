@@ -1,6 +1,7 @@
 package util;
 
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public final class ChatUtil {
 
@@ -16,11 +17,25 @@ public final class ChatUtil {
         return ByteBuffer.allocate(Integer.BYTES).putInt(number).array();
     }
 
-    public static byte[] intToPort(int port){
+    public static byte[] intToTwoBytesArray(int number){
         byte[] result = new byte[2];
-        byte[] byteArray = intToByteArray(port);
+        byte[] byteArray = intToByteArray(number);
         result[0] = byteArray[2];
         result[1] = byteArray[3];
+        return result;
+    }
+
+    public static byte[] concat (byte[] a, byte[]... b){
+        int length = a.length;
+        for(byte[] bytes : b){
+            length += bytes.length;
+        }
+        byte[] result = Arrays.copyOf(a, length);
+        int pos = a.length;
+        for(byte[] bytes : b){
+            System.arraycopy(bytes, 0, result, pos, bytes.length);
+            pos += bytes.length;
+        }
         return result;
     }
 }
