@@ -57,7 +57,7 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             ServerCloseTask closeTask = new ServerCloseTask(serverNode);
-            this.executor.execute(closeTask);
+            this.executor.submit(closeTask);
             return null;
         }
 
@@ -69,11 +69,14 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
             clientNode.getOut().write(loginMessage.getFullMessage());
             ClientCloseTask closeClient = new ClientCloseTask(clientNode);
             // Closing the connection to the active peer
-            this.executor.execute(closeClient);
-            User user = new User(loginName, loginPort, loginHostName);
-            user.setServerNode(serverNode);
-            return user;
-        } catch (IOException e) {
+            Future<Boolean> clientClosed = this.executor.submit(closeClient);
+            if (clientClosed.get()) {
+                User user = new User(loginName, loginPort, loginHostName);
+                user.setServerNode(serverNode);
+                return user;
+            }
+            return null;
+        } catch (IOException | InterruptedException | ExecutionException e) {
             e.printStackTrace();
             return null;
         }

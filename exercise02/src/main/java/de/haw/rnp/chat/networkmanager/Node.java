@@ -46,11 +46,11 @@ public abstract class Node {
 
     public abstract boolean startClientNode();
 
-    public abstract void stopClientNode();
+    public abstract boolean stopClientNode();
 
     public abstract boolean startServerNode();
 
-    public abstract void stopServerNode();
+    public abstract boolean stopServerNode();
 
     public abstract void readServerInput();
 

@@ -35,15 +35,17 @@ public class TCPNode extends Node {
         return false;
     }
 
-    public void stopClientNode() {
+    public boolean stopClientNode() {
         try {
             this.clientSocket.close();
             this.out.close();
             this.in.close();
             System.out.println("Client closed");
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public boolean startServerNode() {
@@ -59,15 +61,17 @@ public class TCPNode extends Node {
         return false;
     }
 
-    public void stopServerNode() {
+    public boolean stopServerNode() {
         try {
             this.serverSocket.close();
-            //this.out.close();
-            //this.in.close();
+            this.out.close();
+            this.in.close();
             System.out.println("Server closed");
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     public void readServerInput() {
@@ -97,7 +101,6 @@ public class TCPNode extends Node {
             this.incomingSockets.offer(incomingSocket);
         } catch (IOException e) {
             System.err.println("Client Accept failed");
-            e.printStackTrace();
         }
 
         System.out.println("Client connected to Server " + this.hostName.getHostAddress() + ":" + this.port);
