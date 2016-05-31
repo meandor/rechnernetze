@@ -6,10 +6,7 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.model.LoginMessage;
 import de.haw.rnp.chat.networkmanager.model.LogoutMessage;
-import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
-import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
-import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
-import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
+import de.haw.rnp.chat.networkmanager.tasks.*;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -50,25 +47,28 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
         // Create a server node for the user
         Node serverNode = this.factory.createNode(loginHostName, loginPort);
         // Start the server node
-        ServerStartTask task = new ServerStartTask(serverNode);
-        Future<Boolean> serverStarted = this.executor.submit(task);
+        ServerStartTask startServerTask = new ServerStartTask(serverNode);
+        Future<Boolean> serverStarted = this.executor.submit(startServerTask);
         try {
             if (serverStarted.get()) {
-                ServerAwaitConnectionsTask task2 = new ServerAwaitConnectionsTask(serverNode);
-                this.executor.execute(task2);
+                ServerAwaitConnectionsTask awaitConnectionsTask = new ServerAwaitConnectionsTask(serverNode);
+                this.executor.execute(awaitConnectionsTask);
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            //TODO: Server stop task
+            ServerCloseTask closeTask = new ServerCloseTask(serverNode);
+            this.executor.execute(closeTask);
             return null;
         }
 
-        // Establish Connection to the active Peer
+        // Establish Connection to the active peer
         Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
         LoginMessage loginMessage = new LoginMessage(loginHostName, loginPort, loginName, loginHostName, loginPort);
         try {
+            // Sending the message to the active peer
             clientNode.getOut().write(loginMessage.getFullMessage());
             ClientCloseTask closeClient = new ClientCloseTask(clientNode);
+            // Closing the connection to the active peer
             this.executor.execute(closeClient);
             User user = new User(loginName, loginPort, loginHostName);
             user.setServerNode(serverNode);
