@@ -87,6 +87,11 @@ public class Controller implements IControllerService {
     }
 
     @Override
+    public boolean removeUser(User u) {
+        return userList.remove(u);
+    }
+
+    @Override
     public ExecutorService getExecutor() {
         return executor;
     }

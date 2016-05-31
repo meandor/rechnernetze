@@ -64,6 +64,14 @@ public interface IControllerService {
     boolean addUser(User u);
 
     /**
+     * Removes a User from the userlist
+     *
+     * @param u User to be removed
+     * @return @code{true} if successfully removed, @code{false} otherwise
+     */
+    boolean removeUser(User u);
+
+    /**
      * Returns the currently logged in User.
      *
      * @return currently logged in User

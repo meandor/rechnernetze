@@ -1,9 +1,11 @@
 package de.haw.rnp.chat.networkmanager;
 
+import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.User;
 
 import java.net.InetAddress;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Interface for handling incoming protocol messages.
@@ -53,7 +55,7 @@ public interface IncomingMessageHandler {
      * @param message byte[] message to be forwarded
      * @param users   List of all known users
      */
-    void propagate(byte[] message, List<User> users);
+    void propagate(byte[] message, Queue<User> users);
 
     /**
      * Receives an actual text message.
@@ -61,5 +63,5 @@ public interface IncomingMessageHandler {
      * @param text  String text that is received
      * @param users List all user that message is meant for
      */
-    void receiveMessage(String text, List<User> users);
+    void receiveMessage(String text, User sender, List<User> users);
 }
