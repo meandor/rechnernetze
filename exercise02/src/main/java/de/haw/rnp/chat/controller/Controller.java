@@ -5,11 +5,13 @@ import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.Node;
 import de.haw.rnp.chat.networkmanager.OutgoingChatProtocolMessageHandler;
 import de.haw.rnp.chat.networkmanager.OutgoingMessageHandler;
+import de.haw.rnp.chat.networkmanager.tasks.GeneralTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import de.haw.rnp.chat.view.IView;
 import de.haw.rnp.chat.view.ViewController;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.net.InetAddress;
@@ -23,15 +25,31 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Controller implements IControllerService {
     private BlockingQueue messageQueue;
     private User loggedInUser;
+    private Node server;
+    private ServerAwaitConnectionsTask waitingConnection;
     private List<User> userList;
     private IView view;
     private OutgoingMessageHandler outgoingMessageHandler;
 
     public Controller(Stage stage) {
+
         this.messageQueue = new LinkedBlockingQueue();
         this.userList = new ArrayList<>();
         this.view = new ViewController(stage, this);
         this.outgoingMessageHandler = new OutgoingChatProtocolMessageHandler(this);
+
+        stage.setOnCloseRequest(t -> {
+            ServerCloseTask closeTask = new ServerCloseTask(this.server);
+            Future<Boolean> closed = this.outgoingMessageHandler.getExecutor().submit(closeTask);
+            try {
+                if (closed.get()) {
+                    this.outgoingMessageHandler.getExecutor().shutdownNow();
+                    Platform.exit();
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public BlockingQueue getMessageQueue() {
@@ -86,19 +104,17 @@ public class Controller implements IControllerService {
 
     @Override
     public boolean startServer(InetAddress hostName, int port) {
-        Node serverNode = this.outgoingMessageHandler.getFactory().createNode(hostName,port);
-        ServerStartTask startServerTask = new ServerStartTask(serverNode);
+        this.server = this.outgoingMessageHandler.getFactory().createNode(hostName, port);
+        ServerStartTask startServerTask = new ServerStartTask(server);
         Future<Boolean> serverStarted = this.outgoingMessageHandler.getExecutor().submit(startServerTask);
         try {
             if (serverStarted.get()) {
-                ServerAwaitConnectionsTask awaitConnectionsTask = new ServerAwaitConnectionsTask(serverNode);
-                this.outgoingMessageHandler.getExecutor().execute(awaitConnectionsTask);
+                waitingConnection = new ServerAwaitConnectionsTask(server);
+                this.outgoingMessageHandler.getExecutor().execute(waitingConnection);
                 return true;
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            ServerCloseTask closeTask = new ServerCloseTask(serverNode);
-            this.outgoingMessageHandler.getExecutor().submit(closeTask);
         }
         return false;
     }

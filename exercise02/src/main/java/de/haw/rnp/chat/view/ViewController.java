@@ -15,7 +15,7 @@ public class ViewController implements IView {
     private ChatView chatView;
     private ServerView serverView;
     private IControllerService controllerService;
-    private boolean isLogged;
+    private boolean loggedIn;
     private String userName;
     private InetAddress serverHostName;
     private int serverPort;
@@ -23,7 +23,7 @@ public class ViewController implements IView {
     public ViewController(Stage stage, IControllerService controllerService) {
         this.stage = stage;
         this.controllerService = controllerService;
-        this.isLogged = false;
+        this.loggedIn = false;
         initServerView();
     }
 
@@ -68,7 +68,7 @@ public class ViewController implements IView {
             if (validateFields(user, host, port)) {
                 try {
                     userName = controllerService.login(user, InetAddress.getByName(host), serverHostName, Integer.parseInt(port), serverPort);
-                    isLogged = true;
+                    loggedIn = true;
                     initChatView();
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
@@ -105,13 +105,13 @@ public class ViewController implements IView {
     private void setUserLoggedOff() {
         this.chatView = null;
         this.userName = "";
-        this.isLogged = false;
+        this.loggedIn = false;
         //delete user credentials
     }
 
     @Override
     public void setUserLoggedIn(String userName) {
-        this.isLogged = true;
+        this.loggedIn = true;
         this.userName = userName;
         this.loginView = null;
         initChatView();
@@ -119,10 +119,10 @@ public class ViewController implements IView {
 
     @Override
     public void updateUserlist(List<String> usernames) {
-        if (isLogged && !usernames.isEmpty()) {
+        if (loggedIn && !usernames.isEmpty()) {
             chatView.getUserlistBox().setItems(FXCollections.observableArrayList(usernames));
             chatView.getUserlistBox().setValue(usernames.get(0));
-        } else if (isLogged && usernames.isEmpty()) {
+        } else if (loggedIn && usernames.isEmpty()) {
             chatView.getUserlistBox().setItems(FXCollections.observableArrayList("empty"));
             chatView.getUserlistBox().setValue("empty");
         }
@@ -130,7 +130,7 @@ public class ViewController implements IView {
 
     @Override
     public void appendMessage(String from, String message) {
-        if (isLogged) {
+        if (loggedIn) {
             chatView.getDisplayTextArea().appendText("Message from " + from + ":\n" + message);
         }
     }
