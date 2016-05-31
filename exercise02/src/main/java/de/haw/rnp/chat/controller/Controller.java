@@ -66,7 +66,11 @@ public class Controller implements IControllerService {
 
     @Override
     public boolean addMessageToQueue(Message message) {
-        return this.messageQueue.offer(message);
+        if (this.messageQueue.offer(message)) {
+            this.view.appendMessage(message.getSender().getName(), message.getText());
+            return true;
+        }
+        return false;
     }
 
     @Override
