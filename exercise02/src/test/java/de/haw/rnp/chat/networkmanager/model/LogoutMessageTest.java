@@ -19,6 +19,7 @@ public class LogoutMessageTest {
     @Test
     public void getFullMessageTest() throws Exception {
         byte[] result = this.message.getFullMessage();
+        assertEquals(26, result.length);
         assertEquals(0x1, result[0]);
         assertEquals(0x2, result[1]);
         assertEquals(0x0, result[2]);
@@ -47,7 +48,5 @@ public class LogoutMessageTest {
         assertEquals(0x2, result[23]);
         assertEquals(0x3C, result[24]);
         assertEquals(((byte) 0x8C), result[25]);
-        assertEquals(0x0, result[26]);
-        assertEquals(0x0, result[27]);
     }
 }

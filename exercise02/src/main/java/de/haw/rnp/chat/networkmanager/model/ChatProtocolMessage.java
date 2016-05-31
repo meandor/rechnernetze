@@ -54,7 +54,7 @@ public abstract class ChatProtocolMessage {
     }
 
     protected byte[] portField(int port) {
-        byte[] result = new byte[8];
+        byte[] result = new byte[6];
         result[1] = 0x2;
         result[3] = 0x2;
         byte[] portByte = this.intToByteArray(port);
