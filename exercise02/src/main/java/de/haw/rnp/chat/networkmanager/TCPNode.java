@@ -87,6 +87,7 @@ public class TCPNode extends Node {
                 if (s.getInputStream().available() != 0) {
                     byte[] data = new byte[s.getInputStream().available()];
                     int count = s.getInputStream().read(data);
+                    this.incomingMessageHandler.processMessage(data);
                     int align = 1;
                     for (byte b : data) {
                         System.out.format("0x%x ", b);
