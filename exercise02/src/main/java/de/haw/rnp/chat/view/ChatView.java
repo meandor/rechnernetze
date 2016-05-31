@@ -1,20 +1,19 @@
 package de.haw.rnp.chat.view;
 
-import de.haw.rnp.chat.controller.Controller;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import de.haw.rnp.chat.model.User;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
 
 public class ChatView {
     private GridPane grid;
@@ -22,17 +21,19 @@ public class ChatView {
     private TextArea messageTextArea;
     private Button logoutButton;
     private ChoiceBox userlistBox;
+    private ListView<User> userList;
     private Scene scene;
 
+    public ChatView(BlockingQueue<User> users) {
+        scene = initScene(users);
+    }
 
-    public ChatView(){ scene = initScene();}
-
-    private Scene initScene(){
+    private Scene initScene(BlockingQueue<User> users) {
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25,25,25,25));
+        grid.setPadding(new Insets(25, 25, 25, 25));
 
         displayTextArea = new TextArea();
         displayTextArea.setEditable(false);
@@ -45,14 +46,23 @@ public class ChatView {
         messageTextArea = new TextArea();
         messageTextArea.setPrefRowCount(2);
 
-        grid.add(messageTextArea, 0,3,1,1);
+        grid.add(messageTextArea, 0, 3, 1, 1);
 
         userlistBox = new ChoiceBox(FXCollections.observableArrayList("empty"));
         userlistBox.setValue("empty");
-        grid.add(userlistBox, 1,3);
+        grid.add(userlistBox, 1, 3);
+
+        userList = new ListView<>();
+        ArrayList<User> usersList = new ArrayList<>();
+        for (User u : users) {
+            usersList.add(u);
+        }
+        ObservableList<User> myObservableList = FXCollections.observableArrayList(usersList);
+        this.userList.setItems(myObservableList);
+        grid.add(userList, 3, 0);
 
         logoutButton = new Button("Logout");
-        grid.add(logoutButton, 2,3);
+        grid.add(logoutButton, 2, 3);
 
         return new Scene(grid);
     }
@@ -73,7 +83,7 @@ public class ChatView {
         return scene;
     }
 
-    public ChoiceBox getUserlistBox(){
+    public ChoiceBox getUserlistBox() {
         return userlistBox;
     }
 }

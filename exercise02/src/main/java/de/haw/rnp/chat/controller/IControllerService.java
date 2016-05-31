@@ -4,6 +4,7 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 
 import java.net.InetAddress;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 
 public interface IControllerService {
@@ -15,5 +16,6 @@ public interface IControllerService {
     boolean addUser(User u);
     User getLoggedInUser();
     void setLoggedInUser(User u);
+    BlockingQueue<User> getUserList();
     ExecutorService getExecutor();
 }

@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
@@ -39,6 +40,12 @@ public class Controller implements IControllerService {
     private Controller() {
         this.messageQueue = new LinkedBlockingQueue<>();
         this.userList = new LinkedBlockingQueue<>();
+        try {
+            User u = new User("asd", 8080, InetAddress.getByName("10.0.0.1"));
+            this.userList.add(u);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
         this.executor = Executors.newCachedThreadPool();
         this.outgoingMessageHandler = new OutgoingChatProtocolMessageHandler(this);
     }
@@ -74,6 +81,7 @@ public class Controller implements IControllerService {
     @Override
     public boolean login(String userName, InetAddress address, InetAddress localAddress, int port, int localport) {
         this.loggedInUser = this.outgoingMessageHandler.login(address, port, userName, localAddress, localport);
+        this.userList.offer(this.loggedInUser);
         return (this.loggedInUser != null);
     }
 
@@ -132,6 +140,7 @@ public class Controller implements IControllerService {
         this.loggedInUser = loggedInUser;
     }
 
+    @Override
     public BlockingQueue<User> getUserList() {
         return userList;
     }

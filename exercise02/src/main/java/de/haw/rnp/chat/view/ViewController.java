@@ -1,6 +1,7 @@
 package de.haw.rnp.chat.view;
 
 import de.haw.rnp.chat.controller.IControllerService;
+import de.haw.rnp.chat.model.User;
 import javafx.collections.FXCollections;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -8,6 +9,7 @@ import javafx.stage.Stage;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 public class ViewController implements IView {
     private Stage stage;
@@ -23,6 +25,7 @@ public class ViewController implements IView {
         this.stage = stage;
         this.controller = controller;
         initServerView();
+        //initChatView(controller.getUserList());
     }
 
     private boolean validateFields(String user, String host, String port) {
@@ -65,8 +68,9 @@ public class ViewController implements IView {
             String port = loginView.getPortTextField().getText();
             if (validateFields(user, host, port)) {
                 try {
-                    controller.login(user, InetAddress.getByName(host), serverHostName, Integer.parseInt(port), serverPort);
-                    initChatView();
+                    if (controller.login(user, InetAddress.getByName(host), serverHostName, Integer.parseInt(port), serverPort)) {
+                        initChatView(controller.getUserList());
+                    }
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
                 }
@@ -77,8 +81,8 @@ public class ViewController implements IView {
         stage.show();
     }
 
-    private void initChatView() {
-        chatView = new ChatView();
+    private void initChatView(BlockingQueue<User> userList) {
+        chatView = new ChatView(userList);
 
         chatView.getMessageTextArea().setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
@@ -109,7 +113,7 @@ public class ViewController implements IView {
     public void setUserLoggedIn(String userName) {
         this.userName = userName;
         this.loginView = null;
-        initChatView();
+        initChatView(controller.getUserList());
     }
 
     @Override
