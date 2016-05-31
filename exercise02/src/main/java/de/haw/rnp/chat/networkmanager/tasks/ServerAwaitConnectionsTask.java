@@ -10,6 +10,8 @@ public class ServerAwaitConnectionsTask extends GeneralTask implements Runnable 
 
     @Override
     public void run() {
-        this.node.awaitConnections();
+        while (!this.stopped) {
+            this.node.awaitConnections();
+        }
     }
 }

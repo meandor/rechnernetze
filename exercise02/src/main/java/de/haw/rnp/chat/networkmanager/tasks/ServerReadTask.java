@@ -10,6 +10,8 @@ public class ServerReadTask extends GeneralTask implements Runnable {
 
     @Override
     public void run() {
-        this.node.readServerInput();
+        while (!this.stopped) {
+            this.node.readServerInput();
+        }
     }
 }

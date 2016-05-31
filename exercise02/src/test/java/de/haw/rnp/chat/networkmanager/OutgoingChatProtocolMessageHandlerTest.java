@@ -1,6 +1,10 @@
 package de.haw.rnp.chat.networkmanager;
 
+import com.sun.deploy.util.SessionState;
+import de.haw.rnp.chat.model.User;
+import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
+import de.haw.rnp.chat.networkmanager.tasks.ServerCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,28 +27,27 @@ public class OutgoingChatProtocolMessageHandlerTest {
 
     @Test
     public void login() throws Exception {
-        /*Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 5050);
-        ServerStartTask task = new ServerStartTask(server);
-        Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(task);
+        // Start test server
+        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 5050);
+        ServerStartTask serverStartTask = new ServerStartTask(server);
+        Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(serverStartTask);
         if (serverStarted.get()) {
-            ServerAwaitConnectionsTask task2 = new ServerAwaitConnectionsTask(server);
-            this.messageHandler.getExecutor().execute(task2);
-            Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
-            while (server.getIncomingSockets().size() == 0) {
-
-            }
-            System.out.println(String.valueOf(server.getIncomingSockets().size()));
-            if (server.getIncomingSockets().size() == 1) {
-                System.out.println("Start reading");
-                ServerReadTask task3 = new ServerReadTask(server);
-                this.messageHandler.getExecutor().execute(task3);
-            }
-            User user = this.messageHandler.login(node, "FOO", InetAddress.getByName("10.0.0.1"), 27515);
-            assertNotNull(user);
-            assertEquals("FOO", user.getName());
+            ServerAwaitConnectionsTask serverAwaitConnectionsTask = new ServerAwaitConnectionsTask(server);
+            this.messageHandler.getExecutor().execute(serverAwaitConnectionsTask);
+            User u = this.messageHandler.login(InetAddress.getByName("127.0.0.1"), 5050, "FOO", InetAddress.getByName("10.0.0.1"), 15533);
+            assertNotNull(u);
+            assertEquals("FOO", u.getName());
+            assertEquals("10.0.0.1", u.getHostName().getHostAddress());
+            assertEquals(15533, u.getPort());
+            //Stop Server
+            //ServerCloseTask serverCloseTask = new ServerCloseTask(server);
+            //this.messageHandler.getExecutor().execute(serverCloseTask);
         } else {
+            //Stop Server
+            ServerCloseTask serverCloseTask = new ServerCloseTask(server);
+            this.messageHandler.getExecutor().execute(serverCloseTask);
             assert false;
-        }*/
+        }
     }
 
     @Test
@@ -74,7 +77,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
 
     @Test
     public void initialConnect() throws Exception {
-        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 1337);
+        Node server = this.messageHandler.getFactory().createNode(InetAddress.getByName("127.0.0.1"), 5050);
         ServerStartTask task = new ServerStartTask(server);
         Future<Boolean> serverStarted = this.messageHandler.getExecutor().submit(task);
         if (serverStarted.get()) {
@@ -82,8 +85,15 @@ public class OutgoingChatProtocolMessageHandlerTest {
             this.messageHandler.getExecutor().execute(task2);
             Node node = this.messageHandler.initialConnect(server.getHostName(), server.getPort());
             assertNotNull(node);
-            assertTrue(1337 == server.getPort());
+            assertTrue(5050 == server.getPort());
             assertEquals(InetAddress.getByName("0.0.0.0"), node.getHostName());
+            //Stop Client
+            ClientCloseTask clientCloseTask = new ClientCloseTask(node);
+            this.messageHandler.getExecutor().execute(clientCloseTask);
+            //Stop Server
+            task2.stop();;
+            ServerCloseTask serverCloseTask = new ServerCloseTask(server);
+            this.messageHandler.getExecutor().execute(serverCloseTask);
         }
     }
 }

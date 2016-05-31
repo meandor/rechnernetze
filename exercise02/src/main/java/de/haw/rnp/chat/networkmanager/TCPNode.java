@@ -62,48 +62,45 @@ public class TCPNode extends Node {
     public void stopServerNode() {
         try {
             this.serverSocket.close();
-            this.out.close();
-            this.in.close();
+            //this.out.close();
+            //this.in.close();
+            System.out.println("Server closed");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void readServerInput() {
-        while (true) {
-            for (Socket s : this.getIncomingSockets()) {
-                try {
-                    if (s.getInputStream().available() != 0) {
-                        byte[] data = new byte[s.getInputStream().available()];
-                        int count = s.getInputStream().read(data);
-                        int align = 1;
-                        for (byte b : data) {
-                            System.out.format("0x%x ", b);
-                            if ((align % 4) == 0 && align > 1) {
-                                System.out.print("\n");
-                            }
-                            align++;
+        for (Socket s : this.getIncomingSockets()) {
+            try {
+                if (s.getInputStream().available() != 0) {
+                    byte[] data = new byte[s.getInputStream().available()];
+                    int count = s.getInputStream().read(data);
+                    int align = 1;
+                    for (byte b : data) {
+                        System.out.format("0x%x ", b);
+                        if ((align % 4) == 0 && align > 1) {
+                            System.out.print("\n");
                         }
+                        align++;
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
 
     public void awaitConnections() {
-        while (true) {
-            try {
-                Socket incomingSocket = serverSocket.accept();
-                this.incomingSockets.offer(incomingSocket);
-            } catch (IOException e) {
-                System.err.println("Client Accept failed");
-                e.printStackTrace();
-            }
-
-            System.out.println("Client connected to Server " + this.hostName.getHostAddress() + ":" + this.port);
+        try {
+            Socket incomingSocket = serverSocket.accept();
+            this.incomingSockets.offer(incomingSocket);
+        } catch (IOException e) {
+            System.err.println("Client Accept failed");
+            e.printStackTrace();
         }
+
+        System.out.println("Client connected to Server " + this.hostName.getHostAddress() + ":" + this.port);
     }
 
     @Override
