@@ -9,7 +9,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * This class represents a User. Every User can have clients attached to it.
+ * This class represents a User.
  */
 public class User {
 
@@ -17,20 +17,17 @@ public class User {
     private int port;
     private InetAddress hostName;
     private Node serverNode;
-    private List<Node> clientNodes;
 
     /**
      * Constructs the User with the given parameters.
      *
      * @param name     name of the user
      * @param port     port of the user
-     * @param hostName InetAddress of the user
      */
     public User(String name, int port, InetAddress hostName) {
         this.name = name;
         this.port = port;
         this.hostName = hostName;
-        this.clientNodes = new ArrayList<>();
     }
 
 
@@ -48,14 +45,6 @@ public class User {
 
     public void setServerNode(Node serverNode) {
         this.serverNode = serverNode;
-    }
-
-    public boolean addClientNode(Node n) {
-        return this.clientNodes.add(n);
-    }
-
-    public boolean removeClientNode(Node n) {
-        return this.clientNodes.remove(n);
     }
 
     public InetAddress getHostName() {
