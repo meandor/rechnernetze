@@ -5,7 +5,7 @@ import de.haw.rnp.chat.networkmanager.Node;
 import java.util.concurrent.Callable;
 
 /**
- * Created by daniel on 29.05.2016.
+ * Task for closing a client connection. Returns true if closed.
  */
 public class ClientCloseTask extends GeneralTask implements Callable<Boolean> {
 

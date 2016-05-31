@@ -1,26 +1,21 @@
 package de.haw.rnp.chat.networkmanager;
 
-import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.model.*;
-import de.haw.rnp.chat.networkmanager.tasks.*;
+import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
+import de.haw.rnp.chat.networkmanager.tasks.ClientStartTask;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * Handles the outgoing messages between two peers
+ * Handles the outgoing messages between two peers.
  *
  * @author Daniel Schruhl <danielschruhl@gmail.com>
  */
@@ -97,7 +92,7 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
             int activePeerPort = u.getPort();
             // Establish Connection to the active peer
             Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
-            this.sendChatProtocolMessage(myNameMessage,clientNode);
+            this.sendChatProtocolMessage(myNameMessage, clientNode);
         }
     }
 
@@ -119,7 +114,8 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
 
     /**
      * Actually sending a message via client Socket
-     * @param message ChatProtocolMessage to be send
+     *
+     * @param message  ChatProtocolMessage to be send
      * @param receiver Node client connection
      */
     private void sendChatProtocolMessage(ChatProtocolMessage message, Node receiver) {

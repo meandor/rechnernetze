@@ -2,6 +2,9 @@ package de.haw.rnp.chat.networkmanager.model;
 
 import java.net.InetAddress;
 
+/**
+ * Protocol Message for the login.
+ */
 public class LoginMessage extends ChatProtocolMessage {
 
     public LoginMessage(InetAddress senderHostName, int senderPort, String loginUserName, InetAddress loginUserHostName, int loginUserPort) {

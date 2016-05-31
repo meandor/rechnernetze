@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Actual product produced by the actual factory.
+ */
 public class TCPNode extends Node {
     private Socket clientSocket;
     private ServerSocket serverSocket;
@@ -24,7 +27,6 @@ public class TCPNode extends Node {
         try {
             this.clientSocket = new Socket(this.hostName, this.port);
             this.out = this.clientSocket.getOutputStream();
-            this.in = this.clientSocket.getInputStream();
             System.out.println("Client started");
             return true;
         } catch (UnknownHostException e) {
@@ -41,7 +43,6 @@ public class TCPNode extends Node {
         try {
             this.clientSocket.close();
             this.out.close();
-            this.in.close();
             System.out.println("Client closed");
             return true;
         } catch (IOException e) {
@@ -67,7 +68,6 @@ public class TCPNode extends Node {
         try {
             this.serverSocket.close();
             this.out.close();
-            this.in.close();
             System.out.println("Server closed");
             return true;
         } catch (IOException e) {

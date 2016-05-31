@@ -1,6 +1,5 @@
 package de.haw.rnp.chat.networkmanager.model;
 
-
 import de.haw.rnp.chat.model.User;
 
 import java.net.InetAddress;
@@ -9,6 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Message that is send by the ChatProtocol. Each message has a common header and fields.
+ * For more information see: https://github.com/bashtee/rnworkinggroup3
+ */
 public abstract class ChatProtocolMessage {
     protected byte[] commonHeader;
     protected int totalSize;
@@ -93,6 +96,11 @@ public abstract class ChatProtocolMessage {
         return result;
     }
 
+    /**
+     * Returns the full message containing of the fields and the common header.
+     *
+     * @return full message
+     */
     public byte[] getFullMessage() {
         byte[] result = new byte[this.totalSize];
         System.arraycopy(this.commonHeader, 0, result, 0, this.commonHeader.length);
@@ -104,7 +112,13 @@ public abstract class ChatProtocolMessage {
         return result;
     }
 
+    /**
+     * Returns a size that is aligned to 4 bytes.
+     *
+     * @param actualSize int of the size of the field
+     * @return the size aligned by 4 bytes
+     */
     private int paddedSize(int actualSize) {
-        return (4*(actualSize/4 + 1));
+        return (4 * (actualSize / 4 + 1));
     }
 }

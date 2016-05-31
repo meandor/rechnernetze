@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Controller responsible for the views and switching between them.
+ */
 public class ViewController implements IView {
     private Stage stage;
     private LoginView loginView;

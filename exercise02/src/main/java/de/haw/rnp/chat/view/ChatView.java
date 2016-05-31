@@ -12,6 +12,9 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * View responsible for displaying the main chat window.
+ */
 public class ChatView {
     private GridPane grid;
     private TextArea displayTextArea;

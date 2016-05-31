@@ -19,6 +19,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
+/**
+ * This class represents the Controller of the mvc pattern. The controller is a singleton and has a thread pool.
+ */
 public class Controller implements IControllerService {
 
     private User loggedInUser;
@@ -51,6 +54,11 @@ public class Controller implements IControllerService {
         this.outgoingMessageHandler = new OutgoingChatProtocolMessageHandler(this);
     }
 
+    /**
+     * Starts the view
+     *
+     * @param stage Stage for the view (JavaFx)
+     */
     public void startView(Stage stage) {
         this.view = new ViewController(stage, this);
         stage.setOnCloseRequest(t -> {
@@ -157,11 +165,16 @@ public class Controller implements IControllerService {
         return userList;
     }
 
-
     public BlockingQueue getMessageQueue() {
         return messageQueue;
     }
 
+    /**
+     * Finds the user by the given username
+     *
+     * @param userName String username of the user
+     * @return User if any found that matches the username
+     */
     private User getUserByName(String userName) {
         for (User user : userList) {
             if (user.getName().equals(userName))

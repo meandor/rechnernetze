@@ -4,6 +4,9 @@ import de.haw.rnp.chat.networkmanager.Node;
 
 import java.util.concurrent.Callable;
 
+/**
+ * Task for closing a server. Returns true if server was closed.
+ */
 public class ServerCloseTask extends GeneralTask implements Callable<Boolean> {
 
     public ServerCloseTask(Node node) {

@@ -2,6 +2,9 @@ package de.haw.rnp.chat.networkmanager.model;
 
 import java.net.InetAddress;
 
+/**
+ * Protocol Message for send a logout message.
+ */
 public class LogoutMessage extends ChatProtocolMessage {
 
     public LogoutMessage(InetAddress senderHostName, int senderPort, InetAddress logoutHostName, int logoutPort) {

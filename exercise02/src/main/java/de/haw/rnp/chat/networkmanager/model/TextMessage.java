@@ -5,6 +5,9 @@ import de.haw.rnp.chat.model.User;
 import java.net.InetAddress;
 import java.util.List;
 
+/**
+ * Protocol Message for an actual text message.
+ */
 public class TextMessage extends ChatProtocolMessage {
 
     public TextMessage(InetAddress senderIP, int senderPort, String text, List<User> userList) {

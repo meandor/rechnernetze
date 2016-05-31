@@ -11,6 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * View for starting the server.
+ */
 public class ServerView {
     private GridPane grid;
     private Text sceneTitle;
