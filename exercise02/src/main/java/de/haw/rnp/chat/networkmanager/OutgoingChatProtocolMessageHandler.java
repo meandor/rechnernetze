@@ -4,9 +4,7 @@ import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
-import de.haw.rnp.chat.networkmanager.model.LoginMessage;
-import de.haw.rnp.chat.networkmanager.model.LogoutMessage;
-import de.haw.rnp.chat.networkmanager.model.MyNameMessage;
+import de.haw.rnp.chat.networkmanager.model.*;
 import de.haw.rnp.chat.networkmanager.tasks.*;
 
 import java.io.IOException;
@@ -14,6 +12,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -100,7 +99,22 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
 
     @Override
     public void sendMessage(Message message) {
-
+        InetAddress senderHostName = message.getSender().getHostName();
+        int senderPort = message.getSender().getPort();
+        TextMessage textMessage = new TextMessage(senderHostName, senderPort, message.getText(), message.getReceiver());
+        for (User u : message.getReceiver()) {
+            InetAddress activePeerHostName = u.getHostName();
+            int activePeerPort = u.getPort();
+            Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+            try {
+                clientNode.getOut().write(textMessage.getFullMessage());
+                ClientCloseTask closeClient = new ClientCloseTask(clientNode);
+                // Closing the connection to the active peer
+                this.executor.submit(closeClient);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

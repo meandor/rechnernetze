@@ -1,5 +1,6 @@
 package de.haw.rnp.chat.networkmanager.model;
 
+import de.haw.rnp.chat.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,9 +18,9 @@ public class TextMessageTest {
 
     @Before
     public void setUp() throws Exception {
-        ChatUser u1 = new ChatUser(InetAddress.getByName("10.0.0.1"), 15500);
-        ChatUser u2 = new ChatUser(InetAddress.getByName("10.0.0.2"), 15000);
-        ArrayList<ChatUser> userList = new ArrayList<>();
+        User u1 = new User("", 15500, InetAddress.getByName("10.0.0.1"));
+        User u2 = new User("", 15000, InetAddress.getByName("10.0.0.2"));
+        ArrayList<User> userList = new ArrayList<>();
         userList.add(u1);
         userList.add(u2);
         this.message = new TextMessage(InetAddress.getByName("10.0.0.1"), 15000, "FOO",userList);

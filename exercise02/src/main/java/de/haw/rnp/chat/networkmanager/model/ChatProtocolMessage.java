@@ -1,6 +1,8 @@
 package de.haw.rnp.chat.networkmanager.model;
 
 
+import de.haw.rnp.chat.model.User;
+
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -76,12 +78,12 @@ public abstract class ChatProtocolMessage {
         return result;
     }
 
-    protected byte[] userListField(List<ChatUser> userList) {
+    protected byte[] userListField(List<User> userList) {
         int size = userList.size() * 16;
         byte[] result = new byte[size];
         int position = 0;
-        for (ChatUser u : userList) {
-            byte[] ipField = this.IPField(u.getIp());
+        for (User u : userList) {
+            byte[] ipField = this.IPField(u.getHostName());
             byte[] portField = this.portField(u.getPort());
             System.arraycopy(ipField, 0, result, position, ipField.length);
             position += 8;

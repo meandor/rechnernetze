@@ -1,11 +1,13 @@
 package de.haw.rnp.chat.networkmanager.model;
 
+import de.haw.rnp.chat.model.User;
+
 import java.net.InetAddress;
 import java.util.List;
 
 public class TextMessage extends ChatProtocolMessage {
 
-    public TextMessage(InetAddress senderIP, int senderPort, String text, List<ChatUser> userList) {
+    public TextMessage(InetAddress senderIP, int senderPort, String text, List<User> userList) {
         super(((byte) 0x03), senderIP, senderPort, 2);
         byte[] textField = this.textField(text);
         this.addField(textField);
