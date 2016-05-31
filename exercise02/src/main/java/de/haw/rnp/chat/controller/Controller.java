@@ -5,7 +5,6 @@ import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.Node;
 import de.haw.rnp.chat.networkmanager.OutgoingChatProtocolMessageHandler;
 import de.haw.rnp.chat.networkmanager.OutgoingMessageHandler;
-import de.haw.rnp.chat.networkmanager.tasks.GeneralTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
@@ -23,18 +22,26 @@ import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Controller implements IControllerService {
-    private BlockingQueue messageQueue;
+
     private User loggedInUser;
     private Node server;
-    private ServerAwaitConnectionsTask waitingConnection;
-    private List<User> userList;
     private IView view;
+    private ServerAwaitConnectionsTask waitingConnection;
+    private BlockingQueue<User> userList;
+    private BlockingQueue<Message> messageQueue;
+    static private Controller controller;
     private OutgoingMessageHandler outgoingMessageHandler;
 
-    public Controller(Stage stage) {
+    static public Controller getInstance(Stage stage) {
+        if (controller == null) {
+            controller = new Controller(stage);
+        }
+        return controller;
+    }
 
-        this.messageQueue = new LinkedBlockingQueue();
-        this.userList = new ArrayList<>();
+    private Controller(Stage stage) {
+        this.messageQueue = new LinkedBlockingQueue<>();
+        this.userList = new LinkedBlockingQueue<>();
         this.view = new ViewController(stage, this);
         this.outgoingMessageHandler = new OutgoingChatProtocolMessageHandler(this);
 
@@ -52,25 +59,9 @@ public class Controller implements IControllerService {
         });
     }
 
-    public BlockingQueue getMessageQueue() {
-        return messageQueue;
-    }
-
     @Override
     public boolean addMessageToQueue(Message message) {
         return this.messageQueue.add(message);
-    }
-
-    public User getLoggedInUser() {
-        return loggedInUser;
-    }
-
-    public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
-    }
-
-    public List<User> getUserList() {
-        return userList;
     }
 
     @Override
@@ -84,9 +75,17 @@ public class Controller implements IControllerService {
 
     @Override
     public void logout() {
-        InetAddress activePeerHostName = userList.get(0).getHostName();
-        int activePeerPort = userList.get(0).getPort();
-        outgoingMessageHandler.logout(activePeerHostName, activePeerPort, loggedInUser.getHostName(), loggedInUser.getPort());
+        User activePeer = null;
+        try {
+            activePeer = userList.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (activePeer != null) {
+            InetAddress activePeerHostName = activePeer.getHostName();
+            int activePeerPort = activePeer.getPort();
+            outgoingMessageHandler.logout(activePeerHostName, activePeerPort, loggedInUser.getHostName(), loggedInUser.getPort());
+        }
     }
 
     @Override
@@ -117,6 +116,23 @@ public class Controller implements IControllerService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+
+    public BlockingQueue<User> getUserList() {
+        return userList;
+    }
+
+
+    public BlockingQueue getMessageQueue() {
+        return messageQueue;
     }
 
     private User getUserByName(String userName) {
