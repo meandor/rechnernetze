@@ -87,14 +87,7 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
         // Establish Connection to the active peer
         Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
         LogoutMessage logoutMessage = new LogoutMessage(logoutHostName, logoutPort, logoutHostName, logoutPort);
-        try {
-            clientNode.getOut().write(logoutMessage.getFullMessage());
-            ClientCloseTask closeClient = new ClientCloseTask(clientNode);
-            // Closing the connection to the active peer
-            this.executor.submit(closeClient);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.sendChatProtocolMessage(logoutMessage, clientNode);
     }
 
     @Override
@@ -106,29 +99,19 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
             InetAddress activePeerHostName = u.getHostName();
             int activePeerPort = u.getPort();
             Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
-            try {
-                clientNode.getOut().write(textMessage.getFullMessage());
-                ClientCloseTask closeClient = new ClientCloseTask(clientNode);
-                // Closing the connection to the active peer
-                this.executor.submit(closeClient);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.sendChatProtocolMessage(textMessage, clientNode);
         }
     }
 
     @Override
-    public void sendName(InetAddress activePeerHostName, int activePeerPort, String name, InetAddress nameHostName, int namePort) {
-        // Establish Connection to the active peer
-        Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+    public void sendName(List<User> recipients, String name, InetAddress nameHostName, int namePort) {
         MyNameMessage myNameMessage = new MyNameMessage(nameHostName, namePort, name);
-        try {
-            clientNode.getOut().write(myNameMessage.getFullMessage());
-            ClientCloseTask closeClient = new ClientCloseTask(clientNode);
-            // Closing the connection to the active peer
-            this.executor.submit(closeClient);
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (User u : recipients) {
+            InetAddress activePeerHostName = u.getHostName();
+            int activePeerPort = u.getPort();
+            // Establish Connection to the active peer
+            Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+            this.sendChatProtocolMessage(myNameMessage,clientNode);
         }
     }
 
@@ -146,5 +129,21 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
             e.printStackTrace();
         }
         return clientNode;
+    }
+
+    /**
+     * Actually sending a message via client Socket
+     * @param message ChatProtocolMessage to be send
+     * @param receiver Node client connection
+     */
+    private void sendChatProtocolMessage(ChatProtocolMessage message, Node receiver) {
+        try {
+            receiver.getOut().write(message.getFullMessage());
+            ClientCloseTask closeClient = new ClientCloseTask(receiver);
+            // Closing the connection to the active peer
+            this.executor.submit(closeClient);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

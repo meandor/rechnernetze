@@ -4,6 +4,7 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 
 import java.net.InetAddress;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 /**
@@ -43,13 +44,12 @@ public interface OutgoingMessageHandler {
     /**
      * Sends the myName message to the supplied active peer.
      *
-     * @param activePeerHostName client hostname of the active peer
-     * @param activePeerPort     client port of the active peer
-     * @param name               name to be send
-     * @param nameHostName       hostname of the users name
-     * @param namePort           port of the users name
+     * @param recipients   List of all recipients for my name message
+     * @param name         name to be send
+     * @param nameHostName hostname of the users name
+     * @param namePort     port of the users name
      */
-    void sendName(InetAddress activePeerHostName, int activePeerPort, String name, InetAddress nameHostName, int namePort);
+    void sendName(List<User> recipients, String name, InetAddress nameHostName, int namePort);
 
     /**
      * Establishes a client connection to an active peer.
