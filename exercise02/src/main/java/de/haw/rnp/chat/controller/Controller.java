@@ -63,7 +63,12 @@ public class Controller implements IControllerService {
 
     @Override
     public boolean addMessageToQueue(Message message) {
-        return this.messageQueue.add(message);
+        return this.messageQueue.offer(message);
+    }
+
+    @Override
+    public boolean addUser(User u) {
+        return userList.offer(u);
     }
 
     @Override
@@ -72,12 +77,9 @@ public class Controller implements IControllerService {
     }
 
     @Override
-    public String login(String userName, InetAddress address, InetAddress localAddress, int port, int localport) {
+    public boolean login(String userName, InetAddress address, InetAddress localAddress, int port, int localport) {
         this.loggedInUser = this.outgoingMessageHandler.login(address, port, userName, localAddress, localport);
-        if (this.loggedInUser == null) {
-            return "";
-        }
-        return userName;
+        return (this.loggedInUser != null);
     }
 
     @Override
