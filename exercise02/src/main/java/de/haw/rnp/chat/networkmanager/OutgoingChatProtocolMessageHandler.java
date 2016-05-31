@@ -29,9 +29,9 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
     private NodeFactory factory;
     private ExecutorService executor;
 
-    public OutgoingChatProtocolMessageHandler(Controller controller) {
+    public OutgoingChatProtocolMessageHandler(IControllerService controller) {
         this.factory = new TCPNodeFactory();
-        this.executor = Executors.newCachedThreadPool();
+        this.executor = controller.getExecutor();
     }
 
     public NodeFactory getFactory() {

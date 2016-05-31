@@ -1,12 +1,12 @@
 package de.haw.rnp.chat.networkmanager;
 
+import de.haw.rnp.chat.controller.Controller;
 import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.tasks.ClientCloseTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerAwaitConnectionsTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerReadTask;
 import de.haw.rnp.chat.networkmanager.tasks.ServerStartTask;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,12 +26,7 @@ public class OutgoingChatProtocolMessageHandlerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.messageHandler = new OutgoingChatProtocolMessageHandler(null);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        this.messageHandler.getExecutor().shutdown();
+        this.messageHandler = new OutgoingChatProtocolMessageHandler(Controller.getInstance());
     }
 
     @Test

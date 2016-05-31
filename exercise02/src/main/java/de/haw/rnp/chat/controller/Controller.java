@@ -15,53 +15,60 @@ import javafx.stage.Stage;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 public class Controller implements IControllerService {
 
     private User loggedInUser;
     private Node server;
     private IView view;
+    private ExecutorService executor;
     private ServerAwaitConnectionsTask waitingConnection;
     private BlockingQueue<User> userList;
     private BlockingQueue<Message> messageQueue;
     static private Controller controller;
     private OutgoingMessageHandler outgoingMessageHandler;
 
-    static public Controller getInstance(Stage stage) {
+    static public Controller getInstance() {
         if (controller == null) {
-            controller = new Controller(stage);
+            controller = new Controller();
         }
         return controller;
     }
 
-    private Controller(Stage stage) {
+    private Controller() {
         this.messageQueue = new LinkedBlockingQueue<>();
         this.userList = new LinkedBlockingQueue<>();
-        this.view = new ViewController(stage, this);
+        this.executor = Executors.newCachedThreadPool();
         this.outgoingMessageHandler = new OutgoingChatProtocolMessageHandler(this);
+    }
 
+    public void startView(Stage stage) {
+        this.view = new ViewController(stage, this);
         stage.setOnCloseRequest(t -> {
-            ServerCloseTask closeTask = new ServerCloseTask(this.server);
-            Future<Boolean> closed = this.outgoingMessageHandler.getExecutor().submit(closeTask);
-            try {
-                if (closed.get()) {
-                    this.outgoingMessageHandler.getExecutor().shutdownNow();
-                    Platform.exit();
+            if (server != null) {
+                ServerCloseTask closeTask = new ServerCloseTask(this.server);
+                Future<Boolean> closed = this.outgoingMessageHandler.getExecutor().submit(closeTask);
+                try {
+                    if (closed.get()) {
+                        this.executor.shutdownNow();
+                    }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
             }
+            Platform.exit();
         });
     }
 
     @Override
     public boolean addMessageToQueue(Message message) {
         return this.messageQueue.add(message);
+    }
+
+    @Override
+    public ExecutorService getExecutor() {
+        return executor;
     }
 
     @Override
