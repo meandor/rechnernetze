@@ -5,6 +5,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -75,6 +77,7 @@ public class TCPNode extends Node {
     }
 
     public void readServerInput() {
+        HashMap<InetAddress, Instant> timeMap = new HashMap<>();
         for (Socket s : this.getIncomingSockets()) {
             try {
                 if (s.getInputStream().available() != 0) {
@@ -87,6 +90,16 @@ public class TCPNode extends Node {
                             System.out.print("\n");
                         }
                         align++;
+                    }
+                } else {
+                    //TODO: If multiple clients from the same ip, problem!
+                    if (timeMap.containsKey(s.getInetAddress())) {
+                        Instant stamp = timeMap.get(s.getInetAddress());
+                        if (Instant.now().isAfter(stamp.plusSeconds(10))) {
+                            s.close();
+                        }
+                    } else {
+                        timeMap.put(s.getInetAddress(), Instant.now());
                     }
                 }
             } catch (IOException e) {
