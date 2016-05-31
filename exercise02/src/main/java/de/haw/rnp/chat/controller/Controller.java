@@ -134,8 +134,8 @@ public class Controller implements IControllerService {
     @Override
     public boolean startServer(InetAddress hostName, int port) {
         this.server = this.outgoingMessageHandler.getFactory().createNode(hostName, port);
-        ServerStartTask startServerTask = new ServerStartTask(server);
-        Future<Boolean> serverStarted = this.outgoingMessageHandler.getExecutor().submit(startServerTask);
+        ServerStartTask startServerTask = new ServerStartTask(server, this);
+        Future<Boolean> serverStarted = this.executor.submit(startServerTask);
         try {
             if (serverStarted.get()) {
                 ServerReadTask readTask = new ServerReadTask(server);

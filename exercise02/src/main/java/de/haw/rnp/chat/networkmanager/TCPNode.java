@@ -1,5 +1,7 @@
 package de.haw.rnp.chat.networkmanager;
 
+import de.haw.rnp.chat.controller.IControllerService;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -17,6 +19,7 @@ public class TCPNode extends Node {
     private Socket clientSocket;
     private ServerSocket serverSocket;
     private BlockingQueue<Socket> incomingSockets;
+    private IncomingMessageHandler incomingMessageHandler;
 
     public TCPNode(int port, InetAddress hostName) {
         super(port, hostName);
@@ -51,10 +54,11 @@ public class TCPNode extends Node {
         return false;
     }
 
-    public boolean startServerNode() {
+    public boolean startServerNode(IControllerService controller) {
         try {
             this.serverSocket = new ServerSocket(this.port);
             this.hostName = this.serverSocket.getInetAddress();
+            this.incomingMessageHandler = new IncomingChatProtocolMessageHandler(controller);
             System.out.println("Server started at " + this.hostName.getHostAddress() + ":" + this.port);
             return true;
         } catch (IOException e) {

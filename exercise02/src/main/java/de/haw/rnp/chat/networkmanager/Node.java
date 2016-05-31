@@ -1,5 +1,7 @@
 package de.haw.rnp.chat.networkmanager;
 
+import de.haw.rnp.chat.controller.IControllerService;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -58,9 +60,10 @@ public abstract class Node {
     /**
      * Returns true if server node was started.
      *
+     * @param controller IControllerService controller
      * @return true if started
      */
-    public abstract boolean startServerNode();
+    public abstract boolean startServerNode(IControllerService controller);
 
     /**
      * Returns true if server node was stopped.
