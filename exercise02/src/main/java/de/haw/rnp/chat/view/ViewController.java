@@ -3,11 +3,13 @@ package de.haw.rnp.chat.view;
 import de.haw.rnp.chat.controller.IControllerService;
 import de.haw.rnp.chat.model.User;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -24,8 +26,8 @@ public class ViewController implements IView {
     public ViewController(Stage stage, IControllerService controller) {
         this.stage = stage;
         this.controller = controller;
-        initServerView();
-        //initChatView(controller.getUserList());
+        //initServerView();
+        initChatView(controller.getUserList());
     }
 
     private boolean validateFields(String user, String host, String port) {
@@ -87,7 +89,7 @@ public class ViewController implements IView {
         chatView.getMessageTextArea().setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 String text = chatView.getMessageTextArea().getText();
-                String recipient = chatView.getUserlistBox().getValue().toString();
+                String recipient = chatView.getReceiver().getText();
                 controller.sendMessage(recipient, text);
                 chatView.getDisplayTextArea().appendText(userName + "send to" + recipient + ":\n" + text + "\n");
                 chatView.getMessageTextArea().clear();
@@ -117,14 +119,13 @@ public class ViewController implements IView {
     }
 
     @Override
-    public void updateUserlist(List<String> usernames) {
-        if (controller.getLoggedInUser() != null && !usernames.isEmpty()) {
-            chatView.getUserlistBox().setItems(FXCollections.observableArrayList(usernames));
-            chatView.getUserlistBox().setValue(usernames.get(0));
-        } else if (controller.getLoggedInUser() != null && usernames.isEmpty()) {
-            chatView.getUserlistBox().setItems(FXCollections.observableArrayList("empty"));
-            chatView.getUserlistBox().setValue("empty");
+    public void updateUserlist(BlockingQueue<User> users) {
+        ArrayList<User> usersList = new ArrayList<>();
+        for (User u : users) {
+            usersList.add(u);
         }
+        ObservableList<User> myObservableList = FXCollections.observableArrayList(usersList);
+        this.chatView.getUserList().setItems(myObservableList);
     }
 
     @Override

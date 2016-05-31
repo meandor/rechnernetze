@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
@@ -19,8 +16,9 @@ public class ChatView {
     private GridPane grid;
     private TextArea displayTextArea;
     private TextArea messageTextArea;
+    private TextField receiver;
+    private Button sendButton;
     private Button logoutButton;
-    private ChoiceBox userlistBox;
     private ListView<User> userList;
     private Scene scene;
 
@@ -43,14 +41,15 @@ public class ChatView {
         });
         grid.add(displayTextArea, 0, 0, 3, 2);
 
+        receiver = new TextField();
+        receiver.setPromptText("Recipients");
+        grid.add(receiver, 0, 3);
+
         messageTextArea = new TextArea();
+        messageTextArea.setPromptText("Message");
         messageTextArea.setPrefRowCount(2);
 
-        grid.add(messageTextArea, 0, 3, 1, 1);
-
-        userlistBox = new ChoiceBox(FXCollections.observableArrayList("empty"));
-        userlistBox.setValue("empty");
-        grid.add(userlistBox, 1, 3);
+        grid.add(messageTextArea, 0, 4, 1, 1);
 
         userList = new ListView<>();
         ArrayList<User> usersList = new ArrayList<>();
@@ -61,8 +60,11 @@ public class ChatView {
         this.userList.setItems(myObservableList);
         grid.add(userList, 3, 0);
 
+        sendButton = new Button("send");
+        grid.add(sendButton, 1, 4);
+
         logoutButton = new Button("Logout");
-        grid.add(logoutButton, 2, 3);
+        grid.add(logoutButton, 2, 4);
 
         return new Scene(grid);
     }
@@ -83,7 +85,11 @@ public class ChatView {
         return scene;
     }
 
-    public ChoiceBox getUserlistBox() {
-        return userlistBox;
+    public TextField getReceiver() {
+        return receiver;
+    }
+
+    public ListView<User> getUserList() {
+        return userList;
     }
 }

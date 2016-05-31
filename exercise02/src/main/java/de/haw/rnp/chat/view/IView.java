@@ -1,11 +1,13 @@
 package de.haw.rnp.chat.view;
 
-import java.util.List;
+import de.haw.rnp.chat.model.User;
+
+import java.util.concurrent.BlockingQueue;
 
 public interface IView {
     void setUserLoggedIn(String userName);
 
-    void updateUserlist(List<String> usernames);
+    void updateUserlist(BlockingQueue<User> users);
 
     void appendMessage(String from, String message);
 }
