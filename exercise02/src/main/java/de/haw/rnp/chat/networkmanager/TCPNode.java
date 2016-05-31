@@ -13,7 +13,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * Actual product produced by the actual factory.
+ * Actual Product produced by the actual Factory.
  */
 public class TCPNode extends Node {
     private Socket clientSocket;
