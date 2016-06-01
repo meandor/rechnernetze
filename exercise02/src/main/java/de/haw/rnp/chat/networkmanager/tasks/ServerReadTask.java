@@ -13,7 +13,7 @@ public class ServerReadTask extends GeneralTask implements Runnable {
 
     @Override
     public void run() {
-        while (!this.isStopped()) {
+        while (true) {
             this.node.readServerInput();
             if (Thread.interrupted()) {
                 break;

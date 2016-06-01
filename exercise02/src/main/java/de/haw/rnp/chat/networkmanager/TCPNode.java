@@ -17,6 +17,7 @@ public class TCPNode extends Node {
     private ServerSocket serverSocket;
     private BlockingQueue<Socket> incomingSockets;
     private IncomingMessageHandler incomingMessageHandler;
+    private HashMap<SocketAddress, Instant> timeMap = new HashMap<>();
 
     public TCPNode(int port, InetAddress hostName) {
         super(port, hostName);
@@ -78,9 +79,7 @@ public class TCPNode extends Node {
     }
 
     public void readServerInput() {
-        HashMap<SocketAddress, Instant> timeMap = new HashMap<>();
         for (Socket s : this.getIncomingSockets()) {
-            System.out.println("Connected Socket to server: " + s.getLocalSocketAddress());
             try {
                 if (s.getInputStream().available() != 0) {
                     byte[] data = new byte[s.getInputStream().available()];
