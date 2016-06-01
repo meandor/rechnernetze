@@ -3,10 +3,7 @@ package de.haw.rnp.chat.networkmanager;
 import de.haw.rnp.chat.controller.IControllerService;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
@@ -81,7 +78,7 @@ public class TCPNode extends Node {
     }
 
     public void readServerInput() {
-        HashMap<InetAddress, Instant> timeMap = new HashMap<>();
+        HashMap<SocketAddress, Instant> timeMap = new HashMap<>();
         for (Socket s : this.getIncomingSockets()) {
             System.out.println("Connected Socket to server: " + s.getLocalSocketAddress());
             try {
@@ -98,8 +95,17 @@ public class TCPNode extends Node {
                         align++;
                     }
                 } else {
-                    this.getIncomingSockets().remove(s);
-                    s.close();
+                    if (timeMap.containsKey(s.getLocalSocketAddress())) {
+                        Instant timestamp = timeMap.get(s.getLocalSocketAddress());
+                        if (Instant.now().isAfter(timestamp.plusSeconds(2))) {
+                            this.getIncomingSockets().remove(s);
+                            System.out.println("client socket to server closed!");
+                            s.close();
+                        }
+                    } else {
+                        timeMap.put(s.getLocalSocketAddress(),Instant.now());
+                    }
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
