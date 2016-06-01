@@ -83,6 +83,7 @@ public class TCPNode extends Node {
     public void readServerInput() {
         HashMap<InetAddress, Instant> timeMap = new HashMap<>();
         for (Socket s : this.getIncomingSockets()) {
+            System.out.println("Connected Socket to server: " + s.getLocalSocketAddress());
             try {
                 if (s.getInputStream().available() != 0) {
                     byte[] data = new byte[s.getInputStream().available()];
@@ -97,15 +98,8 @@ public class TCPNode extends Node {
                         align++;
                     }
                 } else {
-                    //TODO: If multiple clients from the same ip, problem!
-                    if (timeMap.containsKey(s.getInetAddress())) {
-                        Instant stamp = timeMap.get(s.getInetAddress());
-                        if (Instant.now().isAfter(stamp.plusSeconds(10))) {
-                            s.close();
-                        }
-                    } else {
-                        timeMap.put(s.getInetAddress(), Instant.now());
-                    }
+                    this.getIncomingSockets().remove(s);
+                    s.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
