@@ -5,12 +5,16 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.model.LoginMessage;
 import de.haw.rnp.chat.networkmanager.model.LogoutMessage;
+import de.haw.rnp.chat.networkmanager.model.MyNameMessage;
 import de.haw.rnp.chat.networkmanager.model.ProtocolMessage;
 import util.MessageType;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.*;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class IncomingChatProtocolMessageHandler implements IncomingMessageHandler {
 
@@ -23,7 +27,7 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
     @Override
     public void processMessage(byte[] byteStream) {
         ProtocolMessage message = new ProtocolMessage(byteStream);
-        switch(message.getMessageType()){
+        switch (message.getMessageType()) {
             case Login:
                 this.login(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
                 break;
@@ -34,7 +38,7 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
                 User sender = findUser(message.getSenderIp(), message.getSenderPort());
                 List<User> users = new ArrayList<>();
                 HashMap<InetAddress, Integer> map = message.byteArrayToUserList();
-                for(Map.Entry<InetAddress, Integer> pair : map.entrySet()){
+                for (Map.Entry<InetAddress, Integer> pair : map.entrySet()) {
                     users.add(findUser(pair.getKey(), pair.getValue()));
                 }
                 this.receiveMessage(message.getFieldText(), sender, users);
@@ -55,6 +59,11 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
             if (loggedInUser != null) {
                 LoginMessage message = new LoginMessage(loggedInUser.getHostName(), loggedInUser.getPort(), userName, hostName, port);
                 this.propagate(message.getFullMessage(), controller.getUserList());
+                MyNameMessage myNameMessage = new MyNameMessage(loggedInUser.getHostName(), loggedInUser.getPort(), userName);
+                BlockingQueue<User> receiver = new LinkedBlockingQueue<>();
+                receiver.offer(u);
+                this.propagate(myNameMessage.getFullMessage(), receiver);
+
             }
         }
     }
@@ -64,6 +73,9 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
         User u = this.findUser(hostName, port);
         if (u != null) {
             u.setName(userName);
+        } else {
+            u = new User(userName, port, hostName);
+            this.controller.addUser(u);
         }
     }
 
