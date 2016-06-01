@@ -120,6 +120,7 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
      */
     private void sendChatProtocolMessage(ChatProtocolMessage message, Node receiver) {
         try {
+            System.out.println("SENDING MESSAGE::: " + message.toString());
             receiver.getOut().write(message.getFullMessage());
             ClientCloseTask closeClient = new ClientCloseTask(receiver);
             // Closing the connection to the active peer

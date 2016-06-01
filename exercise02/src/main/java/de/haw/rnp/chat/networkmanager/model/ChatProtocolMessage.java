@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -108,6 +109,21 @@ public abstract class ChatProtocolMessage {
         for (byte[] field : this.fields) {
             System.arraycopy(field, 0, result, position, field.length);
             position += field.length;
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        byte[] data = this.getFullMessage();
+        String result = "";
+        int align = 0;
+        for (byte b : data) {
+            result += String.format("0x%x ", b);
+            if ((align % 4) == 0 && align > 1) {
+                result += "\n";
+            }
+            align++;
         }
         return result;
     }
