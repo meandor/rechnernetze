@@ -85,7 +85,7 @@ public class ProtocolMessage {
 
     public int getFieldPort(){
         for(Triplet<FieldType, Integer, byte[]> field : fields){
-            if(field.getFirst() == FieldType.Name){
+            if(field.getFirst() == FieldType.Port){
                 return ChatUtil.byteArrayToInt(field.getThird());
             }
         }

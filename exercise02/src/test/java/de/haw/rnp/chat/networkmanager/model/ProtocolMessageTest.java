@@ -20,7 +20,7 @@ public class ProtocolMessageTest {
     public void setUp() throws Exception {
         ip = new byte[]{0x0, 0x1, 0x0, 0x4, 0x7F, 0x0, 0x0, 0x1};
         port = new byte[]{0x0, 0x2, 0x0, 0x2, 0x34, (byte) 0xBC};
-        string = new byte[]{0x0, 0x4, 0x0, 0x3, (byte)0x46, (byte)0x4f, (byte) 0x4f};
+        string = new byte[]{0x0, 0x4, 0x0, 0x3, (byte) 0x46, (byte) 0x4f, (byte) 0x4f};
         message = new ProtocolMessage(1, MessageType.Login, InetAddress.getByName("10.0.0.1"), 13000, 3);
         message.addIpField(InetAddress.getByName("127.0.0.1"));
         message.addPortField(13500);
