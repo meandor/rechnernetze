@@ -83,16 +83,18 @@ public abstract class ChatProtocolMessage {
     }
 
     protected byte[] userListField(List<User> userList) {
-        int size = userList.size() * 14;
+        int size = 4 + userList.size() * 8;
         byte[] result = new byte[size];
-        int position = 0;
+        result[1] = (byte) 0x3;
+        result[3] = (byte) (size - 4);
+        int position = 4;
         for (User u : userList) {
-            byte[] ipField = this.IPField(u.getHostName());
-            byte[] portField = this.portField(u.getPort());
-            System.arraycopy(ipField, 0, result, position, ipField.length);
-            position += 8;
-            System.arraycopy(portField, 0, result, position, portField.length);
+            System.arraycopy(u.getHostName().getAddress(), 0, result, position, 4);
             position += 6;
+            byte[] portByte = this.intToByteArray(u.getPort());
+            result[position] = portByte[2];
+            result[position + 1] = portByte[3];
+            position += 2;
         }
         return result;
     }
