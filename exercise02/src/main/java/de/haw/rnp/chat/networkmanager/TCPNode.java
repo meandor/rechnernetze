@@ -79,38 +79,18 @@ public class TCPNode extends Node {
         return false;
     }
 
-    public void readServerInput() {
-        if (this.incomingSockets.size() == 0) {
-            this.timeMap = new HashMap<>();
-        }
-        for (Socket s : this.getIncomingSockets()) {
-            try {
-                byte[] data = IOUtils.toByteArray(s.getInputStream());
-                if (data.length > 0) {
-                    this.incomingMessageHandler.processMessage(data);
-                    int align = 1;
-                    for (byte b : data) {
-                        System.out.format("0x%x ", b);
-                        if ((align % 4) == 0 && align > 1) {
-                            System.out.print("\n");
-                        }
-                        align++;
-                    }
-                } else {
-                    if (timeMap.containsKey(s.getLocalSocketAddress())) {
-                        Instant timestamp = timeMap.get(s.getLocalSocketAddress());
-                        if (Instant.now().isAfter(timestamp.plusSeconds(2))) {
-                            this.getIncomingSockets().remove(s);
-                            System.out.println("client socket to server closed!");
-                            s.close();
-                        }
-                    } else {
-                        timeMap.put(s.getLocalSocketAddress(),Instant.now());
-                    }
-
+    public void readServerInput() throws InterruptedException, IOException {
+        Socket s = this.incomingSockets.take();
+        byte[] data = IOUtils.toByteArray(s.getInputStream());
+        if (data.length > 0) {
+            this.incomingMessageHandler.processMessage(data);
+            int align = 1;
+            for (byte b : data) {
+                System.out.format("0x%x ", b);
+                if ((align % 4) == 0 && align > 1) {
+                    System.out.print("\n");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+                align++;
             }
         }
     }

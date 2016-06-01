@@ -2,6 +2,8 @@ package de.haw.rnp.chat.networkmanager.tasks;
 
 import de.haw.rnp.chat.networkmanager.Node;
 
+import java.io.IOException;
+
 /**
  * Task for handling incoming messages.
  */
@@ -14,9 +16,12 @@ public class ServerReadTask extends GeneralTask implements Runnable {
     @Override
     public void run() {
         while (true) {
-            this.node.readServerInput();
-            if (Thread.interrupted()) {
-                break;
+            try {
+                this.node.readServerInput();
+            } catch (InterruptedException e) {
+                return;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

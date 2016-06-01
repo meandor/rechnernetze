@@ -80,4 +80,9 @@ public class TextMessageTest {
         assertEquals(0x3A, result[45]);
         assertEquals(((byte) 0x98), result[46]);
     }
+
+    @Test
+    public void testUserList() throws Exception {
+
+    }
 }

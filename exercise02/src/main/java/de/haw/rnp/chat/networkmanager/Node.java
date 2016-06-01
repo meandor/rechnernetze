@@ -2,6 +2,7 @@ package de.haw.rnp.chat.networkmanager;
 
 import de.haw.rnp.chat.controller.IControllerService;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -75,7 +76,7 @@ public abstract class Node {
     /**
      * Reads the input from a client connection.
      */
-    public abstract void readServerInput();
+    public abstract void readServerInput() throws InterruptedException, IOException;
 
     /**
      * Waits for connections to the server.

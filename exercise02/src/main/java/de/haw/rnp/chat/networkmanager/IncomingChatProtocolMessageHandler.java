@@ -122,7 +122,7 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
      */
     private User findUser(InetAddress hostName, int port) {
         for (User u : this.controller.getUserList()) {
-            if (u.getPort() == port && u.getHostName() == hostName) {
+            if (u.getPort() == port && u.getHostName().equals(hostName)) {
                 return u;
             }
         }
