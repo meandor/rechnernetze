@@ -66,9 +66,9 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
     @Override
     public void logout(InetAddress activePeerHostName, int activePeerPort, InetAddress logoutHostName, int logoutPort) {
         // Establish Connection to the active peer
-        Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+        //Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
         LogoutMessage logoutMessage = new LogoutMessage(logoutHostName, logoutPort, logoutHostName, logoutPort);
-        this.sendChatProtocolMessage(logoutMessage, clientNode);
+        this.sendChatProtocolMessage(logoutMessage, activePeerHostName, activePeerPort);
     }
 
     @Override
@@ -79,8 +79,8 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
         for (User u : message.getReceiver()) {
             InetAddress activePeerHostName = u.getHostName();
             int activePeerPort = u.getPort();
-            Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
-            this.sendChatProtocolMessage(textMessage, clientNode);
+            //Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+            this.sendChatProtocolMessage(textMessage, activePeerHostName, activePeerPort);
         }
     }
 
@@ -91,8 +91,8 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
             InetAddress activePeerHostName = u.getHostName();
             int activePeerPort = u.getPort();
             // Establish Connection to the active peer
-            Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
-            this.sendChatProtocolMessage(myNameMessage, clientNode);
+            //Node clientNode = this.initialConnect(activePeerHostName, activePeerPort);
+            this.sendChatProtocolMessage(myNameMessage, activePeerHostName, activePeerPort);
         }
     }
 
@@ -116,17 +116,19 @@ public class OutgoingChatProtocolMessageHandler implements OutgoingMessageHandle
      * Actually sending a message via client Socket
      *
      * @param message  ChatProtocolMessage to be send
-     * @param receiver Node client connection
      */
-    private void sendChatProtocolMessage(ChatProtocolMessage message, Node receiver) {
-        try {
-            System.out.println("SENDING MESSAGE::: " + message.toString());
-            receiver.getOut().write(message.getFullMessage());
-            ClientCloseTask closeClient = new ClientCloseTask(receiver);
-            // Closing the connection to the active peer
-            this.executor.submit(closeClient);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void sendChatProtocolMessage(ChatProtocolMessage message, InetAddress activePeerHostName, int activePeerPort) {
+        Node receiver = this.initialConnect(activePeerHostName, activePeerPort);
+        if (receiver != null) {
+            try {
+                System.out.println("SENDING MESSAGE::: " + message.toString());
+                receiver.getOut().write(message.getFullMessage());
+                //ClientCloseTask closeClient = new ClientCloseTask(receiver);
+                // Closing the connection to the active peer
+                //this.executor.submit(closeClient);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
