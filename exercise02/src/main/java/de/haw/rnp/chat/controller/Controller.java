@@ -152,7 +152,7 @@ public class Controller implements IControllerService {
         try {
             if (serverStarted.get()) {
                 ServerReadTask readTask = new ServerReadTask(server);
-                this.executor.submit(readTask);
+                this.executor.execute(readTask);
                 this.waitingConnection = new ServerAwaitConnectionsTask(server);
                 this.executor.execute(this.waitingConnection);
                 return true;
