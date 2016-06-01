@@ -1,6 +1,7 @@
 package de.haw.rnp.chat.networkmanager;
 
 import de.haw.rnp.chat.controller.IControllerService;
+import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.*;
@@ -79,11 +80,13 @@ public class TCPNode extends Node {
     }
 
     public void readServerInput() {
+        if (this.incomingSockets.size() == 0) {
+            this.timeMap = new HashMap<>();
+        }
         for (Socket s : this.getIncomingSockets()) {
             try {
-                if (s.getInputStream().available() != 0) {
-                    byte[] data = new byte[s.getInputStream().available()];
-                    int count = s.getInputStream().read(data);
+                byte[] data = IOUtils.toByteArray(s.getInputStream());
+                if (data.length > 0) {
                     this.incomingMessageHandler.processMessage(data);
                     int align = 1;
                     for (byte b : data) {
