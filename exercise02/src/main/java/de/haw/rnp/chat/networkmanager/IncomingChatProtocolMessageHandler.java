@@ -25,10 +25,10 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
         ProtocolMessage message = new ProtocolMessage(byteStream);
         switch(message.getMessageType()){
             case Login:
-                login(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
+                this.login(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
                 break;
             case Logout:
-                logout(message.getSenderIp(), message.getSenderPort());
+                this.logout(message.getSenderIp(), message.getSenderPort());
                 break;
             case TextMessage:
                 User sender = findUser(message.getSenderIp(), message.getSenderPort());
@@ -37,10 +37,10 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
                 for(Map.Entry<InetAddress, Integer> pair : map.entrySet()){
                     users.add(findUser(pair.getKey(), pair.getValue()));
                 }
-                receiveMessage(message.getFieldText(), sender, users);
+                this.receiveMessage(message.getFieldText(), sender, users);
                 break;
             case MyName:
-                setUserName(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
+                this.setUserName(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
                 break;
         }
     }
