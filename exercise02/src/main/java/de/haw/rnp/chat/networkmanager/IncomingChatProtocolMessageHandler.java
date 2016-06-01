@@ -5,11 +5,12 @@ import de.haw.rnp.chat.model.Message;
 import de.haw.rnp.chat.model.User;
 import de.haw.rnp.chat.networkmanager.model.LoginMessage;
 import de.haw.rnp.chat.networkmanager.model.LogoutMessage;
+import de.haw.rnp.chat.networkmanager.model.ProtocolMessage;
+import util.MessageType;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class IncomingChatProtocolMessageHandler implements IncomingMessageHandler {
 
@@ -21,7 +22,27 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
 
     @Override
     public void processMessage(byte[] byteStream) {
-        //parse message and forward to the proper function
+        ProtocolMessage message = new ProtocolMessage(byteStream);
+        switch(message.getMessageType()){
+            case Login:
+                login(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
+                break;
+            case Logout:
+                logout(message.getSenderIp(), message.getSenderPort());
+                break;
+            case TextMessage:
+                User sender = findUser(message.getSenderIp(), message.getSenderPort());
+                List<User> users = new ArrayList<>();
+                HashMap<InetAddress, Integer> map = message.byteArrayToUserList();
+                for(Map.Entry<InetAddress, Integer> pair : map.entrySet()){
+                    users.add(findUser(pair.getKey(), pair.getValue()));
+                }
+                receiveMessage(message.getFieldText(), sender, users);
+                break;
+            case MyName:
+                setUserName(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
+                break;
+        }
     }
 
     @Override

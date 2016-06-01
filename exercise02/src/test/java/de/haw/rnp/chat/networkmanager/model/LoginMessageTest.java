@@ -16,21 +16,11 @@ public class LoginMessageTest {
     @Before
     public void setUp() throws Exception {
         this.message = new LoginMessage(InetAddress.getByName("10.0.0.1"), 13000, "FOO", InetAddress.getByName("127.0.0.1"), 13500);
-        //this.message2 = new ProtocolMessage(1, MessageType.Login, InetAddress.getByName("10.0.0.1"), 13000, 3);
-        //this.message2 = new ProtocolMessage(message.getFullMessage());
     }
 
     @Test
     public void getFullMessageTest() throws Exception {
         byte[] result = this.message.getFullMessage();
-        /*byte[] result2 = this.message2.getMessageAsByteArray();
-        for(int x = 0; x < result.length; x++){
-            System.out.println("...........");
-            System.out.println(result[x]);
-           //System.out.println(result2[x]);
-            System.out.println("counter " + x);
-        }*/
-        //assertArrayEquals(result, message2.getMessageAsByteArray());
         assertEquals(33, result.length);
         assertEquals(0x1, result[0]);
         assertEquals(0x1, result[1]);
