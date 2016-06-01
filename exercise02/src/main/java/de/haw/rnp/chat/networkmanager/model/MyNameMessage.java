@@ -3,7 +3,7 @@ package de.haw.rnp.chat.networkmanager.model;
 import java.net.InetAddress;
 
 /**
- * Protocol Message for the sending a name.
+ * Protocol Message for sending a name.
  */
 public class MyNameMessage extends ChatProtocolMessage {
 

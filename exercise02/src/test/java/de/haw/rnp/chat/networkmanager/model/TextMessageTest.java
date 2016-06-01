@@ -9,9 +9,6 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by daniel on 31.05.16.
- */
 public class TextMessageTest {
 
     private ChatProtocolMessage message;
