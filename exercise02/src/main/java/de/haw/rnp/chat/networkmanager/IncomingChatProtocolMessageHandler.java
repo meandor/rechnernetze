@@ -29,10 +29,11 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
         ProtocolMessage message = new ProtocolMessage(byteStream);
         switch (message.getMessageType()) {
             case Login:
-                this.login(message.getSenderIp(), message.getSenderPort(), message.getFieldUsername());
+                System.out.println("DEBUG:::" + message.getFieldIp().getHostAddress() + ":" + message.getFieldPort());
+                this.login(message.getFieldIp(), message.getFieldPort(), message.getFieldUsername());
                 break;
             case Logout:
-                this.logout(message.getSenderIp(), message.getSenderPort());
+                this.logout(message.getFieldIp(), message.getFieldPort());
                 break;
             case TextMessage:
                 User sender = findUser(message.getSenderIp(), message.getSenderPort());
@@ -96,12 +97,13 @@ public class IncomingChatProtocolMessageHandler implements IncomingMessageHandle
     public void propagate(byte[] message, Queue<User> users) {
         OutgoingMessageHandler handler = new OutgoingChatProtocolMessageHandler(this.controller);
         for (User u : users) {
-            Node node = handler.initialConnect(u.getHostName(), u.getPort());
+            System.out.println("PROPAGATE FOR: " + u.toString());
+            /*Node node = handler.initialConnect(u.getHostName(), u.getPort());
             try {
                 node.getOut().write(message);
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
     }
 

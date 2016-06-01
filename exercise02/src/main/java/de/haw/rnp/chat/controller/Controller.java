@@ -83,12 +83,20 @@ public class Controller implements IControllerService {
 
     @Override
     public boolean addUser(User u) {
-        return userList.offer(u);
+        if (userList.offer(u)) {
+            this.view.updateUserlist(this.userList);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean removeUser(User u) {
-        return userList.remove(u);
+        if (userList.remove(u)) {
+            this.view.updateUserlist(this.userList);
+            return true;
+        }
+        return false;
     }
 
     @Override
