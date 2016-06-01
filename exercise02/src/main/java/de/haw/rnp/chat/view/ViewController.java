@@ -99,6 +99,17 @@ public class ViewController implements IView {
             }
         });
 
+        chatView.getSendButton().setOnAction(action -> {
+            String text = chatView.getMessageTextArea().getText();
+            if(text != ""){
+                String recipient = chatView.getReceiver().getText();
+                if (controller.sendMessage(recipient, text)) {
+                    chatView.getDisplayTextArea().appendText(controller.getLoggedInUser().getName() + " send to " + recipient + ":\n" + text + "\n");
+                    chatView.getMessageTextArea().clear();
+                }
+            }
+        });
+
         chatView.getLogoutButton().setOnAction(action -> {
             this.controller.logout();
             setUserLoggedOff();

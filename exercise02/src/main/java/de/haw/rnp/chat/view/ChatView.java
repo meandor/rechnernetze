@@ -20,6 +20,7 @@ public class ChatView {
     private TextArea displayTextArea;
     private TextArea messageTextArea;
     private TextField receiver;
+
     private Button sendButton;
     private Button logoutButton;
     private ListView<User> userList;
@@ -82,6 +83,10 @@ public class ChatView {
 
     public Button getLogoutButton() {
         return logoutButton;
+    }
+
+    public Button getSendButton() {
+        return sendButton;
     }
 
     public Scene getScene() {
