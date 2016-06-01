@@ -137,7 +137,8 @@ public class ViewController implements IView {
             usersList.add(u);
         }
         ObservableList<User> myObservableList = FXCollections.observableArrayList(usersList);
-        this.chatView.getUserList().setItems(myObservableList);
+        if(chatView != null)
+            this.chatView.getUserList().setItems(myObservableList);
     }
 
     @Override
