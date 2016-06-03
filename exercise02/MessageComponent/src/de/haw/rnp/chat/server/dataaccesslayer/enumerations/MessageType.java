@@ -19,6 +19,8 @@ public enum MessageType {
         return ChatUtil.intToByte(code);
     }
 
+    public byte[] getCodeAsArray(){return new byte[]{this.getCode()};}
+
     private static MessageType[] allValues = values();
     public static MessageType fromByte(byte n) {return allValues[Byte.toUnsignedInt(n)-1];}
 }

@@ -13,6 +13,10 @@ public final class ChatUtil {
         else return Byte.MIN_VALUE;
     }
 
+    public static byte[] intToOneByteArray(int number){
+        return new byte[]{intToByte(number)};
+    }
+
     public static byte[] intToByteArray(int number) {
         return ByteBuffer.allocate(Integer.BYTES).putInt(number).array();
     }
