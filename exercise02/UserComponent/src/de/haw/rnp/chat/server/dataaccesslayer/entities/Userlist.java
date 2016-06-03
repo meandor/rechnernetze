@@ -1,5 +1,7 @@
 package de.haw.rnp.chat.server.dataaccesslayer.entities;
 
+import de.haw.rnp.chat.util.ChatUtil;
+
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,5 +37,14 @@ public class Userlist {
 
     public User findUserByUsername(String username){
         return users.stream().filter(user -> user.getUsername().equals(username)).findFirst().orElse(null);
+    }
+
+    public byte[] getUserlistAsBytes(){
+        byte[] result = new byte[0];
+        byte[] reserved = new byte[]{0x0, 0x0};
+        for(User user : users){
+            ChatUtil.concat(result, user.getAddressAsBytes(), reserved, user.getPortAsBytes());
+        }
+        return result;
     }
 }
