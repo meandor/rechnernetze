@@ -1,6 +1,7 @@
 package de.haw.rnp.chat.server.dataaccesslayer.entities;
 
 import de.haw.rnp.chat.server.dataaccesslayer.enumerations.FieldType;
+import de.haw.rnp.chat.util.ChatUtil;
 
 public class Field<T> {
     private FieldType fieldType;
@@ -35,5 +36,26 @@ public class Field<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public byte[] getFieldAsBytes(){
+        byte[] result = new byte[0];
+        ChatUtil.concat(result, fieldType.getCode(), ChatUtil.intToTwoBytesArray(length));
+        if(fieldType == FieldType.IP){
+            User tmp = (User) data;
+            return ChatUtil.concat(result, tmp.getAddressAsBytes());
+        }else if(fieldType == FieldType.Port){
+            User tmp = (User) data;
+            return ChatUtil.concat(result, tmp.getPortAsBytes());
+        }else if(fieldType == FieldType.Name){
+            User tmp = (User) data;
+            return ChatUtil.concat(result, tmp.getUsernameAsBytes());
+        }else if(fieldType == FieldType.Text){
+            Message tmp = (Message) data;
+            return ChatUtil.concat(result, tmp.getMessageAsBytes());
+        }else{
+            Userlist tmp = (Userlist) data;
+            return ChatUtil.concat(result, tmp.getUserlistAsBytes());
+        }
     }
 }
