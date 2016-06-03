@@ -1,5 +1,6 @@
 package de.haw.rnp.chat.server.dataaccesslayer.entities;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
 public class Message {
@@ -39,5 +40,9 @@ public class Message {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public byte[] getMessageAsBytes(){
+        return message.getBytes(StandardCharsets.US_ASCII);
     }
 }
