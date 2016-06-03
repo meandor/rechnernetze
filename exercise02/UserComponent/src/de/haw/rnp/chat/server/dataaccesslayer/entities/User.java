@@ -1,6 +1,10 @@
 package de.haw.rnp.chat.server.dataaccesslayer.entities;
 
+import de.haw.rnp.chat.util.ChatUtil;
+
 import java.net.InetAddress;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -52,5 +56,17 @@ public class User {
 
     public void addMessage(String sender, String recipient, String text){
         messages.add(new Message(sender, recipient, text));
+    }
+
+    public byte[] getAddressAsBytes(){
+        return ip.getAddress();
+    }
+
+    public byte[] getPortAsBytes(){
+        return ChatUtil.intToTwoBytesArray(port);
+    }
+
+    public byte[] getUsernameAsBytes(){
+        return username.getBytes(StandardCharsets.US_ASCII);
     }
 }
