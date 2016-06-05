@@ -21,4 +21,12 @@ public class AddressType {
         }
         this.port = port;
     }
+
+    public InetAddress getIp() {
+        return ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
 }
