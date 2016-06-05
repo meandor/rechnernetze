@@ -15,6 +15,8 @@ public class OutgoingPeerAdapterBusinessLogic implements IOutgoingPeerAdapterSer
         try {
             Socket socket = new Socket(address.getIp(), address.getPort());
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+            outputStream.write(data);
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
             return false;
