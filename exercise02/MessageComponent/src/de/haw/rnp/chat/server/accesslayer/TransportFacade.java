@@ -3,7 +3,7 @@ package de.haw.rnp.chat.server.accesslayer;
 import de.haw.rnp.chat.server.businesslogiclayer.TransportBusinessLogic;
 import de.haw.rnp.chat.server.dataaccesslayer.entities.Frame;
 
-public class TransportFacade implements ITransportServices{
+public class TransportFacade implements ITransportServices, ITransportServicesForIncomingPeerAdapter{
 
     private TransportBusinessLogic transportBusinessLogic;
 
@@ -29,5 +29,10 @@ public class TransportFacade implements ITransportServices{
     @Override
     public void SendUsername(Frame frame) {
         transportBusinessLogic.SendUsername(frame);
+    }
+
+    @Override
+    public void recieveFrameAsBytes(byte[] frame) {
+        transportBusinessLogic.recieveFrameAsBytes(frame);
     }
 }
