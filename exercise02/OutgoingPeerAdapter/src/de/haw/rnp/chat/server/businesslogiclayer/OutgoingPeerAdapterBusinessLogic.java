@@ -14,7 +14,7 @@ public class OutgoingPeerAdapterBusinessLogic implements IOutgoingPeerAdapterSer
     public boolean sendData(AddressType address, byte[] data) {
         try {
             Socket socket = new Socket(address.getIp(), address.getPort());
-            DataOutputStream outputStream = new 
+            DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
             return false;
