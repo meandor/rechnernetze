@@ -1,9 +1,13 @@
 package de.haw.rnp.chat.server.dataaccesslayer.entities;
 
 import de.haw.rnp.chat.server.dataaccesslayer.enumerations.FieldType;
+import de.haw.rnp.chat.util.AddressType;
 import de.haw.rnp.chat.util.ChatUtil;
 
+import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collection;
 
 public class Field<T> {
     private FieldType fieldType;
@@ -44,20 +48,29 @@ public class Field<T> {
         byte[] result = new byte[0];
         ChatUtil.concat(result, fieldType.getCode(), ChatUtil.intToTwoBytesArray(length));
         if(fieldType == FieldType.IP){
-            User tmp = (User) data;
-            return ChatUtil.concat(result, tmp.getAddressAsBytes());
+            InetAddress tmp = (InetAddress) data;
+            return ChatUtil.concat(result, tmp.getAddress());
         }else if(fieldType == FieldType.Port){
-            User tmp = (User) data;
-            return ChatUtil.concat(result, tmp.getPortAsBytes());
+            int tmp = (Integer) data;
+            return ChatUtil.concat(result, ChatUtil.intToTwoBytesArray(tmp));
         }else if(fieldType == FieldType.Name){
-            User tmp = (User) data;
-            return ChatUtil.concat(result, tmp.getUsernameAsBytes());
+            String tmp = (String) data;
+            return ChatUtil.concat(result, tmp.getBytes(StandardCharsets.US_ASCII));
         }else if(fieldType == FieldType.Text){
-            Message tmp = (Message) data;
-            return ChatUtil.concat(result, tmp.getMessageAsBytes());
+            String tmp = (String) data;
+            return ChatUtil.concat(result, tmp.getBytes(StandardCharsets.US_ASCII));
         }else{
-            Userlist tmp = (Userlist) data;
-            return ChatUtil.concat(result, tmp.getUserlistAsBytes());
+            return ChatUtil.concat(result, userlistToBytes());
         }
+    }
+
+    private byte[] userlistToBytes(){
+        Collection<AddressType> tmp = (Collection) data;
+        byte[] result = new byte[0];
+        byte[] reserved = new byte[]{0x0, 0x0};
+        for(AddressType address : tmp){
+            ChatUtil.concat(result, address.getIp().getAddress(), reserved, ChatUtil.intToTwoBytesArray(address.getPort()));
+        }
+        return result;
     }
 }
