@@ -7,8 +7,6 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
-import static org.apache.commons.io.IOUtils.toByteArray;
-
 public class SocketWorker implements Runnable{
 
     private Socket clientSocket;
