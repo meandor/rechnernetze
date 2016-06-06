@@ -5,6 +5,8 @@ import de.haw.rnp.chat.server.accesslayer.ITransportServicesForIncomingPeerAdapt
 import de.haw.rnp.chat.server.accesslayer.IUserServices;
 import de.haw.rnp.chat.server.dataaccesslayer.entities.Frame;
 
+import java.util.Arrays;
+
 public class TransportBusinessLogic implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
     private IUserServices userServices;
@@ -15,7 +17,7 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
 
     @Override
     public void sendMessage(Frame frame) {
-        
+
     }
 
     @Override
@@ -34,7 +36,9 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     }
 
     @Override
-    public void recieveFrameAsBytes(byte[] frame) {
+    public void recieveFrameAsBytes(byte[] bytes) {
+        Frame frame = new Frame(Arrays.copyOf(bytes, 12));
 
     }
+
 }
