@@ -13,11 +13,21 @@ public class IncomingPeerAdapterFacade implements IIncomingPeerAdapterServices {
 
     @Override
     public void startServer(AddressType address) {
+        businessLogic.startServer(address);
+    }
 
+    @Override
+    public void stopServer() {
+        businessLogic.stopServer();
     }
 
     @Override
     public void startQueueWorker() {
+        businessLogic.startQueueWorker();
+    }
 
+    @Override
+    public void stopQueueWorker() {
+        businessLogic.stopQueueWorker();
     }
 }

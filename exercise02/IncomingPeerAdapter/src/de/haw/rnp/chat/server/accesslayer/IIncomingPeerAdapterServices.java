@@ -6,6 +6,10 @@ public interface IIncomingPeerAdapterServices {
 
     public void startServer(AddressType address);
 
+    public void stopServer();
+
     public void startQueueWorker();
+
+    public void stopQueueWorker();
 
 }
