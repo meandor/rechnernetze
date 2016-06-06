@@ -22,4 +22,8 @@ public enum FieldType {
     private static FieldType[] allValues = values();
 
     public static FieldType fromInt(int n) {return allValues[n-1];}
+
+    public static FieldType fromBytes(byte[] bytes) {
+        return fromInt(ChatUtil.byteArrayToInt(bytes));
+    }
 }
