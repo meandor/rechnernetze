@@ -6,6 +6,7 @@ import de.haw.rnp.chat.util.ChatUtil;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -23,6 +24,7 @@ public class Frame {
         this.length = length;
         this.sender = sender;
         this.recipient = recipient;
+        this.fields = new ArrayList<>();
     }
 
     public Frame(byte[] bytes){
@@ -36,6 +38,7 @@ public class Frame {
         } catch (UnknownHostException e) {}
 
         length = ChatUtil.byteArrayToInt(Arrays.copyOfRange(bytes, 10, 12));
+        this.fields = new ArrayList<>();
     }
 
     public AddressType getSender() {
@@ -95,17 +98,17 @@ public class Frame {
         byte[] reserved = new byte[]{0x0, 0x0};
 
         //building the header
-        ChatUtil.concat(result,
-                        ChatUtil.intToOneByteArray(version),
-                        messageType.getCodeAsArray(),
-                        reserved,
-                        sender.getIp().getAddress(),
-                        ChatUtil.intToTwoBytesArray(sender.getPort()),
-                        ChatUtil.intToByteArray(length));
+        result = ChatUtil.concat(result,
+                                 ChatUtil.intToOneByteArray(version),
+                                 messageType.getCodeAsArray(),
+                                 reserved,
+                                 sender.getIp().getAddress(),
+                                 ChatUtil.intToTwoBytesArray(sender.getPort()),
+                                 ChatUtil.intToTwoBytesArray(length));
 
         //adding fields
         for(Field field : fields){
-            ChatUtil.concat(result, field.getFieldAsBytes());
+            result = ChatUtil.concat(result, field.getFieldAsBytes());
         }
 
         return result;
