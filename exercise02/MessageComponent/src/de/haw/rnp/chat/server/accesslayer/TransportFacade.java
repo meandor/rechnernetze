@@ -32,7 +32,7 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     }
 
     @Override
-    public Frame recieveFrameAsBytes(byte[] bytes) {
-        return transportBusinessLogic.recieveFrameAsBytes(bytes);
+    public Frame receiveFrameAsBytes(byte[] bytes) {
+        return transportBusinessLogic.receiveFrameAsBytes(bytes);
     }
 }

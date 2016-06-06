@@ -45,7 +45,7 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     }
 
     @Override
-    public Frame recieveFrameAsBytes(byte[] bytes) {
+    public Frame receiveFrameAsBytes(byte[] bytes) {
         Frame frame = new Frame(Arrays.copyOf(bytes, 12));
         frame.setFields(parseFields(Arrays.copyOfRange(bytes, 12, bytes.length)));
         return frame;
