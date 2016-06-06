@@ -3,6 +3,8 @@ package de.haw.rnp.chat.server.dataaccesslayer.entities;
 import de.haw.rnp.chat.server.dataaccesslayer.enumerations.FieldType;
 import de.haw.rnp.chat.util.ChatUtil;
 
+import java.util.Arrays;
+
 public class Field<T> {
     private FieldType fieldType;
     private int length;
@@ -12,6 +14,11 @@ public class Field<T> {
         this.fieldType = fieldType;
         this.length = length;
         this.data = data;
+    }
+
+    public Field(byte[] header){
+        fieldType = FieldType.fromBytes(Arrays.copyOf(header, 2));
+        length = ChatUtil.byteArrayToInt(Arrays.copyOfRange(header, 2, 4));
     }
 
     public FieldType getFieldType() {
