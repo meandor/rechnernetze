@@ -48,4 +48,8 @@ public final class ChatUtil {
         return   b[1] & 0xFF |
                 (b[0] & 0xFF) << 8;
     }
+
+    public static byte[] cut(byte[] a, int b){
+        return Arrays.copyOfRange(a, b, a.length);
+    }
 }
