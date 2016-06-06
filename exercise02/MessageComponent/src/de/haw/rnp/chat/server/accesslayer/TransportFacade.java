@@ -7,8 +7,8 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
 
     private TransportBusinessLogic transportBusinessLogic;
 
-    public TransportFacade(IUserServices userServices){
-        transportBusinessLogic = new TransportBusinessLogic(userServices);
+    public TransportFacade(IUserServices userServices, IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
+        transportBusinessLogic = new TransportBusinessLogic(userServices, outgoingPeerAdapterServices);
     }
 
     @Override

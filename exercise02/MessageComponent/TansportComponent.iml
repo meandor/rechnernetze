@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Utilities" />
     <orderEntry type="module" module-name="UserComponent" />
+    <orderEntry type="module" module-name="OutgoingPeerAdapter" />
   </component>
 </module>

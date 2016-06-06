@@ -1,5 +1,6 @@
 package de.haw.rnp.chat.server.businesslogiclayer;
 
+import de.haw.rnp.chat.server.accesslayer.IOutgoingPeerAdapterServices;
 import de.haw.rnp.chat.server.accesslayer.ITransportServices;
 import de.haw.rnp.chat.server.accesslayer.ITransportServicesForIncomingPeerAdapter;
 import de.haw.rnp.chat.server.accesslayer.IUserServices;
@@ -19,14 +20,16 @@ import java.util.Collection;
 public class TransportBusinessLogic implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
     private IUserServices userServices;
+    private IOutgoingPeerAdapterServices outgoingPeerAdapterServices;
 
-    public TransportBusinessLogic(IUserServices userServices){
+    public TransportBusinessLogic(IUserServices userServices, IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
         this.userServices = userServices;
+        this.outgoingPeerAdapterServices = outgoingPeerAdapterServices;
     }
 
     @Override
     public void sendMessage(Frame frame) {
-
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
