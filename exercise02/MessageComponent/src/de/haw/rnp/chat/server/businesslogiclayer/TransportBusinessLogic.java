@@ -34,17 +34,17 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
 
     @Override
     public void sendLogin(Frame frame) {
-
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
     public void sendLogout(Frame frame) {
-
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
     public void SendUsername(Frame frame) {
-
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
