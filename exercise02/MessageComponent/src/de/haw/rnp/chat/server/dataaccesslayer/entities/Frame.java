@@ -1,23 +1,56 @@
 package de.haw.rnp.chat.server.dataaccesslayer.entities;
 
 import de.haw.rnp.chat.server.dataaccesslayer.enumerations.MessageType;
+import de.haw.rnp.chat.util.AddressType;
 import de.haw.rnp.chat.util.ChatUtil;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class Frame {
-    private User sender;
-    private User recipient;
+    private AddressType sender;
+    private AddressType recipient;
     private int version;
     private MessageType messageType;
     private int length;
     private Collection<Field> fields;
 
-    public Frame(User sender, User recipient, int version, MessageType messageType, int length){
+    public Frame(AddressType sender, AddressType recipient, int version, MessageType messageType, int length){
         this.version  = version;
         this.messageType = messageType;
         this.length = length;
         this.sender = sender;
+        this.recipient = recipient;
+    }
+
+    public Frame(byte[] bytes){
+        version = Byte.toUnsignedInt(bytes[0]);
+        messageType = MessageType.fromByte(bytes[1]);
+
+        try {
+            InetAddress senderIp = InetAddress.getByAddress(Arrays.copyOfRange(bytes, 4, 8));
+            int senderPort = ChatUtil.byteArrayToInt(Arrays.copyOfRange(bytes, 8, 10));
+            sender = new AddressType(senderIp, senderPort);
+        } catch (UnknownHostException e) {}
+
+        length = ChatUtil.byteArrayToInt(Arrays.copyOfRange(bytes, 10, 12));
+    }
+
+    public AddressType getSender() {
+        return sender;
+    }
+
+    public void setSender(AddressType sender) {
+        this.sender = sender;
+    }
+
+    public AddressType getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(AddressType recipient) {
         this.recipient = recipient;
     }
 
@@ -66,8 +99,8 @@ public class Frame {
                         ChatUtil.intToOneByteArray(version),
                         messageType.getCodeAsArray(),
                         reserved,
-                        sender.getAddressAsBytes(),
-                        sender.getPortAsBytes(),
+                        sender.getIp().getAddress(),
+                        ChatUtil.intToTwoBytesArray(sender.getPort()),
                         ChatUtil.intToByteArray(length));
 
         //adding fields
@@ -77,4 +110,5 @@ public class Frame {
 
         return result;
     }
+
 }
