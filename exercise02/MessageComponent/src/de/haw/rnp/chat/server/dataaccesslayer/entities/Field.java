@@ -16,11 +16,6 @@ public class Field<T> {
         this.data = data;
     }
 
-    public Field(byte[] header){
-        fieldType = FieldType.fromBytes(Arrays.copyOf(header, 2));
-        length = ChatUtil.byteArrayToInt(Arrays.copyOfRange(header, 2, 4));
-    }
-
     public FieldType getFieldType() {
         return fieldType;
     }
