@@ -46,7 +46,7 @@ public class Field<T> {
 
     public byte[] getFieldAsBytes(){
         byte[] result = new byte[0];
-        ChatUtil.concat(result, fieldType.getCode(), ChatUtil.intToTwoBytesArray(length));
+        result = ChatUtil.concat(result, fieldType.getCode(), ChatUtil.intToTwoBytesArray(length));
         if(fieldType == FieldType.IP){
             InetAddress tmp = (InetAddress) data;
             return ChatUtil.concat(result, tmp.getAddress());
