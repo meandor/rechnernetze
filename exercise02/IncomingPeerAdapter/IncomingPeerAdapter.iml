@@ -8,7 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Utilities" />
-    <orderEntry type="module" module-name="TansportComponent" />
     <orderEntry type="library" name="commons-io:commons-io:2.5" level="project" />
+    <orderEntry type="module" module-name="TransportComponent" />
   </component>
 </module>

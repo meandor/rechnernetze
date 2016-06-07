@@ -9,8 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="IncomingPeerAdapter" />
     <orderEntry type="module" module-name="OutgoingPeerAdapter" />
-    <orderEntry type="module" module-name="TansportComponent" />
     <orderEntry type="module" module-name="UserComponent" />
     <orderEntry type="module" module-name="Utilities" />
+    <orderEntry type="module" module-name="TransportComponent" />
   </component>
 </module>
