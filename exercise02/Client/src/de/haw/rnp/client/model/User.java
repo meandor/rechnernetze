@@ -21,7 +21,12 @@ public class User {
         this.name = new SimpleStringProperty(name);
         this.hostname = new SimpleStringProperty(hostname);
         this.port = new SimpleIntegerProperty(port);
+    }
 
+    public User(String hostname, int port){
+        this.name = new SimpleStringProperty("");
+        this.hostname = new SimpleStringProperty(hostname);
+        this.port = new SimpleIntegerProperty(port);
     }
 
     public String getName() {
