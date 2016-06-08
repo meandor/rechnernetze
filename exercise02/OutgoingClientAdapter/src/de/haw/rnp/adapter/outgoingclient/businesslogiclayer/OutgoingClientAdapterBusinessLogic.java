@@ -1,27 +1,27 @@
 package de.haw.rnp.adapter.outgoingclient.businesslogiclayer;
 
 import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServices;
+import de.haw.rnp.util.IObserver;
 
 public class OutgoingClientAdapterBusinessLogic implements IOutClientAdapterServices {
 
     @Override
-    public void addMessage() {
+    public void registerObserverToMessages(IObserver observer) {
 
     }
 
     @Override
-    public void addUser() {
+    public void removeObserverFromMessages(IObserver observer) {
 
     }
 
     @Override
-    public void removeUser() {
+    public void registerObserverToUsers(IObserver observer) {
 
     }
 
     @Override
-    public void updateUser() {
+    public void removeObserverFromUsers(IObserver observer) {
 
     }
-
 }

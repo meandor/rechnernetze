@@ -1,30 +1,16 @@
 package de.haw.rnp.adapter.outgoingclient.accesslayer;
 
 import de.haw.rnp.adapter.outgoingclient.businesslogiclayer.OutgoingClientAdapterBusinessLogic;
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.MessageDTO;
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.util.IObserver;
 
 public class OutClientAdapterFacade implements IOutClientAdapterServices, IOutClientAdapterServicesForInPeer {
 
     private OutgoingClientAdapterBusinessLogic businessLogic;
 
-    @Override
-    public void addMessage() {
-
-    }
-
-    @Override
-    public void addUser() {
-
-    }
-
-    @Override
-    public void removeUser() {
-
-    }
-
-    @Override
-    public void updateUser() {
-
+    public OutClientAdapterFacade(){
+        businessLogic = new OutgoingClientAdapterBusinessLogic();
     }
 
     @Override
@@ -44,6 +30,26 @@ public class OutClientAdapterFacade implements IOutClientAdapterServices, IOutCl
 
     @Override
     public void removeObserverFromUsers(IObserver observer) {
+
+    }
+
+    @Override
+    public void addMessage(MessageDTO message) {
+
+    }
+
+    @Override
+    public void addUser(UserDTO user) {
+
+    }
+
+    @Override
+    public void removeUser(UserDTO user) {
+
+    }
+
+    @Override
+    public void updateUsername(UserDTO user) {
 
     }
 }

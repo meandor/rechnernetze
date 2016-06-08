@@ -1,13 +1,16 @@
 package de.haw.rnp.adapter.outgoingclient.accesslayer;
 
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.MessageDTO;
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
+
 public interface IOutClientAdapterServicesForInPeer {
 
-    public void addMessage();
+    public void addMessage(MessageDTO message);
 
-    public void addUser();
+    public void addUser(UserDTO user);
 
-    public void removeUser();
+    public void removeUser(UserDTO user);
 
-    public void updateUser();
+    public void updateUsername(UserDTO user);
 
 }
