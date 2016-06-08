@@ -52,7 +52,6 @@ public class ChatView {
         messageTextArea = new TextArea();
         messageTextArea.setPromptText("Message");
         messageTextArea.setPrefRowCount(2);
-
         grid.add(messageTextArea, 0, 4, 1, 1);
 
         userList = new ListView<>();
