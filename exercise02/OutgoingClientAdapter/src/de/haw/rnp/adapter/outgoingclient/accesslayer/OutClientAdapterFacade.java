@@ -15,41 +15,41 @@ public class OutClientAdapterFacade implements IOutClientAdapterServices, IOutCl
 
     @Override
     public void registerObserverToMessages(IObserver observer) {
-
+        businessLogic.registerObserverToMessages(observer);
     }
 
     @Override
     public void removeObserverFromMessages(IObserver observer) {
-
+        businessLogic.removeObserverFromMessages(observer);
     }
 
     @Override
     public void registerObserverToUsers(IObserver observer) {
-
+        businessLogic.registerObserverToUsers(observer);
     }
 
     @Override
     public void removeObserverFromUsers(IObserver observer) {
-
+        businessLogic.removeObserverFromUsers(observer);
     }
 
     @Override
     public void addMessage(MessageDTO message) {
-
+        businessLogic.addMessage(message);
     }
 
     @Override
     public void addUser(UserDTO user) {
-
+        businessLogic.addUser(user);
     }
 
     @Override
     public void removeUser(UserDTO user) {
-
+        businessLogic.removeUser(user);
     }
 
     @Override
     public void updateUsername(UserDTO user) {
-
+        businessLogic.updateUsername(user);
     }
 }
