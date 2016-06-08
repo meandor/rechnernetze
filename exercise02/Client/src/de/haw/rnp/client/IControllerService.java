@@ -5,6 +5,7 @@ import de.haw.rnp.client.model.User;
 import de.haw.rnp.util.AddressType;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 
@@ -17,7 +18,7 @@ public interface IControllerService {
 
     public void sendLogin(String username, AddressType recipient);
 
-    public void sendMessage();
+    public void sendMessage(String message, ArrayList<AddressType> recipients);
 
     public void sendLogout();
 
