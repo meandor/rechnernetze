@@ -3,14 +3,13 @@ package de.haw.rnp.component.transport.accesslayer;
 import de.haw.rnp.adapter.outgoingpeer.accesslayer.IOutgoingPeerAdapterServices;
 import de.haw.rnp.component.transport.businesslogiclayer.TransportBusinessLogic;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
-import de.haw.rnp.component.user.accesslayer.IUserServices;
 
 public class TransportFacade implements ITransportServices, ITransportServicesForIncomingPeerAdapter{
 
     private TransportBusinessLogic transportBusinessLogic;
 
-    public TransportFacade(IUserServices userServices, IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
-        transportBusinessLogic = new TransportBusinessLogic(userServices, outgoingPeerAdapterServices);
+    public TransportFacade(IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
+        transportBusinessLogic = new TransportBusinessLogic( outgoingPeerAdapterServices);
     }
 
     @Override

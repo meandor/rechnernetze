@@ -6,7 +6,6 @@ import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingP
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Field;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
 import de.haw.rnp.util.enumerations.FieldType;
-import de.haw.rnp.component.user.accesslayer.IUserServices;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.ChatUtil;
 
@@ -19,11 +18,9 @@ import java.util.Collection;
 
 public class TransportBusinessLogic implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
-    private IUserServices userServices;
     private IOutgoingPeerAdapterServices outgoingPeerAdapterServices;
 
-    public TransportBusinessLogic(IUserServices userServices, IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
-        this.userServices = userServices;
+    public TransportBusinessLogic( IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
         this.outgoingPeerAdapterServices = outgoingPeerAdapterServices;
     }
 

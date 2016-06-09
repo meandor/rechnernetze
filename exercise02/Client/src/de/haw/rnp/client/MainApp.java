@@ -13,8 +13,6 @@ import de.haw.rnp.client.model.User;
 import de.haw.rnp.component.transport.accesslayer.ITransportServices;
 import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
 import de.haw.rnp.component.transport.accesslayer.TransportFacade;
-import de.haw.rnp.component.user.accesslayer.IUserServices;
-import de.haw.rnp.component.user.accesslayer.UserFacade;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +24,6 @@ public class MainApp extends Application {
     IIncomingPeerAdapterServices incomingPeerAdapterServices;
     ITransportServices transportServices;
     ITransportServicesForIncomingPeerAdapter transportServicesForIncomingPeerAdapter;
-    IUserServices userServices;
 
     IControllerService controller;
     IOutClientAdapterServices outClientAdapterServices;
@@ -40,11 +37,9 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         users = FXCollections.observableArrayList();
-
-        userServices = new UserFacade();
         outgoingPeerAdapterServices = new OutgoingPeerAdapterFacade();
-        transportServices = new TransportFacade(userServices, outgoingPeerAdapterServices);
-        transportServicesForIncomingPeerAdapter = new TransportFacade(userServices, outgoingPeerAdapterServices);
+        transportServices = new TransportFacade(outgoingPeerAdapterServices);
+        transportServicesForIncomingPeerAdapter = new TransportFacade(outgoingPeerAdapterServices);
         OutClientAdapterFacade ocaf = new OutClientAdapterFacade();
         outClientAdapterServices = ocaf;
         outClientAdapterServicesForInPeer = ocaf;
