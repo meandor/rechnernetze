@@ -34,6 +34,8 @@ public class ViewController {
         serverView = new ServerViewController(this);
         loginView = new LoginViewController(this);
         chatView = new ChatViewController(this, this.users);
+        changeView();
+        this.stage.show();
     }
 
     public User getLocal(){
@@ -55,11 +57,13 @@ public class ViewController {
 
     public boolean startServer(String hostname, int port){
         local = new User(hostname, port);
+        stage.setTitle(hostname + " : " + port);
         return controller.startServer(new AddressType(hostname, port));
     }
 
     public boolean sendLogin(String username, String hostname, int port){
         local.setName(username);
+        stage.setTitle(username + " - " + stage.getTitle());
         return controller.sendLogin(new AddressType(hostname, port));
     }
 
