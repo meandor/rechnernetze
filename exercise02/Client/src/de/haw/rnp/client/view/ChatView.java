@@ -41,7 +41,7 @@ public class ChatView {
             displayTextArea.setScrollTop(Double.MAX_VALUE);
         });
         grid.add(displayTextArea, 0, 0, 3, 2);
-        
+
         messageTextArea = new TextArea();
         messageTextArea.setPromptText("Message");
         messageTextArea.setPrefRowCount(2);

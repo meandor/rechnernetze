@@ -1,6 +1,6 @@
 package de.haw.rnp.component.transport.dataaccesslayer.entities;
 
-import de.haw.rnp.component.transport.dataaccesslayer.enumerations.MessageType;
+import de.haw.rnp.util.enumerations.MessageType;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.ChatUtil;
 

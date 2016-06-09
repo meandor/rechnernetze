@@ -9,8 +9,8 @@ import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingP
 import de.haw.rnp.component.transport.accesslayer.TransportFacade;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Field;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
-import de.haw.rnp.component.transport.dataaccesslayer.enumerations.FieldType;
-import de.haw.rnp.component.transport.dataaccesslayer.enumerations.MessageType;
+import de.haw.rnp.util.enumerations.FieldType;
+import de.haw.rnp.util.enumerations.MessageType;
 import de.haw.rnp.component.user.accesslayer.IUserServices;
 import de.haw.rnp.component.user.accesslayer.UserFacade;
 import de.haw.rnp.util.AddressType;

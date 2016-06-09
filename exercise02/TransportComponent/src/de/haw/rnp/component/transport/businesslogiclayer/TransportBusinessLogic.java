@@ -5,7 +5,7 @@ import de.haw.rnp.component.transport.accesslayer.ITransportServices;
 import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Field;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
-import de.haw.rnp.component.transport.dataaccesslayer.enumerations.FieldType;
+import de.haw.rnp.util.enumerations.FieldType;
 import de.haw.rnp.component.user.accesslayer.IUserServices;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.ChatUtil;

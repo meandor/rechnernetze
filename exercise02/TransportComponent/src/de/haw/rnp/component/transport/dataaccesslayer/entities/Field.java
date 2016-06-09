@@ -1,12 +1,11 @@
 package de.haw.rnp.component.transport.dataaccesslayer.entities;
 
-import de.haw.rnp.component.transport.dataaccesslayer.enumerations.FieldType;
+import de.haw.rnp.util.enumerations.FieldType;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.ChatUtil;
 
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Collection;
 
 public class Field<T> {
