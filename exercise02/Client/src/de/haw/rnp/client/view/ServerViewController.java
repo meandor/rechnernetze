@@ -2,12 +2,14 @@ package de.haw.rnp.client.view;
 
 import javafx.scene.Scene;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 public class ServerViewController {
 
     private ServerView serverView;
+    private ViewController controller;
+
+    public ServerViewController(ViewController controller){
+        this.controller = controller;
+    }
 
     public Scene initServerView() {
         serverView = new ServerView();
@@ -17,22 +19,12 @@ public class ServerViewController {
 
     private void initOnEvents(){
         serverView.getStartServer().setOnAction(event -> {
-            String hostName = serverView.getHostNameField().getText();
-            String port = serverView.getPortField().getText();
+            String hostname = serverView.getHostNameField().getText();
+            int port = Integer.parseInt(serverView.getPortField().getText());
 
-            InetAddress serverHostName = null;
-            try {
-                serverHostName = InetAddress.getByName(hostName);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
+            if (controller.startServer(hostname, port)) {
+                controller.changeViewState(ViewController.ViewState.Login);
             }
-            int serverPort = Integer.parseInt(port);
-            if (controller.startServer(serverHostName, serverPort)) {
-                this.serverHostName = serverHostName;
-                this.serverPort = serverPort;
-                initLoginView();
-            }
-
         });
     }
 
