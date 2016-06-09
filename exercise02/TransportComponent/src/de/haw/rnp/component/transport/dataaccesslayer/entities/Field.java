@@ -69,7 +69,7 @@ public class Field<T> {
         byte[] result = new byte[0];
         byte[] reserved = new byte[]{0x0, 0x0};
         for(AddressType address : tmp){
-            ChatUtil.concat(result, address.getIp().getAddress(), reserved, ChatUtil.intToTwoBytesArray(address.getPort()));
+            result = ChatUtil.concat(result, address.getIp().getAddress(), reserved, ChatUtil.intToTwoBytesArray(address.getPort()));
         }
         return result;
     }
