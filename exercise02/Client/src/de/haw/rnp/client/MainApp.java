@@ -14,6 +14,7 @@ import de.haw.rnp.component.transport.accesslayer.ITransportServices;
 import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
 import de.haw.rnp.component.transport.accesslayer.TransportFacade;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -37,12 +38,17 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         users = FXCollections.observableArrayList();
+        Platform.setImplicitExit(false);
         outgoingPeerAdapterServices = new OutgoingPeerAdapterFacade();
-        transportServices = new TransportFacade(outgoingPeerAdapterServices);
-        transportServicesForIncomingPeerAdapter = new TransportFacade(outgoingPeerAdapterServices);
+
+        TransportFacade tf = new TransportFacade(outgoingPeerAdapterServices);
+        transportServices = tf;
+        transportServicesForIncomingPeerAdapter = tf;
+
         OutClientAdapterFacade ocaf = new OutClientAdapterFacade();
         outClientAdapterServices = ocaf;
         outClientAdapterServicesForInPeer = ocaf;
+
         incomingPeerAdapterServices = new IncomingPeerAdapterFacade(transportServicesForIncomingPeerAdapter, outClientAdapterServicesForInPeer);
         inClientAdapterServices = new InClientAdapterFacade(incomingPeerAdapterServices, transportServices);
 
