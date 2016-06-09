@@ -13,4 +13,16 @@ public class FieldDTO<T> {
         this.length = length;
         this.data = data;
     }
+
+    public FieldType getFieldType() {
+        return fieldType;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public T getData() {
+        return data;
+    }
 }
