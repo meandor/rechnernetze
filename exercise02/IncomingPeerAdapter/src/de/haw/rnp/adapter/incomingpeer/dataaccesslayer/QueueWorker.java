@@ -37,13 +37,13 @@ public class QueueWorker implements Runnable{
             try {
                 byte[] tmp = queue.take();
                 Frame frame = transportServices.receiveFrameAsBytes(tmp);
-
                 switch(frame.getMessageType()){
                     case Login:{
                         UserDTO user = frame.toUserDTO();
                         if(user == null)
                             break;
                         outClientAdapterServices.addUser(user);
+                        transportServices.propagatePeer(frame, outClientAdapterServices.getAllUsers());
                         break;
                     }
                     case TextMessage:{
@@ -60,6 +60,13 @@ public class QueueWorker implements Runnable{
                         outClientAdapterServices.removeUser(user);
                     }
 
+                    case MyName:{
+                        UserDTO user = frame.toUserDTO();
+                        if(user == null)
+                            break;
+                        outClientAdapterServices.updateUsername(user);
+                    }
+
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -71,6 +78,7 @@ public class QueueWorker implements Runnable{
 
     public synchronized void stop(){
         isRunning = false;
+        this.runningThread.interrupt();
     }
 
     private synchronized boolean isRunning() {

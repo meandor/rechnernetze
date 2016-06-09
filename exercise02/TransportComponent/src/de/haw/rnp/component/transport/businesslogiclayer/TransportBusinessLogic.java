@@ -1,13 +1,16 @@
 package de.haw.rnp.component.transport.businesslogiclayer;
 
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.adapter.outgoingpeer.accesslayer.IOutgoingPeerAdapterServices;
 import de.haw.rnp.component.transport.accesslayer.ITransportServices;
 import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
+import de.haw.rnp.component.transport.dataaccesslayer.TransportRepository;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Field;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
 import de.haw.rnp.util.enumerations.FieldType;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.ChatUtil;
+import de.haw.rnp.util.enumerations.MessageType;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -19,6 +22,7 @@ import java.util.Collection;
 public class TransportBusinessLogic implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
     private IOutgoingPeerAdapterServices outgoingPeerAdapterServices;
+    private TransportRepository repo;
 
     public TransportBusinessLogic( IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
         this.outgoingPeerAdapterServices = outgoingPeerAdapterServices;
@@ -31,17 +35,27 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
 
     @Override
     public void sendLogin(Frame frame) {
+        if(repo == null){
+            repo = new TransportRepository(frame);
+        }
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
     public void sendLogout(Frame frame) {
+        repo = null;
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
     public void sendUsername(Frame frame) {
+        repo = new TransportRepository(frame);
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
+    }
+
+    @Override
+    public void setLocal(AddressType address) {
+        repo = new TransportRepository(address);
     }
 
     @Override
@@ -50,6 +64,23 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
         frame.setFields(parseFields(Arrays.copyOfRange(bytes, 12, bytes.length)));
         System.out.println(frame.getLength() + " " + frame.getMessageType());
         return frame;
+    }
+
+    @Override
+    public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
+        AddressType sender = frame.getSender();
+        for(UserDTO recipient : recipients){
+            if(!recipient.getAddress().equals(sender)){
+                frame.setSender(repo.getLocal().getAddress());
+                frame.setRecipient(recipient.getAddress());
+                sendLogin(frame);
+            }
+        }
+        if(!repo.getLocal().getName().equals("")) {
+            Frame myname = new Frame(repo.getLocal().getAddress(), sender, 1, MessageType.MyName, 1);
+            myname.addField(new Field<>(FieldType.Name, repo.getLocal().getName().length(), repo.getLocal().getName()));
+            sendUsername(myname);
+        }
     }
 
     private Collection<Field> parseFields(byte[] bytes){

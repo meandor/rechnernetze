@@ -1,8 +1,12 @@
 package de.haw.rnp.component.transport.accesslayer;
 
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.adapter.outgoingpeer.accesslayer.IOutgoingPeerAdapterServices;
 import de.haw.rnp.component.transport.businesslogiclayer.TransportBusinessLogic;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
+import de.haw.rnp.util.AddressType;
+
+import java.util.Collection;
 
 public class TransportFacade implements ITransportServices, ITransportServicesForIncomingPeerAdapter{
 
@@ -33,7 +37,17 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     }
 
     @Override
+    public void setLocal(AddressType address) {
+        transportBusinessLogic.setLocal(address);
+    }
+
+    @Override
     public Frame receiveFrameAsBytes(byte[] bytes) {
         return transportBusinessLogic.receiveFrameAsBytes(bytes);
+    }
+
+    @Override
+    public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
+        transportBusinessLogic.propagatePeer(frame, recipients);
     }
 }
