@@ -7,6 +7,8 @@ public interface IInClientAdapterServices {
 
     boolean startServer(AddressType address);
 
+    void stopServer();
+
     boolean sendMessage(FrameDTO frame);
 
     boolean sendLogin(FrameDTO frame);

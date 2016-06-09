@@ -11,11 +11,13 @@ import de.haw.rnp.client.view.ViewController;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.enumerations.FieldType;
 import de.haw.rnp.util.enumerations.MessageType;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 import javax.swing.text.View;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.concurrent.Future;
 
 public class Controller implements IControllerService {
 
@@ -52,6 +54,13 @@ public class Controller implements IControllerService {
 
         outAdapterServices.registerObserverToUsers(userlistObserver);
         outAdapterServices.registerObserverToMessages(messageObserver);
+
+        main.getPrimaryStage().setOnCloseRequest(t -> {
+            if (viewController.getLocal() != null) {
+                inAdapterServices.stopServer();
+            }
+            Platform.exit();
+        });
     }
 
     @Override
@@ -62,6 +71,9 @@ public class Controller implements IControllerService {
     @Override
     public boolean sendLogin(AddressType recipient) {
         User local = viewController.getLocal();
+        if(local.getAddress().equals(recipient))
+                return false;
+
         FrameDTO frame = new FrameDTO(local.getAddress(), recipient, VERSION, MessageType.Login, LOGIN_LENGTH);
         FieldDTO<InetAddress> ip = new FieldDTO<>(FieldType.IP, IP_LENGTH, local.getAddress().getIp());
         FieldDTO<Integer> port = new FieldDTO<>(FieldType.Port, PORT_LENGTH, local.getAddress().getPort());

@@ -30,7 +30,14 @@ public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
     public boolean startServer(AddressType address) {
         incomingPeerAdapterServices.startServer(address);
         incomingPeerAdapterServices.startQueueWorker();
+        transportServices.setLocal(address);
         return true;
+    }
+
+    @Override
+    public void stopServer() {
+        incomingPeerAdapterServices.stopServer();
+        incomingPeerAdapterServices.stopQueueWorker();
     }
 
     @Override

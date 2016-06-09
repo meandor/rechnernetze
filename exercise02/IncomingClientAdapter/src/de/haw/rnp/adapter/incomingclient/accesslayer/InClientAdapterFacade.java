@@ -25,6 +25,11 @@ public class InClientAdapterFacade implements IInClientAdapterServices {
     }
 
     @Override
+    public void stopServer() {
+        businessLogic.stopServer();
+    }
+
+    @Override
     public boolean sendMessage(FrameDTO frame) {
         if(!checkHeader(frame, MessageType.TextMessage))
             return false;
