@@ -34,7 +34,8 @@ public class IncomingPeerAdapterBusinessLogic implements IIncomingPeerAdapterSer
 
     @Override
     public void stopServer() {
-        server.stop();
+        if(server != null)
+            server.stop();
     }
 
     @Override
@@ -45,6 +46,7 @@ public class IncomingPeerAdapterBusinessLogic implements IIncomingPeerAdapterSer
 
     @Override
     public void stopQueueWorker() {
-        queueWorker.stop();
+        if(queueWorker != null)
+            queueWorker.stop();
     }
 }
