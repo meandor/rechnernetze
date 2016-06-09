@@ -29,4 +29,23 @@ public class AddressType {
     public int getPort() {
         return port;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AddressType that = (AddressType) o;
+
+        if (getPort() != that.getPort()) return false;
+        return getIp().equals(that.getIp());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getIp().hashCode();
+        result = 31 * result + getPort();
+        return result;
+    }
 }
