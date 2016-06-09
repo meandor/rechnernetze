@@ -1,22 +1,28 @@
 package de.haw.rnp.client.view;
 
 import de.haw.rnp.client.model.User;
+import de.haw.rnp.util.AddressType;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 
+import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 
 public class ChatViewController {
 
     private ChatView chatView;
     private ViewController controller;
+    private ObservableList<User> users;
 
-    public ChatViewController(ViewController controller){
+    public ChatViewController(ViewController controller, ObservableList<User> users){
         this.controller = controller;
+        this.users = users;
     }
 
     public Scene initChatView() {
-        chatView = new ChatView();
+        chatView = new ChatView(users);
         return chatView.getScene();
     }
 
@@ -36,19 +42,24 @@ public class ChatViewController {
         });
 
         chatView.getLogoutButton().setOnAction(action -> {
-            this.controller.logout();
-            setUserLoggedOff();
-            initLoginView();
+            controller.sendLogout();
+            controller.changeViewState(ViewController.ViewState.Login);
         });
     }
 
     private void processMessage(){
         String text = chatView.getMessageTextArea().getText();
         String recipient = chatView.getReceiver().getText();
-        if (controller.sendMessage(recipient, text)) {
-            chatView.getDisplayTextArea().appendText(controller.getLoggedInUser().getName() + " send to " + recipient + ":\n" + text + "\n");
+        ObservableList<User> recipients = chatView.getUserList().getSelectionModel().getSelectedItems();
+        if (controller.sendMessage(text, recipients)) {
+            chatView.getDisplayTextArea().appendText(controller.getLocal().getName() + " send to " + recipient + ":\n" + text + "\n");
             chatView.getMessageTextArea().clear();
         }
     }
 
+    public void appendMessage(User sender, String message){
+        if (chatView != null) {
+            chatView.getDisplayTextArea().appendText("Message from " + sender.getName() + ":\n" + message);
+        }
+    }
 }
