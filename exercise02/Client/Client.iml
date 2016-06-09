@@ -10,5 +10,9 @@
     <orderEntry type="module" module-name="Utilities" />
     <orderEntry type="module" module-name="OutgoingClientAdapter" />
     <orderEntry type="module" module-name="IncomingClientAdapter" />
+    <orderEntry type="module" module-name="UserComponent" />
+    <orderEntry type="module" module-name="TransportComponent" />
+    <orderEntry type="module" module-name="IncomingPeerAdapter" />
+    <orderEntry type="module" module-name="OutgoingPeerAdapter" />
   </component>
 </module>

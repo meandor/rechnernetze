@@ -10,5 +10,6 @@
     <orderEntry type="module" module-name="Utilities" />
     <orderEntry type="library" name="commons-io:commons-io:2.5" level="project" />
     <orderEntry type="module" module-name="TransportComponent" />
+    <orderEntry type="module" module-name="OutgoingClientAdapter" />
   </component>
 </module>
