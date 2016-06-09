@@ -23,6 +23,7 @@ public class ChatViewController {
 
     public Scene initChatView() {
         chatView = new ChatView(users);
+        initOnEvents();
         return chatView.getScene();
     }
 
@@ -49,9 +50,14 @@ public class ChatViewController {
 
     private void processMessage(){
         String text = chatView.getMessageTextArea().getText();
-        String recipient = chatView.getReceiver().getText();
         ObservableList<User> recipients = chatView.getUserList().getSelectionModel().getSelectedItems();
         if (controller.sendMessage(text, recipients)) {
+            String recipient = "";
+            for(User rec : recipients){
+                if(recipient == "")
+                    recipient += rec.getName();
+                recipient += "," + rec.getName();
+            }
             chatView.getDisplayTextArea().appendText(controller.getLocal().getName() + " send to " + recipient + ":\n" + text + "\n");
             chatView.getMessageTextArea().clear();
         }
