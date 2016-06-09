@@ -63,6 +63,7 @@ public class Field<T> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private byte[] userlistToBytes(){
         Collection<AddressType> tmp = (Collection) data;
         byte[] result = new byte[0];
