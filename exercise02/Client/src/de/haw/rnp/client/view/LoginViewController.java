@@ -27,6 +27,8 @@ public class LoginViewController {
                 controller.changeViewState(ViewController.ViewState.Chat);
             }
         });
+
+        loginView.getSignin().defaultButtonProperty().bind(loginView.getSignin().focusedProperty());
     }
 
 }

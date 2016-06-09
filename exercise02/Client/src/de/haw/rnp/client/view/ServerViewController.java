@@ -26,6 +26,8 @@ public class ServerViewController {
                 controller.changeViewState(ViewController.ViewState.Login);
             }
         });
+
+        serverView.getStartServer().defaultButtonProperty().bind(serverView.getStartServer().focusedProperty());
     }
 
 }
