@@ -1,20 +1,17 @@
 package de.haw.rnp.client.view;
 
 import de.haw.rnp.client.model.User;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import java.util.ArrayList;
 
 public class ChatView {
     private GridPane grid;
     private TextArea displayTextArea;
     private TextArea messageTextArea;
-    private TextField receiver;
 
     private Button sendButton;
     private Button logoutButton;
@@ -23,8 +20,8 @@ public class ChatView {
     private ObservableList<User> users;
 
     public ChatView(ObservableList<User> users) {
-        scene = initScene();
         this.users = users;
+        scene = initScene();
     }
 
     private Scene initScene() {
@@ -47,8 +44,9 @@ public class ChatView {
         messageTextArea.setPrefRowCount(2);
         grid.add(messageTextArea, 0, 4, 1, 1);
 
-        userList = new ListView<>(users);
+        userList = new ListView<>();
         userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        userList.setItems(users);
         grid.add(userList, 3, 0);
 
         sendButton = new Button("send");
@@ -78,10 +76,6 @@ public class ChatView {
 
     public Scene getScene() {
         return scene;
-    }
-
-    public TextField getReceiver() {
-        return receiver;
     }
 
     public void setUserList(ObservableList<User> users) {
