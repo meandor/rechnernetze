@@ -33,21 +33,21 @@ public class InClientAdapterFacade implements IInClientAdapterServices {
 
     @Override
     public boolean sendLogin(FrameDTO frame) {
-        if(!checkHeader(frame, MessageType.TextMessage))
+        if(!checkHeader(frame, MessageType.Login))
             return false;
         return businessLogic.sendLogin(frame);
     }
 
     @Override
     public boolean sendLogout(FrameDTO frame) {
-        if(!checkHeader(frame, MessageType.TextMessage))
+        if(!checkHeader(frame, MessageType.Logout))
             return false;
         return businessLogic.sendLogout(frame);
     }
 
     @Override
     public boolean sendUsername(FrameDTO frame) {
-        if(!checkHeader(frame, MessageType.TextMessage))
+        if(!checkHeader(frame, MessageType.MyName))
             return false;
         return businessLogic.sendUsername(frame);
     }
