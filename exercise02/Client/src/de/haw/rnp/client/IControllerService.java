@@ -14,12 +14,14 @@ import java.util.concurrent.ExecutorService;
  */
 public interface IControllerService {
 
-    public void startServer(AddressType localAddress);
+    public boolean startServer(AddressType localAddress);
 
-    public void sendLogin(String username, AddressType recipient);
+    public boolean sendLogin(String username, AddressType recipient);
 
-    public void sendMessage(String message, ArrayList<AddressType> recipients);
+    public boolean sendMessage(String message, ArrayList<AddressType> recipients);
 
     public void sendLogout();
+
+    //public void sendUsername(String username);
 
 }
