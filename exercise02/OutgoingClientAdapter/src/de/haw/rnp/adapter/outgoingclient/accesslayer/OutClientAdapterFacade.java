@@ -5,6 +5,8 @@ import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.MessageDTO;
 import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.util.IObserver;
 
+import java.util.Collection;
+
 public class OutClientAdapterFacade implements IOutClientAdapterServices, IOutClientAdapterServicesForInPeer {
 
     private OutgoingClientAdapterBusinessLogic businessLogic;
@@ -51,5 +53,10 @@ public class OutClientAdapterFacade implements IOutClientAdapterServices, IOutCl
     @Override
     public void updateUsername(UserDTO user) {
         businessLogic.updateUsername(user);
+    }
+
+    @Override
+    public Collection<UserDTO> getAllUsers() {
+        return businessLogic.getAllUsers();
     }
 }
