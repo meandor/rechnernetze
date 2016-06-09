@@ -29,8 +29,8 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     }
 
     @Override
-    public void SendUsername(Frame frame) {
-        transportBusinessLogic.SendUsername(frame);
+    public void sendUsername(Frame frame) {
+        transportBusinessLogic.sendUsername(frame);
     }
 
     @Override

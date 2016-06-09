@@ -10,6 +10,6 @@ public interface ITransportServices {
 
     void sendLogout(Frame frame);
 
-    void SendUsername(Frame frame);
+    void sendUsername(Frame frame);
 
 }

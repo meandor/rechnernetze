@@ -43,7 +43,7 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     }
 
     @Override
-    public void SendUsername(Frame frame) {
+    public void sendUsername(Frame frame) {
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
