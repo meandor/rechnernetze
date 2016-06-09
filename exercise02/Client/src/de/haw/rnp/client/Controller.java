@@ -3,6 +3,7 @@ package de.haw.rnp.client;
 import de.haw.rnp.adapter.incomingclient.accesslayer.IInClientAdapterServices;
 import de.haw.rnp.adapter.incomingclient.dataaccesslayer.FieldDTO;
 import de.haw.rnp.adapter.incomingclient.dataaccesslayer.FrameDTO;
+import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServices;
 import de.haw.rnp.client.model.User;
 import de.haw.rnp.client.observers.MessageObserver;
 import de.haw.rnp.client.observers.UserlistObserver;
@@ -31,15 +32,31 @@ public class Controller implements IControllerService {
     private ViewController viewController;
     private MessageObserver messageObserver;
     private UserlistObserver userlistObserver;
-    private IInClientAdapterServices adapterServices;
+    private IInClientAdapterServices inAdapterServices;
+    private IOutClientAdapterServices outAdapterServices;
+    private MainApp main;
 
-    public Controller(ObservableList<User> users){
-        this.users = users;
+    public Controller(IInClientAdapterServices inAdapterServices, IOutClientAdapterServices outAdapterServices, MainApp main){
+        this.main = main;
+        this.inAdapterServices = inAdapterServices;
+        this.outAdapterServices = outAdapterServices;
+        this.users = this.main.getList();
+        init();
+    }
+
+    private void init(){
+        viewController = new ViewController(this.main.getPrimaryStage(), this, users);
+
+        messageObserver = new MessageObserver(this.viewController);
+        userlistObserver = new UserlistObserver(this.users);
+
+        outAdapterServices.registerObserverToUsers(userlistObserver);
+        outAdapterServices.registerObserverToMessages(messageObserver);
     }
 
     @Override
     public boolean startServer(AddressType localAddress) {
-        return adapterServices.startServer(localAddress);
+        return inAdapterServices.startServer(localAddress);
     }
 
     @Override
@@ -50,27 +67,27 @@ public class Controller implements IControllerService {
         FieldDTO<Integer> port = new FieldDTO<>(FieldType.Port, PORT_LENGTH, local.getAddress().getPort());
         FieldDTO<String> name = new FieldDTO<>(FieldType.Name, local.getName().length(), local.getName());
         frame.addFieldDTO(ip, port, name);
-        return adapterServices.sendLogin(frame);
+        return inAdapterServices.sendLogin(frame);
     }
 
     @Override
     public boolean sendMessage(String message, ArrayList<AddressType> recipients) {
         User local = viewController.getLocal();
-        FrameDTO frame = new FrameDTO(local.getAddress(), recipients.get(0), VERSION, MessageType.Login, MESSAGE_LENGTH);
+        FrameDTO frame = new FrameDTO(local.getAddress(), recipients.get(0), VERSION, MessageType.TextMessage, MESSAGE_LENGTH);
         FieldDTO<String> msg = new FieldDTO<>(FieldType.Text, message.length(), message);
         FieldDTO<ArrayList<AddressType>> adr = new FieldDTO<>(FieldType.UserList, USERLIST_MUL * recipients.size(), recipients);
         frame.addFieldDTO(msg, adr);
-        return adapterServices.sendMessage(frame);
+        return inAdapterServices.sendMessage(frame);
     }
 
     @Override
     public void sendLogout() {
         User local = viewController.getLocal();
         User recipient = users.get(0);
-        FrameDTO frame = new FrameDTO(local.getAddress(), recipient.getAddress(), VERSION, MessageType.Login, LOGOUT_LENTGH);
+        FrameDTO frame = new FrameDTO(local.getAddress(), recipient.getAddress(), VERSION, MessageType.Logout, LOGOUT_LENTGH);
         FieldDTO<InetAddress> ip = new FieldDTO<>(FieldType.IP, IP_LENGTH, local.getAddress().getIp());
         FieldDTO<Integer> port = new FieldDTO<>(FieldType.Port, PORT_LENGTH, local.getAddress().getPort());
         frame.addFieldDTO(ip, port);
-        adapterServices.sendLogout(frame);
+        inAdapterServices.sendLogout(frame);
     }
 }
