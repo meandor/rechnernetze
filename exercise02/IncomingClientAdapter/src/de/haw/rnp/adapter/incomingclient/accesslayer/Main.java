@@ -28,6 +28,7 @@ public class Main {
     static IOutgoingPeerAdapterServices outgoingPeerAdapterServices;
 
     public static void main(String[] args) {
+        /*
         userServices = new UserFacade();
         outgoingPeerAdapterServices = new OutgoingPeerAdapterFacade();
         transportServices = new TransportFacade(userServices, outgoingPeerAdapterServices);
@@ -60,5 +61,6 @@ public class Main {
         }
         frame.setMessageType(MessageType.MyName);
         transportServices.sendLogin(frame);
+        */
     }
 }
