@@ -24,8 +24,33 @@ public class FrameDTO {
         this.fields = new ArrayList<>();
     }
 
-    public void addFieldDTO(FieldDTO field){
-        fields.add(field);
+    public void addFieldDTO(FieldDTO... field){
+        for(FieldDTO f : field){
+            fields.add(f);
+        }
     }
 
+    public AddressType getSender() {
+        return sender;
+    }
+
+    public AddressType getRecipient() {
+        return recipient;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public Collection<FieldDTO> getFields() {
+        return fields;
+    }
 }
