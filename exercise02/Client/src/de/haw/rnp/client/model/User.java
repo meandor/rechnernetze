@@ -21,12 +21,21 @@ public class User {
         this.name = new SimpleStringProperty(name);
         this.hostname = new SimpleStringProperty(hostname);
         this.port = new SimpleIntegerProperty(port);
+        updateAddress();
     }
 
     public User(String hostname, int port){
         this.name = new SimpleStringProperty("");
         this.hostname = new SimpleStringProperty(hostname);
         this.port = new SimpleIntegerProperty(port);
+        updateAddress();
+    }
+
+    public User(String username, AddressType address){
+        this.name = new SimpleStringProperty(username);
+        this.hostname = new SimpleStringProperty(address.getIp().getHostAddress());
+        this.port = new SimpleIntegerProperty(address.getPort());
+        this.address = address;
     }
 
     public String getName() {
