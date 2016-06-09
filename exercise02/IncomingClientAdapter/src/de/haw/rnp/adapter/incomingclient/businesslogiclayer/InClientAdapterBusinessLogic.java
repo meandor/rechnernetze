@@ -29,6 +29,7 @@ public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
     @Override
     public boolean startServer(AddressType address) {
         incomingPeerAdapterServices.startServer(address);
+        incomingPeerAdapterServices.startQueueWorker();
         return true;
     }
 
