@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
@@ -23,9 +20,11 @@ public class ChatView {
     private Button logoutButton;
     private ListView<User> userList;
     private Scene scene;
+    private ObservableList<User> users;
 
-    public ChatView() {
+    public ChatView(ObservableList<User> users) {
         scene = initScene();
+        this.users = users;
     }
 
     private Scene initScene() {
@@ -42,18 +41,14 @@ public class ChatView {
             displayTextArea.setScrollTop(Double.MAX_VALUE);
         });
         grid.add(displayTextArea, 0, 0, 3, 2);
-
-        receiver = new TextField();
-        receiver.setPromptText("Recipients");
-        grid.add(receiver, 0, 3);
-
+        
         messageTextArea = new TextArea();
         messageTextArea.setPromptText("Message");
         messageTextArea.setPrefRowCount(2);
-
         grid.add(messageTextArea, 0, 4, 1, 1);
 
-        userList = new ListView<>();
+        userList = new ListView<>(users);
+        userList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         grid.add(userList, 3, 0);
 
         sendButton = new Button("send");
@@ -91,5 +86,9 @@ public class ChatView {
 
     public void setUserList(ObservableList<User> users) {
         userList = new ListView<>(users);
+    }
+
+    public ListView<User> getUserList(){
+        return userList;
     }
 }
