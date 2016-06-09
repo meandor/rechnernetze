@@ -8,6 +8,8 @@ import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserSubject;
 import de.haw.rnp.util.IObserver;
 
+import java.util.Collection;
+
 public class OutgoingClientAdapterBusinessLogic implements IOutClientAdapterServices, IOutClientAdapterServicesForInPeer {
 
     private MessageSubject messageSubject;
@@ -56,5 +58,10 @@ public class OutgoingClientAdapterBusinessLogic implements IOutClientAdapterServ
     @Override
     public void updateUsername(UserDTO user) {
         userSubject.updateUsername(user);
+    }
+
+    @Override
+    public Collection<UserDTO> getAllUsers() {
+        return userSubject.getUsers();
     }
 }
