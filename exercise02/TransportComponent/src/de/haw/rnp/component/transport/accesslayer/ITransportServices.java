@@ -1,6 +1,7 @@
 package de.haw.rnp.component.transport.accesslayer;
 
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
+import de.haw.rnp.util.AddressType;
 
 public interface ITransportServices {
 
@@ -11,5 +12,7 @@ public interface ITransportServices {
     void sendLogout(Frame frame);
 
     void sendUsername(Frame frame);
+
+    void setLocal(AddressType address);
 
 }
