@@ -1,5 +1,8 @@
 package de.haw.rnp.component.transport.dataaccesslayer.entities;
 
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.MessageDTO;
+import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
+import de.haw.rnp.util.enumerations.FieldType;
 import de.haw.rnp.util.enumerations.MessageType;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.ChatUtil;
@@ -112,6 +115,37 @@ public class Frame {
         }
 
         return result;
+    }
+
+    public UserDTO toUserDTO(){
+        if(fields.size() != 3)
+            return null;
+        InetAddress ip = null;
+        int port = 0;
+        String name = "";
+
+        for(Field field : fields){
+            if(field.getFieldType() == FieldType.IP)
+                ip = (InetAddress) field.getData();
+            if(field.getFieldType() == FieldType.Port)
+                port = (Integer) field.getData();
+            if(field.getFieldType() == FieldType.Name)
+                name = (String) field.getData();
+        }
+        return new UserDTO(new AddressType(ip, port), name);
+    }
+
+    public MessageDTO toMessageDTO(){
+        if(fields.size() != 2)
+            return null;
+
+        String msg = "";
+        for(Field field : fields){
+            if(field.getFieldType() == FieldType.Text)
+                msg = (String) field.getData();
+        }
+
+        return new MessageDTO(sender, msg);
     }
 
 }
