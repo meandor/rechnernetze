@@ -1,4 +1,4 @@
-package de.haw.rnp.component.transport.dataaccesslayer.enumerations;
+package de.haw.rnp.util.enumerations;
 
 import de.haw.rnp.util.ChatUtil;
 
