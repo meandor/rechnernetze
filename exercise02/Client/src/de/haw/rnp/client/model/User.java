@@ -1,10 +1,12 @@
 package de.haw.rnp.client.model;
 
 import de.haw.rnp.util.AddressType;
+import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.util.Callback;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -84,7 +86,7 @@ public class User {
 
     @Override
     public String toString() {
-        return name + " (" + address.getIp().getHostAddress() + ":" + address.getPort() + ")";
+        return name.get() + " (" + hostname.get() + ":" + port.get() + ")";
     }
 
     private void updateAddress(){
@@ -93,5 +95,9 @@ public class User {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Callback<User, Observable[]> extractor() {
+        return param -> new Observable[]{param.name, param.hostname, param.port};
     }
 }
