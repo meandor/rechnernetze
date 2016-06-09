@@ -1,32 +1,90 @@
 package de.haw.rnp.client.view;
 
 import de.haw.rnp.client.IControllerService;
+import de.haw.rnp.client.MainApp;
 import de.haw.rnp.client.model.User;
-import javafx.collections.FXCollections;
+import de.haw.rnp.util.AddressType;
 import javafx.collections.ObservableList;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
 
-public class ViewController implements IView {
+public class ViewController {
+
+    public enum ViewState{
+        Start,
+        Login,
+        Chat
+    }
+
     private Stage stage;
     private LoginViewController loginView;
     private ChatViewController chatView;
     private ServerViewController serverView;
     private IControllerService controller;
+    private ViewState state;
+    private ObservableList<User> users;
+    private User local;
 
-    public ViewController(Stage stage, IControllerService controller) {
+    public ViewController(Stage stage, IControllerService controller, ObservableList<User> users) {
         this.stage = stage;
         this.controller = controller;
+        this.users = users;
+        state = ViewState.Start;
+        serverView = new ServerViewController(this);
+        loginView = new LoginViewController(this);
+        chatView = new ChatViewController(this, this.users);
     }
 
-    public void appendMessage(String from, String message) {
-        if (controller.getLoggedInUser() != null) {
-            chatView.getDisplayTextArea().appendText("Message from " + from + ":\n" + message);
+    public User getLocal(){
+        return local;
+    }
+
+    public void changeViewState(ViewState state){
+        this.state = state;
+        changeView();
+    }
+
+    private void changeView(){
+        switch(state){
+            case Start: stage.setScene(serverView.initServerView()); break;
+            case Login: stage.setScene(loginView.initLoginView()); break;
+            case Chat: stage.setScene(chatView.initChatView()); break;
         }
+    }
+
+    public boolean startServer(String hostname, int port){
+        local = new User(hostname, port);
+        return controller.startServer(new AddressType(hostname, port));
+    }
+
+    public boolean sendLogin(String username, String hostname, int port){
+        local.setName(username);
+        return controller.sendLogin(username, new AddressType(hostname, port));
+    }
+
+    public boolean sendMessage(String message, ObservableList<User> recipients){
+        ArrayList<AddressType> addresses = new ArrayList<>();
+        for(User user : recipients){
+            addresses.add(user.getAddress());
+        }
+        return controller.sendMessage(message, addresses);
+    }
+
+    public void sendLogout(){
+        local.setName("");
+        controller.sendLogout();
+    }
+
+    public void appendMessage(AddressType sender, String message) {
+        chatView.appendMessage(findUserByAddress(sender), message);
+    }
+
+    private User findUserByAddress(AddressType address){
+        for(User user : users){
+            if(user.getAddress().equals(address))
+                return user;
+        }
+        return null;
     }
 }
