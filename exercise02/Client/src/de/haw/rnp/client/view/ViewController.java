@@ -60,7 +60,7 @@ public class ViewController {
 
     public boolean sendLogin(String username, String hostname, int port){
         local.setName(username);
-        return controller.sendLogin(username, new AddressType(hostname, port));
+        return controller.sendLogin(new AddressType(hostname, port));
     }
 
     public boolean sendMessage(String message, ObservableList<User> recipients){

@@ -16,7 +16,7 @@ public interface IControllerService {
 
     public boolean startServer(AddressType localAddress);
 
-    public boolean sendLogin(String username, AddressType recipient);
+    public boolean sendLogin(AddressType recipient);
 
     public boolean sendMessage(String message, ArrayList<AddressType> recipients);
 
