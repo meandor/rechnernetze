@@ -4,6 +4,7 @@ import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.client.model.User;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.IObserver;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -21,11 +22,15 @@ public class UserlistObserver implements IObserver<ArrayList<UserDTO>> {
         for(UserDTO e : elem){
             User tmp = findUserByAddress(e.getAddress());
             if(tmp != null){
-                int i = users.indexOf(tmp);
-                tmp.setName(e.getName());
-                users.set(i, tmp);
+                Platform.runLater(() -> {
+                    int i = users.indexOf(tmp);
+                    tmp.setName(e.getName());
+                    users.set(i, tmp);
+                });
             }else{
-                users.add(new User(e.getName(), e.getAddress()));
+                Platform.runLater(() -> {
+                    users.add(new User(e.getName(), e.getAddress()));
+                });
             }
         }
     }

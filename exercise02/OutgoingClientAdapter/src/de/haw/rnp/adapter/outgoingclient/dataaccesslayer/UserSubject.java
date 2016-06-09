@@ -4,7 +4,11 @@ import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.IObserver;
 import de.haw.rnp.util.ISubject;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserSubject implements ISubject{
 
@@ -48,7 +52,7 @@ public class UserSubject implements ISubject{
     }
 
     public void updateUsername(UserDTO user){
-        removeUserByAddressType(user.getAddress());
+        users.remove(findUserByAddressType(user.getAddress()));
         addUser(user);
     }
 
