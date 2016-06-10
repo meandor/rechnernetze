@@ -85,11 +85,14 @@ public class Controller implements IControllerService {
     @Override
     public boolean sendMessage(String message, ArrayList<AddressType> recipients) {
         User local = viewController.getLocal();
-        FrameDTO frame = new FrameDTO(local.getAddress(), recipients.get(0), VERSION, MessageType.TextMessage, MESSAGE_LENGTH);
-        FieldDTO<String> msg = new FieldDTO<>(FieldType.Text, message.length(), message);
-        FieldDTO<ArrayList<AddressType>> adr = new FieldDTO<>(FieldType.UserList, USERLIST_MUL * recipients.size(), recipients);
-        frame.addFieldDTO(msg, adr);
-        return inAdapterServices.sendMessage(frame);
+        for(AddressType recipient : recipients) {
+            FrameDTO frame = new FrameDTO(local.getAddress(), recipient, VERSION, MessageType.TextMessage, MESSAGE_LENGTH);
+            FieldDTO<String> msg = new FieldDTO<>(FieldType.Text, message.length(), message);
+            FieldDTO<ArrayList<AddressType>> adr = new FieldDTO<>(FieldType.UserList, USERLIST_MUL * recipients.size(), recipients);
+            frame.addFieldDTO(msg, adr);
+            inAdapterServices.sendMessage(frame);
+        }
+        return true;
     }
 
     @Override
