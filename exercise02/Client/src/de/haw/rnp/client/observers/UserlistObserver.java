@@ -19,27 +19,10 @@ public class UserlistObserver implements IObserver<ArrayList<UserDTO>> {
 
     @Override
     public void update(ArrayList<UserDTO> elem) {
-        for(UserDTO e : elem){
-            User tmp = findUserByAddress(e.getAddress());
-            if(tmp != null){
-                Platform.runLater(() -> {
-                    int i = users.indexOf(tmp);
-                    tmp.setName(e.getName());
-                    users.set(i, tmp);
-                });
-            }else{
-                Platform.runLater(() -> {
-                    users.add(new User(e.getName(), e.getAddress()));
-                });
-            }
-        }
-    }
+        Platform.runLater(() -> users.clear());
 
-    private User findUserByAddress(AddressType address){
-        for(User user : users){
-            if(user.getAddress().equals(address))
-                return user;
+        for(UserDTO e : elem){
+            Platform.runLater(() -> users.add(new User(e.getName(), e.getAddress())));
         }
-        return null;
     }
 }

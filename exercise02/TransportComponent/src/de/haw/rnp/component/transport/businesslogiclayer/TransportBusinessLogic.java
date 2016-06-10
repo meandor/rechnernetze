@@ -58,7 +58,6 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     public Frame receiveFrameAsBytes(byte[] bytes) {
         Frame frame = new Frame(Arrays.copyOf(bytes, 12));
         frame.setFields(parseFields(Arrays.copyOfRange(bytes, 12, bytes.length)));
-        System.out.println(frame.getLength() + " " + frame.getMessageType());
         return frame;
     }
 
@@ -73,7 +72,7 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
             }
         }
         if(!repo.getLocal().getName().equals("")) {
-            Frame myname = new Frame(repo.getLocal().getAddress(), sender, 1, MessageType.MyName, 1);
+            Frame myname = new Frame(repo.getLocal().getAddress(), frame.toUserDTO().getAddress(), 1, MessageType.MyName, 1);
             myname.addField(new Field<>(FieldType.Name, repo.getLocal().getName().length(), repo.getLocal().getName()));
             sendUsername(myname);
         }

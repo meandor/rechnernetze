@@ -47,7 +47,8 @@ public class OutgoingClientAdapterBusinessLogic implements IOutClientAdapterServ
 
     @Override
     public void addUser(UserDTO user) {
-        userSubject.addUser(user);
+        if(!getAllUsers().contains(user))
+            userSubject.addUser(user);
     }
 
     @Override
