@@ -37,7 +37,7 @@ public class ChatViewController {
 
         chatView.getSendButton().setOnAction(action -> {
             String text = chatView.getMessageTextArea().getText();
-            if(text != ""){
+            if(!text.isEmpty()){
                 processMessage();
             }
         });
@@ -54,9 +54,12 @@ public class ChatViewController {
         if (controller.sendMessage(text, recipients)) {
             String recipient = "";
             for(User rec : recipients){
-                if(recipient == "")
+                if(recipient.isEmpty()){
                     recipient += rec.getName();
-                recipient += "," + rec.getName();
+                }
+                else{
+                    recipient += "," + rec.getName();
+                }
             }
             chatView.getDisplayTextArea().appendText(controller.getLocal().getName() + " send to " + recipient + ":\n" + text + "\n");
             chatView.getMessageTextArea().clear();
@@ -65,7 +68,7 @@ public class ChatViewController {
 
     public void appendMessage(User sender, String message){
         if (chatView != null) {
-            chatView.getDisplayTextArea().appendText("Message from " + sender.getName() + ":\n" + message);
+            chatView.getDisplayTextArea().appendText("Message from " + sender.getName() + ":\n" + message + "\n");
         }
     }
 }

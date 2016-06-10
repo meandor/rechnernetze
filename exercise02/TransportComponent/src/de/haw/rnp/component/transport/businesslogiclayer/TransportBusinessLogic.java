@@ -35,9 +35,6 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
 
     @Override
     public void sendLogin(Frame frame) {
-        if(repo == null){
-            repo = new TransportRepository(frame);
-        }
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
@@ -49,13 +46,12 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
 
     @Override
     public void sendUsername(Frame frame) {
-        repo = new TransportRepository(frame);
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
     @Override
-    public void setLocal(AddressType address) {
-        repo = new TransportRepository(address);
+    public void setLocal(AddressType address, String name) {
+        repo = new TransportRepository(address, name);
     }
 
     @Override
@@ -70,7 +66,7 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
         AddressType sender = frame.getSender();
         for(UserDTO recipient : recipients){
-            if(!recipient.getAddress().equals(sender)){
+            if(!recipient.getAddress().equals(sender) && !checkLocalHelper(frame, recipient)){
                 frame.setSender(repo.getLocal().getAddress());
                 frame.setRecipient(recipient.getAddress());
                 sendLogin(frame);
@@ -81,6 +77,15 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
             myname.addField(new Field<>(FieldType.Name, repo.getLocal().getName().length(), repo.getLocal().getName()));
             sendUsername(myname);
         }
+    }
+
+    @Override
+    public boolean checkLocal(Frame frame) {
+        return checkLocalHelper(frame, repo.getLocal());
+    }
+
+    private boolean checkLocalHelper(Frame frame, UserDTO user){
+        return frame.toUserDTO().getAddress().equals(user.getAddress());
     }
 
     private Collection<Field> parseFields(byte[] bytes){

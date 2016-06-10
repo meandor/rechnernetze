@@ -4,10 +4,13 @@ import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServicesFo
 import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.MessageDTO;
 import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
+import de.haw.rnp.component.transport.dataaccesslayer.entities.Field;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
+import de.haw.rnp.util.enumerations.FieldType;
 import de.haw.rnp.util.enumerations.MessageType;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.concurrent.BlockingQueue;
 
 public class QueueWorker implements Runnable{
@@ -39,11 +42,10 @@ public class QueueWorker implements Runnable{
                 Frame frame = transportServices.receiveFrameAsBytes(tmp);
                 switch(frame.getMessageType()){
                     case Login:{
-                        UserDTO user = frame.toUserDTO();
-                        if(user == null)
-                            break;
-                        outClientAdapterServices.addUser(user);
-                        transportServices.propagatePeer(frame, outClientAdapterServices.getAllUsers());
+                        if(!transportServices.checkLocal(frame)) {
+                            outClientAdapterServices.addUser(frame.toUserDTO());
+                            transportServices.propagatePeer(frame, outClientAdapterServices.getAllUsers());
+                        }
                         break;
                     }
                     case TextMessage:{
@@ -61,10 +63,17 @@ public class QueueWorker implements Runnable{
                     }
 
                     case MyName:{
-                        UserDTO user = frame.toUserDTO();
-                        if(user == null)
-                            break;
-                        outClientAdapterServices.updateUsername(user);
+                        UserDTO user = null;
+
+                        for(Field field : frame.getFields()){
+                            if(field.getFieldType() == FieldType.Name){
+                                String name = (String) field.getData();
+                                user = new UserDTO(frame.getSender(), name);
+                            }
+                        }
+
+                        if(user != null)
+                            outClientAdapterServices.updateUsername(user);
                     }
 
                 }
