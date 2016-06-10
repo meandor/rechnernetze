@@ -56,9 +56,7 @@ public class QueueWorker implements Runnable{
                         break;
                     }
                     case Logout:{
-                        UserDTO user = frame.toUserDTO();
-                        if(user == null)
-                            break;
+                        UserDTO user = new UserDTO(frame.getSender(), "");
                         outClientAdapterServices.removeUser(user);
                     }
 
