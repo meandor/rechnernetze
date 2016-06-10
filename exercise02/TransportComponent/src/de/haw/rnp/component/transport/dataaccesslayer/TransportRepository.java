@@ -8,8 +8,8 @@ public class TransportRepository {
 
     private UserDTO local;
 
-    public TransportRepository(Frame frame){
-        local = frame.toUserDTO();
+    public TransportRepository(AddressType address, String name){
+        local = new UserDTO(address, name);
     }
 
     public TransportRepository(AddressType address){

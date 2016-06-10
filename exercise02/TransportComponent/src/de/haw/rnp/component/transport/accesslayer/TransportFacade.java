@@ -37,8 +37,8 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     }
 
     @Override
-    public void setLocal(AddressType address) {
-        transportBusinessLogic.setLocal(address);
+    public void setLocal(AddressType address, String name) {
+        transportBusinessLogic.setLocal(address, name);
     }
 
     @Override
@@ -49,5 +49,10 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     @Override
     public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
         transportBusinessLogic.propagatePeer(frame, recipients);
+    }
+
+    @Override
+    public boolean checkLocal(Frame frame) {
+        return transportBusinessLogic.checkLocal(frame);
     }
 }

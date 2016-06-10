@@ -79,7 +79,7 @@ public class Controller implements IControllerService {
         FieldDTO<Integer> port = new FieldDTO<>(FieldType.Port, PORT_LENGTH, local.getAddress().getPort());
         FieldDTO<String> name = new FieldDTO<>(FieldType.Name, local.getName().length(), local.getName());
         frame.addFieldDTO(ip, port, name);
-        return inAdapterServices.sendLogin(frame);
+        return inAdapterServices.sendLogin(frame, local.getName());
     }
 
     @Override

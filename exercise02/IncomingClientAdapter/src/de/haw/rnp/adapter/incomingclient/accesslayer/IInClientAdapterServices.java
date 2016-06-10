@@ -11,7 +11,7 @@ public interface IInClientAdapterServices {
 
     boolean sendMessage(FrameDTO frame);
 
-    boolean sendLogin(FrameDTO frame);
+    boolean sendLogin(FrameDTO frame, String name);
 
     boolean sendLogout(FrameDTO frame);
 

@@ -13,6 +13,6 @@ public interface ITransportServices {
 
     void sendUsername(Frame frame);
 
-    void setLocal(AddressType address);
+    void setLocal(AddressType address, String name);
 
 }

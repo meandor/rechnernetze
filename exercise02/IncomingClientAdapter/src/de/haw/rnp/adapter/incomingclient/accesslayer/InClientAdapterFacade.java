@@ -37,10 +37,10 @@ public class InClientAdapterFacade implements IInClientAdapterServices {
     }
 
     @Override
-    public boolean sendLogin(FrameDTO frame) {
+    public boolean sendLogin(FrameDTO frame, String name) {
         if(!checkHeader(frame, MessageType.Login))
             return false;
-        return businessLogic.sendLogin(frame);
+        return businessLogic.sendLogin(frame, name);
     }
 
     @Override

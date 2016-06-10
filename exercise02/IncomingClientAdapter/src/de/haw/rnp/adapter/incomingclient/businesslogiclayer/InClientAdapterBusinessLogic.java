@@ -30,7 +30,7 @@ public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
     public boolean startServer(AddressType address) {
         incomingPeerAdapterServices.startServer(address);
         incomingPeerAdapterServices.startQueueWorker();
-        transportServices.setLocal(address);
+        transportServices.setLocal(address, "");
         return true;
     }
 
@@ -47,7 +47,8 @@ public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
     }
 
     @Override
-    public boolean sendLogin(FrameDTO frame) {
+    public boolean sendLogin(FrameDTO frame, String name) {
+        transportServices.setLocal(frame.getSender(), name);
         transportServices.sendLogin(toFrame(frame));
         return true;
     }
