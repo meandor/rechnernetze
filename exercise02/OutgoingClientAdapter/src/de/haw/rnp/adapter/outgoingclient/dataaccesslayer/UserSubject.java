@@ -28,7 +28,6 @@ public class UserSubject implements ISubject{
     @Override
     public void notifyObservers() {
         for(IObserver<ArrayList<UserDTO>> observer : observers){
-            System.out.println("size of users: " + users.size());
             observer.update(users);
         }
     }
