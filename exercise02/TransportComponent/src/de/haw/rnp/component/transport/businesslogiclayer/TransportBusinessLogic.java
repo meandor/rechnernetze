@@ -40,7 +40,6 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
 
     @Override
     public void sendLogout(Frame frame) {
-        repo = null;
         outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
     }
 
@@ -75,6 +74,18 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
             Frame myname = new Frame(repo.getLocal().getAddress(), frame.toUserDTO().getAddress(), 1, MessageType.MyName, 1);
             myname.addField(new Field<>(FieldType.Name, repo.getLocal().getName().length(), repo.getLocal().getName()));
             sendUsername(myname);
+        }
+    }
+
+    @Override
+    public void propagateLogout(Frame frame, Collection<UserDTO> recipients) {
+        AddressType sender = frame.getSender();
+        frame.setSender(repo.getLocal().getAddress());
+        for(UserDTO recipient : recipients){
+            if(!recipient.getAddress().equals(sender)) {
+                frame.setRecipient(recipient.getAddress());
+                sendLogout(frame);
+            }
         }
     }
 

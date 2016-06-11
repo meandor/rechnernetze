@@ -11,6 +11,8 @@ public interface ITransportServicesForIncomingPeerAdapter {
 
     void propagatePeer(Frame frame, Collection<UserDTO> recipients);
 
+    void propagateLogout(Frame frame, Collection<UserDTO> recipients);
+
     boolean checkLocal(Frame frame);
 
 }

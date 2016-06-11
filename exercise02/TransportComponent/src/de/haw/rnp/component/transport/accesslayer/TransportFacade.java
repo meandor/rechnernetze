@@ -52,6 +52,11 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     }
 
     @Override
+    public void propagateLogout(Frame frame, Collection<UserDTO> recipients) {
+        transportBusinessLogic.propagateLogout(frame, recipients);
+    }
+
+    @Override
     public boolean checkLocal(Frame frame) {
         return transportBusinessLogic.checkLocal(frame);
     }
