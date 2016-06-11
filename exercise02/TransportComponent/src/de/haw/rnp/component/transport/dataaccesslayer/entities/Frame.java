@@ -118,7 +118,7 @@ public class Frame {
     }
 
     public UserDTO toUserDTO(){
-        if(fields.size() != 3)
+        if(fields.size() < 2)
             return null;
         InetAddress ip = null;
         int port = 0;
