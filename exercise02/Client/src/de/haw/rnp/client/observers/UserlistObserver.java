@@ -2,7 +2,6 @@ package de.haw.rnp.client.observers;
 
 import de.haw.rnp.adapter.outgoingclient.dataaccesslayer.UserDTO;
 import de.haw.rnp.client.model.User;
-import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.IObserver;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;

@@ -1,7 +1,6 @@
 package de.haw.rnp.client.view;
 
 import de.haw.rnp.client.IControllerService;
-import de.haw.rnp.client.MainApp;
 import de.haw.rnp.client.model.User;
 import de.haw.rnp.util.AddressType;
 import javafx.collections.ObservableList;

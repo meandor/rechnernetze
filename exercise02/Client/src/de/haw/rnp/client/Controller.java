@@ -14,10 +14,8 @@ import de.haw.rnp.util.enumerations.MessageType;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
-import javax.swing.text.View;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.concurrent.Future;
 
 public class Controller implements IControllerService {
 
@@ -36,7 +34,7 @@ public class Controller implements IControllerService {
     private UserlistObserver userlistObserver;
     private IInClientAdapterServices inAdapterServices;
     private IOutClientAdapterServices outAdapterServices;
-    private MainApp main;
+    private de.haw.rnp.client.MainApp main;
 
     public Controller(IInClientAdapterServices inAdapterServices, IOutClientAdapterServices outAdapterServices, MainApp main){
         this.main = main;

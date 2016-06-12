@@ -1,14 +1,9 @@
 package de.haw.rnp.client.view;
 
 import de.haw.rnp.client.model.User;
-import de.haw.rnp.util.AddressType;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
-
-import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
 
 public class ChatViewController {
 
