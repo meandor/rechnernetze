@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Frames are send by the Transport Service. Each Frame is later then translated to a Protocol Message.
+ */
 public class Frame {
     private AddressType sender;
     private AddressType recipient;
@@ -21,6 +24,15 @@ public class Frame {
     private int length;
     private Collection<Field> fields;
 
+    /**
+     * Constructs a Frame
+     *
+     * @param sender      AddressType of the sender
+     * @param recipient   AddressType of the recipient
+     * @param version     int version number
+     * @param messageType MessageType messageType
+     * @param length      int fields of the messages
+     */
     public Frame(AddressType sender, AddressType recipient, int version, MessageType messageType, int length) {
         this.version = version;
         this.messageType = messageType;
@@ -30,6 +42,11 @@ public class Frame {
         this.fields = new ArrayList<>();
     }
 
+    /**
+     * Constructs a Frame with a byte stream.
+     *
+     * @param bytes byte[] Incoming byte stream
+     */
     public Frame(byte[] bytes) {
         version = Byte.toUnsignedInt(bytes[0]);
         messageType = MessageType.fromByte(bytes[1]);
@@ -98,6 +115,11 @@ public class Frame {
         this.fields = fields;
     }
 
+    /**
+     * Converts the Frame to a Protocol specific byte stream.
+     *
+     * @return byte[] conversion of the Frame
+     */
     public byte[] getFrameAsBytes() {
         byte[] result = new byte[0];
         byte[] reserved = new byte[]{0x0, 0x0};
@@ -119,6 +141,11 @@ public class Frame {
         return result;
     }
 
+    /**
+     * Creates a UserDTO from the fields.
+     *
+     * @return UserDTO from this Frame
+     */
     public UserDTO toUserDTO() {
         if (fields.size() < 2)
             return null;
@@ -137,6 +164,11 @@ public class Frame {
         return new UserDTO(new AddressType(ip, port), name);
     }
 
+    /**
+     * Creates a UserDTO from the sender details in this Frame.
+     *
+     * @return UserDTO from the sender details
+     */
     public UserDTO senderToUserDTO() {
         if (this.sender == null)
             return null;
@@ -146,6 +178,11 @@ public class Frame {
         return new UserDTO(new AddressType(ip, port), name);
     }
 
+    /**
+     * Creates a Protocol Message.
+     *
+     * @return MessageDTO
+     */
     public MessageDTO toMessageDTO() {
         if (fields.size() != 2)
             return null;
