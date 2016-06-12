@@ -7,7 +7,7 @@ public class ServerViewController {
     private ServerView serverView;
     private ViewController controller;
 
-    public ServerViewController(ViewController controller){
+    public ServerViewController(ViewController controller) {
         this.controller = controller;
     }
 
@@ -17,7 +17,7 @@ public class ServerViewController {
         return serverView.getScene();
     }
 
-    private void initOnEvents(){
+    private void initOnEvents() {
         serverView.getStartServer().setOnAction(event -> {
             String hostname = serverView.getHostNameField().getText();
             int port = Integer.parseInt(serverView.getPortField().getText());
@@ -25,6 +25,10 @@ public class ServerViewController {
             if (controller.startServer(hostname, port)) {
                 controller.changeViewState(ViewController.ViewState.Login);
             }
+        });
+
+        serverView.getComboBox().valueProperty().addListener((ov, t, t1) -> {
+            System.out.println("asd");
         });
 
         serverView.getStartServer().defaultButtonProperty().bind(serverView.getStartServer().focusedProperty());

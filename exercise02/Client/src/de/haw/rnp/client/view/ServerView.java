@@ -1,9 +1,12 @@
 package de.haw.rnp.client.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -22,6 +25,7 @@ public class ServerView {
     private Label portLabel;
     private TextField portField;
     private Button startServer;
+    private ComboBox<String> comboBox;
 
     private Scene scene;
 
@@ -54,6 +58,11 @@ public class ServerView {
 
         startServer = new Button("Start Server");
         grid.add(startServer, 1, 3);
+
+        ObservableList<String> options = FXCollections.observableArrayList("TCP", "SCTP");
+        comboBox = new ComboBox<>(options);
+
+        grid.add(comboBox,1,4);
 
         return new Scene(grid);
     }
@@ -88,5 +97,9 @@ public class ServerView {
 
     public void setHostNameField(TextField hostNameField) {
         this.hostNameField = hostNameField;
+    }
+
+    public ComboBox<String> getComboBox() {
+        return comboBox;
     }
 }
