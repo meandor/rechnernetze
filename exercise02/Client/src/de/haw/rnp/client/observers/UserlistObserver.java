@@ -8,11 +8,11 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public class UserlistObserver implements IObserver<ArrayList<UserDTO>> {
+public class UserListObserver implements IObserver<ArrayList<UserDTO>> {
 
     private ObservableList<User> users;
 
-    public UserlistObserver(ObservableList<User> users){
+    public UserListObserver(ObservableList<User> users){
         this.users = users;
     }
 

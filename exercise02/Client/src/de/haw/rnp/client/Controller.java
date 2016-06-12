@@ -6,7 +6,7 @@ import de.haw.rnp.adapter.incomingclient.dataaccesslayer.FrameDTO;
 import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServices;
 import de.haw.rnp.client.model.User;
 import de.haw.rnp.client.observers.MessageObserver;
-import de.haw.rnp.client.observers.UserlistObserver;
+import de.haw.rnp.client.observers.UserListObserver;
 import de.haw.rnp.client.view.ViewController;
 import de.haw.rnp.util.AddressType;
 import de.haw.rnp.util.enumerations.FieldType;
@@ -31,7 +31,7 @@ public class Controller implements IControllerService {
     private ObservableList<User> users;
     private ViewController viewController;
     private MessageObserver messageObserver;
-    private UserlistObserver userlistObserver;
+    private UserListObserver userListObserver;
     private IInClientAdapterServices inAdapterServices;
     private IOutClientAdapterServices outAdapterServices;
     private de.haw.rnp.client.MainApp main;
@@ -48,9 +48,9 @@ public class Controller implements IControllerService {
         viewController = new ViewController(this.main.getPrimaryStage(), this, users);
 
         messageObserver = new MessageObserver(this.viewController);
-        userlistObserver = new UserlistObserver(this.users);
+        userListObserver = new UserListObserver(this.users);
 
-        outAdapterServices.registerObserverToUsers(userlistObserver);
+        outAdapterServices.registerObserverToUsers(userListObserver);
         outAdapterServices.registerObserverToMessages(messageObserver);
 
         main.getPrimaryStage().setOnCloseRequest(t -> {
