@@ -1,0 +1,8 @@
+de\haw\rnp\adapter\outgoingclient\dataaccesslayer\MessageDTO.class
+de\haw\rnp\adapter\outgoingclient\accesslayer\IOutClientAdapterServices.class
+de\haw\rnp\adapter\outgoingclient\accesslayer\IOutClientAdapterServicesForInPeer.class
+de\haw\rnp\adapter\outgoingclient\dataaccesslayer\MessageSubject.class
+de\haw\rnp\adapter\outgoingclient\accesslayer\OutClientAdapterFacade.class
+de\haw\rnp\adapter\outgoingclient\businesslogiclayer\OutgoingClientAdapterBusinessLogic.class
+de\haw\rnp\adapter\outgoingclient\dataaccesslayer\UserDTO.class
+de\haw\rnp\adapter\outgoingclient\dataaccesslayer\UserSubject.class

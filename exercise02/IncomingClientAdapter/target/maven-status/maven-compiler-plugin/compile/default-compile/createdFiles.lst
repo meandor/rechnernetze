@@ -1,0 +1,5 @@
+de\haw\rnp\adapter\incomingclient\businesslogiclayer\InClientAdapterBusinessLogic.class
+de\haw\rnp\adapter\incomingclient\accesslayer\IInClientAdapterServices.class
+de\haw\rnp\adapter\incomingclient\dataaccesslayer\FrameDTO.class
+de\haw\rnp\adapter\incomingclient\accesslayer\InClientAdapterFacade.class
+de\haw\rnp\adapter\incomingclient\dataaccesslayer\FieldDTO.class

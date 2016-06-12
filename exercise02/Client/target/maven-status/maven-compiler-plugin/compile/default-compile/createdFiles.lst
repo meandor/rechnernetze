@@ -1,0 +1,16 @@
+de\haw\rnp\client\view\ServerView.class
+de\haw\rnp\client\observers\UserlistObserver.class
+de\haw\rnp\client\view\LoginViewController.class
+de\haw\rnp\client\Controller.class
+de\haw\rnp\client\observers\MessageObserver.class
+de\haw\rnp\client\view\ViewController.class
+de\haw\rnp\client\view\LoginView.class
+de\haw\rnp\client\view\ChatView.class
+de\haw\rnp\client\model\User.class
+de\haw\rnp\client\view\ServerViewController.class
+de\haw\rnp\client\view\ChatViewController.class
+de\haw\rnp\client\view\ViewController$ViewState.class
+de\haw\rnp\client\MainApp.class
+de\haw\rnp\client\IControllerService.class
+de\haw\rnp\client\model\Message.class
+de\haw\rnp\client\view\ViewController$1.class

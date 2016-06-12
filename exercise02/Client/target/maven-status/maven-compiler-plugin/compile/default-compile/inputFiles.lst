@@ -1,0 +1,14 @@
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/ChatView.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/Controller.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/MainApp.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/ServerView.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/LoginViewController.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/ChatViewController.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/LoginView.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/ViewController.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/observers/MessageObserver.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/observers/UserlistObserver.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/model/User.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/model/Message.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/view/ServerViewController.java
+/home/schlegel11/Schreibtisch/exercise02/Client/src/main/java/de/haw/rnp/client/IControllerService.java
