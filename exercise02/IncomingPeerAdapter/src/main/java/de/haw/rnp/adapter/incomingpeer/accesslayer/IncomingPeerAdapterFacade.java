@@ -15,8 +15,8 @@ public class IncomingPeerAdapterFacade implements IIncomingPeerAdapterServices {
     }
 
     @Override
-    public void startServer(AddressType address) {
-        businessLogic.startServer(address);
+    public void startServer(AddressType address, boolean TCP) {
+        businessLogic.startServer(address, TCP);
     }
 
     @Override

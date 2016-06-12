@@ -62,8 +62,8 @@ public class Controller implements IControllerService {
     }
 
     @Override
-    public boolean startServer(AddressType localAddress) {
-        return inAdapterServices.startServer(localAddress);
+    public boolean startServer(AddressType localAddress, boolean TCP) {
+        return inAdapterServices.startServer(localAddress, TCP);
     }
 
     @Override

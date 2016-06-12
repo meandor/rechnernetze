@@ -22,13 +22,17 @@ public class ServerViewController {
             String hostname = serverView.getHostNameField().getText();
             int port = Integer.parseInt(serverView.getPortField().getText());
 
-            if (controller.startServer(hostname, port)) {
+            if (controller.startServer(hostname, port, serverView.isTCP())) {
                 controller.changeViewState(ViewController.ViewState.Login);
             }
         });
 
         serverView.getComboBox().valueProperty().addListener((ov, t, t1) -> {
-            System.out.println("asd");
+            if (t1.equals("TCP")) {
+                serverView.setTCP(true);
+            } else {
+                serverView.setTCP(false);
+            }
         });
 
         serverView.getStartServer().defaultButtonProperty().bind(serverView.getStartServer().focusedProperty());

@@ -26,6 +26,7 @@ public class ServerView {
     private TextField portField;
     private Button startServer;
     private ComboBox<String> comboBox;
+    private boolean isTCP;
 
     private Scene scene;
 
@@ -34,6 +35,7 @@ public class ServerView {
     }
 
     private Scene initScene() {
+        isTCP = false;
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -101,5 +103,13 @@ public class ServerView {
 
     public ComboBox<String> getComboBox() {
         return comboBox;
+    }
+
+    public boolean isTCP() {
+        return isTCP;
+    }
+
+    public void setTCP(boolean TCP) {
+        isTCP = TCP;
     }
 }

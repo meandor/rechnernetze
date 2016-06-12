@@ -54,10 +54,10 @@ public class ViewController {
         }
     }
 
-    public boolean startServer(String hostname, int port){
+    public boolean startServer(String hostname, int port, boolean TCP){
         local = new User(hostname, port);
         stage.setTitle(hostname + " : " + port);
-        return controller.startServer(new AddressType(hostname, port));
+        return controller.startServer(new AddressType(hostname, port), TCP);
     }
 
     public boolean sendLogin(String username, String hostname, int port){

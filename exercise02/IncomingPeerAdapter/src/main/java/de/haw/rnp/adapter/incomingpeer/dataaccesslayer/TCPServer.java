@@ -55,6 +55,7 @@ public class TCPServer extends Server {
     public synchronized void openServerSocket() {
         try {
             serverSocket = new ServerSocket(port);
+            System.out.println("Starting TCP Server");
         } catch (IOException e) {
             throw new RuntimeException("Cannot open provided port", e);
         }

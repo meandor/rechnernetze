@@ -63,6 +63,7 @@ public class SCTPServer extends Server {
             channel = SctpServerChannel.open();
             InetSocketAddress serverAddress = new InetSocketAddress(this.port);
             channel.bind(serverAddress);
+            System.out.println("Started SCTP-Server");
         } catch (IOException e) {
             throw new RuntimeException("Cannot open provided port", e);
         }

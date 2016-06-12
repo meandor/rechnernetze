@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public interface IControllerService {
 
-    public boolean startServer(AddressType localAddress);
+    public boolean startServer(AddressType localAddress, boolean TCP);
 
     public boolean sendLogin(AddressType recipient);
 

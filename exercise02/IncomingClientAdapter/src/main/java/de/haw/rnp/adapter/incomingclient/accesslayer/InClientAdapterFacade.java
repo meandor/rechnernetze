@@ -18,10 +18,10 @@ public class InClientAdapterFacade implements IInClientAdapterServices {
     }
 
     @Override
-    public boolean startServer(AddressType address) {
+    public boolean startServer(AddressType address, boolean TCP) {
         if(address.getIp() == null)
             return false;
-        return businessLogic.startServer(address);
+        return businessLogic.startServer(address, TCP);
     }
 
     @Override

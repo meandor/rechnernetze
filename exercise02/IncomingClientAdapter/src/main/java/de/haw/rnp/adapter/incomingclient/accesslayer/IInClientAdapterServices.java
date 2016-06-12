@@ -5,7 +5,7 @@ import de.haw.rnp.util.AddressType;
 
 public interface IInClientAdapterServices {
 
-    boolean startServer(AddressType address);
+    boolean startServer(AddressType address, boolean TCP);
 
     void stopServer();
 

@@ -2,6 +2,7 @@ package de.haw.rnp.adapter.incomingpeer.businesslogiclayer;
 
 import de.haw.rnp.adapter.incomingpeer.accesslayer.IIncomingPeerAdapterServices;
 import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.QueueWorker;
+import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.SCTPServer;
 import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.Server;
 import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.TCPServer;
 import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServicesForInPeer;
@@ -27,8 +28,12 @@ public class IncomingPeerAdapterBusinessLogic implements IIncomingPeerAdapterSer
     }
 
     @Override
-    public void startServer(AddressType address) {
-        server = new TCPServer(address.getPort(), queue);
+    public void startServer(AddressType address, boolean TCP) {
+        if (TCP) {
+            server = new TCPServer(address.getPort(), queue);
+        } else {
+            server = new SCTPServer(address.getPort(), queue);
+        }
         new Thread(server).start();
     }
 

@@ -4,7 +4,7 @@ import de.haw.rnp.util.AddressType;
 
 public interface IIncomingPeerAdapterServices {
 
-    void startServer(AddressType address);
+    void startServer(AddressType address, boolean TCP);
 
     void stopServer();
 
