@@ -5,3 +5,4 @@ de\haw\rnp\adapter\incomingpeer\dataaccesslayer\Server.class
 de\haw\rnp\adapter\incomingpeer\dataaccesslayer\QueueWorker.class
 de\haw\rnp\adapter\incomingpeer\accesslayer\IIncomingPeerAdapterServices.class
 de\haw\rnp\adapter\incomingpeer\accesslayer\IncomingPeerAdapterFacade.class
+de\haw\rnp\adapter\incomingpeer\dataaccesslayer\TCPServer.class

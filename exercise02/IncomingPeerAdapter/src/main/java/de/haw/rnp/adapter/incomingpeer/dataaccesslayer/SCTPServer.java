@@ -1,18 +1,23 @@
 package de.haw.rnp.adapter.incomingpeer.dataaccesslayer;
 
+
+import com.sun.nio.sctp.SctpChannel;
+import com.sun.nio.sctp.SctpServerChannel;
+
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.InetSocketAddress;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * TCP Server Implementation.
+ * SCTP Implementation of the Server.
+ *
+ * @author Daniel Schruhl<danielschruhl@gmail.com>
  */
-public class TCPServer extends Server {
+public class SCTPServer extends Server {
 
-    private ServerSocket serverSocket;
+    private SctpServerChannel channel;
 
-    public TCPServer(int port, BlockingQueue<byte[]> queue) {
+    public SCTPServer(int port, BlockingQueue<byte[]> queue) {
         super(port, queue);
     }
 
@@ -26,9 +31,9 @@ public class TCPServer extends Server {
         this.openServerSocket();
 
         while (isRunning()) {
-            Socket clientSocket;
+            SctpChannel clientSocket;
             try {
-                clientSocket = this.serverSocket.accept();
+                clientSocket = channel.accept();
             } catch (IOException e) {
                 if (!isRunning()) {
                     System.out.println("Server Stopped.");
@@ -36,7 +41,7 @@ public class TCPServer extends Server {
                 }
                 throw new RuntimeException("Error accepting client connection", e);
             }
-            this.threadPool.execute(new TCPSocketWorker(clientSocket, incomingConnections));
+            this.threadPool.execute(new SCTPSocketWorker(clientSocket, incomingConnections));
         }
         this.threadPool.shutdown();
         System.out.println("Server Stopped.");
@@ -46,15 +51,18 @@ public class TCPServer extends Server {
     public synchronized void stop() {
         isRunning = false;
         try {
-            this.serverSocket.close();
+            this.channel.close();
         } catch (IOException e) {
             throw new RuntimeException("can't close server", e);
         }
     }
 
-    public synchronized void openServerSocket() {
+    @Override
+    protected synchronized void openServerSocket() {
         try {
-            serverSocket = new ServerSocket(port);
+            channel = SctpServerChannel.open();
+            InetSocketAddress serverAddress = new InetSocketAddress(this.port);
+            channel.bind(serverAddress);
         } catch (IOException e) {
             throw new RuntimeException("Cannot open provided port", e);
         }
