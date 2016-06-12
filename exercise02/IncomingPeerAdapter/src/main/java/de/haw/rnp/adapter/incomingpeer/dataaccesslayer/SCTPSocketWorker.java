@@ -1,7 +1,11 @@
 package de.haw.rnp.adapter.incomingpeer.dataaccesslayer;
 
+import com.sun.nio.sctp.MessageInfo;
 import com.sun.nio.sctp.SctpChannel;
+import de.haw.rnp.util.ChatUtil;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -12,6 +16,8 @@ import java.util.concurrent.BlockingQueue;
 public class SCTPSocketWorker extends SocketWorker {
 
     private SctpChannel clientSocket;
+    private MessageInfo messageInfo;
+    private byte[] readBytes;
 
     public SCTPSocketWorker(SctpChannel clientSocket, BlockingQueue<byte[]> queue) {
         super(queue);
@@ -20,6 +26,24 @@ public class SCTPSocketWorker extends SocketWorker {
 
     @Override
     public void run() {
-
+        ByteBuffer buf = ByteBuffer.allocateDirect(ChatUtil.BYTEBUFFER_SIZE);
+        try {
+            this.messageInfo = clientSocket.receive(buf, null, null);
+            while (messageInfo.bytes() > 0) {
+                if (buf.remaining() > 0) {
+                    byte[] data = new byte[buf.remaining()];
+                    buf.get(data, 0, buf.remaining());
+                    if (readBytes == null) {
+                        readBytes = data;
+                    } else {
+                        System.arraycopy(data, 0, readBytes, readBytes.length, data.length);
+                    }
+                }
+                buf.clear();
+            }
+            queue.offer(this.readBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
