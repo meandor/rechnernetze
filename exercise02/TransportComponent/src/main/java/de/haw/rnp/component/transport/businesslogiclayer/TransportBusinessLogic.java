@@ -64,11 +64,9 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
         System.out.println("propagate: " + frame.toUserDTO().getAddress().getIp().getHostAddress());
         for (UserDTO recipient : recipients) {
-            if (!checkLocalHelper(frame, recipient)) {
-                frame.setSender(repo.getLocal().getAddress());
-                frame.setRecipient(recipient.getAddress());
-                sendLogin(frame);
-            }
+            frame.setSender(repo.getLocal().getAddress());
+            frame.setRecipient(recipient.getAddress());
+            sendLogin(frame);
         }
         if (!repo.getLocal().getName().equals("")) {
             Frame myName = new Frame(repo.getLocal().getAddress(), frame.toUserDTO().getAddress(), 1, MessageType.MyName, 1);
