@@ -1,7 +1,7 @@
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\dataaccesslayer\entities\Frame.java
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\accesslayer\ITransportServices.java
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\accesslayer\ITransportServicesForIncomingPeerAdapter.java
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\accesslayer\TransportFacade.java
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\dataaccesslayer\entities\Field.java
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\businesslogiclayer\TransportBusinessLogic.java
-C:\Users\daniel\git\rechnernetze\exercise02\TransportComponent\src\main\java\de\haw\rnp\component\transport\dataaccesslayer\TransportRepository.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/dataaccesslayer/entities/Frame.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/businesslogiclayer/TransportBusinessLogic.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/accesslayer/ITransportServicesForIncomingPeerAdapter.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/dataaccesslayer/entities/Field.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/accesslayer/ITransportServices.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/accesslayer/TransportFacade.java
+/windows/d/git/rechnernetze/exercise02/TransportComponent/src/main/java/de/haw/rnp/component/transport/dataaccesslayer/TransportRepository.java
