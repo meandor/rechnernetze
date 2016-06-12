@@ -45,6 +45,7 @@ public class QueueWorker implements Runnable {
                     }
                     align++;
                 }
+                System.out.print("____________________________\n");
                 Frame frame = transportServices.receiveFrameAsBytes(tmp);
                 switch (frame.getMessageType()) {
                     case Login: {
