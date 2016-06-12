@@ -52,4 +52,6 @@ public final class ChatUtil {
     public static byte[] cut(byte[] a, int b){
         return Arrays.copyOfRange(a, b, a.length);
     }
+
+    public static final int BYTEBUFFER_SIZE = 1;
 }
