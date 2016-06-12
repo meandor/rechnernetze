@@ -1,11 +1,11 @@
 package de.haw.rnp.adapter.incomingpeer.businesslogiclayer;
 
 import de.haw.rnp.adapter.incomingpeer.accesslayer.IIncomingPeerAdapterServices;
-import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServices;
-import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServicesForInPeer;
-import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
 import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.QueueWorker;
 import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.Server;
+import de.haw.rnp.adapter.incomingpeer.dataaccesslayer.TCPServer;
+import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServicesForInPeer;
+import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
 import de.haw.rnp.util.AddressType;
 
 import java.util.concurrent.BlockingQueue;
@@ -28,7 +28,7 @@ public class IncomingPeerAdapterBusinessLogic implements IIncomingPeerAdapterSer
 
     @Override
     public void startServer(AddressType address) {
-        server = new Server(address.getPort(), queue);
+        server = new TCPServer(address.getPort(), queue);
         new Thread(server).start();
     }
 
