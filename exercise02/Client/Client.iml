@@ -9,12 +9,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="IncomingClientAdapter" />
-    <orderEntry type="module" module-name="IncomingPeerAdapter" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.5" level="project" />
-    <orderEntry type="module" module-name="OutgoingClientAdapter" />
-    <orderEntry type="module" module-name="OutgoingPeerAdapter" />
-    <orderEntry type="module" module-name="TransportComponent" />
-    <orderEntry type="module" module-name="Utilities" />
+    <orderEntry type="library" name="Maven: groupId:IncomingClientAdapter:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: IncomingPeerAdapter:IncomingPeerAdapter:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: OutgoingClientAdapter:OutgoingClientAdapter:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: OutgoingPeerAdapter:OutgoingPeerAdapter:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: TransportComponent:TransportComponent:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: Utilities:Utilities:1.0-SNAPSHOT" level="project" />
   </component>
 </module>
