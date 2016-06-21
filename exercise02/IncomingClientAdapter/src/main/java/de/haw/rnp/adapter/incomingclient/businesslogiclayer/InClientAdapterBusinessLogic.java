@@ -4,16 +4,13 @@ import de.haw.rnp.adapter.incomingclient.accesslayer.IInClientAdapterServices;
 import de.haw.rnp.adapter.incomingclient.dataaccesslayer.FieldDTO;
 import de.haw.rnp.adapter.incomingclient.dataaccesslayer.FrameDTO;
 import de.haw.rnp.adapter.incomingpeer.accesslayer.IIncomingPeerAdapterServices;
-import de.haw.rnp.adapter.outgoingpeer.accesslayer.IOutgoingPeerAdapterServices;
 import de.haw.rnp.component.transport.accesslayer.ITransportServices;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Field;
 import de.haw.rnp.component.transport.dataaccesslayer.entities.Frame;
 import de.haw.rnp.util.AddressType;
-import de.haw.rnp.util.ChatUtil;
 import de.haw.rnp.util.enumerations.FieldType;
 
 import java.net.InetAddress;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
@@ -29,7 +26,7 @@ public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
     @Override
     public boolean startServer(AddressType address, boolean TCP) {
         incomingPeerAdapterServices.startServer(address, TCP);
-        incomingPeerAdapterServices.startQueueWorker();
+        incomingPeerAdapterServices.startQueueWorker(TCP);
         transportServices.setLocal(address, "");
         return true;
     }
@@ -41,27 +38,27 @@ public class InClientAdapterBusinessLogic implements IInClientAdapterServices {
     }
 
     @Override
-    public boolean sendMessage(FrameDTO frame) {
-        transportServices.sendMessage(toFrame(frame));
+    public boolean sendMessage(FrameDTO frame, boolean isTCP) {
+        transportServices.sendMessage(toFrame(frame), isTCP);
         return true;
     }
 
     @Override
-    public boolean sendLogin(FrameDTO frame, String name) {
+    public boolean sendLogin(FrameDTO frame, String name, boolean isTCP) {
         transportServices.setLocal(frame.getSender(), name);
-        transportServices.sendLogin(toFrame(frame));
+        transportServices.sendLogin(toFrame(frame), isTCP);
         return true;
     }
 
     @Override
-    public boolean sendLogout(FrameDTO frame) {
-        transportServices.sendLogout(toFrame(frame));
+    public boolean sendLogout(FrameDTO frame, boolean isTCP) {
+        transportServices.sendLogout(toFrame(frame), isTCP);
         return true;
     }
 
     @Override
-    public boolean sendUsername(FrameDTO frame) {
-        transportServices.sendUsername(toFrame(frame));
+    public boolean sendUsername(FrameDTO frame, boolean isTCP) {
+        transportServices.sendUsername(toFrame(frame), isTCP);
         return true;
     }
 

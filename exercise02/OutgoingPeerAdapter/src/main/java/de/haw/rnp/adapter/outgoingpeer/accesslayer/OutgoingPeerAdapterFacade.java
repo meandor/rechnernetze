@@ -12,7 +12,7 @@ public class OutgoingPeerAdapterFacade implements IOutgoingPeerAdapterServices{
     }
 
     @Override
-    public boolean sendData(AddressType address, byte[] data) {
-        return businessLogic.sendData(address, data);
+    public boolean sendData(AddressType address, byte[] data, boolean isTCP) {
+        return businessLogic.sendData(address, data, isTCP);
     }
 }

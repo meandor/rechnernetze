@@ -24,6 +24,7 @@ public class ViewController {
     private ViewState state;
     private ObservableList<User> users;
     private User local;
+    private boolean isTCP;
 
     public ViewController(Stage stage, IControllerService controller, ObservableList<User> users) {
         this.stage = stage;
@@ -35,6 +36,7 @@ public class ViewController {
         chatView = new ChatViewController(this, this.users);
         changeView();
         this.stage.show();
+        this.isTCP = true;
     }
 
     public User getLocal(){
@@ -54,16 +56,16 @@ public class ViewController {
         }
     }
 
-    public boolean startServer(String hostname, int port, boolean TCP){
+    public boolean startServer(String hostname, int port) {
         local = new User(hostname, port);
         stage.setTitle(hostname + " : " + port);
-        return controller.startServer(new AddressType(hostname, port), TCP);
+        return controller.startServer(new AddressType(hostname, port), isTCP);
     }
 
     public boolean sendLogin(String username, String hostname, int port){
         local.setName(username);
         stage.setTitle(username + " - " + stage.getTitle());
-        return controller.sendLogin(new AddressType(hostname, port));
+        return controller.sendLogin(new AddressType(hostname, port), isTCP);
     }
 
     public boolean sendMessage(String message, ObservableList<User> recipients){
@@ -71,16 +73,24 @@ public class ViewController {
         for(User user : recipients){
             addresses.add(user.getAddress());
         }
-        return controller.sendMessage(message, addresses);
+        return controller.sendMessage(message, addresses, isTCP);
     }
 
     public void sendLogout(){
         local.setName("");
-        controller.sendLogout();
+        controller.sendLogout(isTCP);
     }
 
     public void appendMessage(AddressType sender, String message) {
         chatView.appendMessage(findUserByAddress(sender), message);
+    }
+
+    public boolean isTCP() {
+        return isTCP;
+    }
+
+    public void setTCP(boolean TCP) {
+        isTCP = TCP;
     }
 
     private User findUserByAddress(AddressType address){

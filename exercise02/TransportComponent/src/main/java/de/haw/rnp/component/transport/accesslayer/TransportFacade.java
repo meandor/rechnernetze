@@ -8,32 +8,32 @@ import de.haw.rnp.util.AddressType;
 
 import java.util.Collection;
 
-public class TransportFacade implements ITransportServices, ITransportServicesForIncomingPeerAdapter{
+public class TransportFacade implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
     private TransportBusinessLogic transportBusinessLogic;
 
-    public TransportFacade(IOutgoingPeerAdapterServices outgoingPeerAdapterServices){
-        transportBusinessLogic = new TransportBusinessLogic( outgoingPeerAdapterServices);
+    public TransportFacade(IOutgoingPeerAdapterServices outgoingPeerAdapterServices) {
+        transportBusinessLogic = new TransportBusinessLogic(outgoingPeerAdapterServices);
     }
 
     @Override
-    public void sendMessage(Frame frame) {
-        transportBusinessLogic.sendMessage(frame);
+    public void sendMessage(Frame frame, boolean isTCP) {
+        transportBusinessLogic.sendMessage(frame, isTCP);
     }
 
     @Override
-    public void sendLogin(Frame frame) {
-        transportBusinessLogic.sendLogin(frame);
+    public void sendLogin(Frame frame, boolean isTCP) {
+        transportBusinessLogic.sendLogin(frame, isTCP);
     }
 
     @Override
-    public void sendLogout(Frame frame) {
-        transportBusinessLogic.sendLogout(frame);
+    public void sendLogout(Frame frame, boolean isTCP) {
+        transportBusinessLogic.sendLogout(frame, isTCP);
     }
 
     @Override
-    public void sendUsername(Frame frame) {
-        transportBusinessLogic.sendUsername(frame);
+    public void sendUsername(Frame frame, boolean isTCP) {
+        transportBusinessLogic.sendUsername(frame, isTCP);
     }
 
     @Override
@@ -47,13 +47,13 @@ public class TransportFacade implements ITransportServices, ITransportServicesFo
     }
 
     @Override
-    public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
-        transportBusinessLogic.propagatePeer(frame, recipients);
+    public void propagatePeer(Frame frame, Collection<UserDTO> recipients, boolean isTCP) {
+        transportBusinessLogic.propagatePeer(frame, recipients, isTCP);
     }
 
     @Override
-    public void propagateLogout(Frame frame, Collection<UserDTO> recipients) {
-        transportBusinessLogic.propagateLogout(frame, recipients);
+    public void propagateLogout(Frame frame, Collection<UserDTO> recipients, boolean isTCP) {
+        transportBusinessLogic.propagateLogout(frame, recipients, isTCP);
     }
 
     @Override

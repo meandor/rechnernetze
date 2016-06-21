@@ -18,13 +18,15 @@ public class QueueWorker implements Runnable {
     private IOutClientAdapterServicesForInPeer outClientAdapterServices;
     private boolean isRunning;
     private Thread runningThread;
+    private boolean isTCP;
 
     public QueueWorker(ITransportServicesForIncomingPeerAdapter transportServices,
                        IOutClientAdapterServicesForInPeer outClientAdapterServices,
-                       BlockingQueue<byte[]> queue) {
+                       BlockingQueue<byte[]> queue, boolean isTCP) {
         this.outClientAdapterServices = outClientAdapterServices;
         this.transportServices = transportServices;
         this.queue = queue;
+        this.isTCP = isTCP;
     }
 
 
@@ -52,7 +54,7 @@ public class QueueWorker implements Runnable {
                         Collection<UserDTO> users = outClientAdapterServices.getAllUsers();
                         if (!transportServices.checkLocal(frame) && !users.contains(frame.toUserDTO())) {
                             outClientAdapterServices.addUser(frame.toUserDTO());
-                            transportServices.propagatePeer(frame, users);
+                            transportServices.propagatePeer(frame, users, isTCP);
                         } else if (transportServices.checkLocal(frame) && !users.contains(frame.toUserDTO())) {
                             outClientAdapterServices.addUser(frame.toUserDTO());
                         }
@@ -69,7 +71,7 @@ public class QueueWorker implements Runnable {
                         Collection<UserDTO> users = outClientAdapterServices.getAllUsers();
                         if (users.contains(frame.toUserDTO())) {
                             outClientAdapterServices.removeUser(frame.toUserDTO());
-                            transportServices.propagateLogout(frame, outClientAdapterServices.getAllUsers());
+                            transportServices.propagateLogout(frame, outClientAdapterServices.getAllUsers(), isTCP);
                         }
                         break;
                     }

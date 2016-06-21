@@ -67,7 +67,7 @@ public class Controller implements IControllerService {
     }
 
     @Override
-    public boolean sendLogin(AddressType recipient) {
+    public boolean sendLogin(AddressType recipient, boolean isTCP) {
         User local = viewController.getLocal();
         if(local.getAddress().equals(recipient))
                 return false;
@@ -77,30 +77,30 @@ public class Controller implements IControllerService {
         FieldDTO<Integer> port = new FieldDTO<>(FieldType.Port, PORT_LENGTH, local.getAddress().getPort());
         FieldDTO<String> name = new FieldDTO<>(FieldType.Name, local.getName().length(), local.getName());
         frame.addFieldDTO(ip, port, name);
-        return inAdapterServices.sendLogin(frame, local.getName());
+        return inAdapterServices.sendLogin(frame, local.getName(), isTCP);
     }
 
     @Override
-    public boolean sendMessage(String message, ArrayList<AddressType> recipients) {
+    public boolean sendMessage(String message, ArrayList<AddressType> recipients, boolean isTCP) {
         User local = viewController.getLocal();
         for(AddressType recipient : recipients) {
             FrameDTO frame = new FrameDTO(local.getAddress(), recipient, VERSION, MessageType.TextMessage, MESSAGE_LENGTH);
             FieldDTO<String> msg = new FieldDTO<>(FieldType.Text, message.length(), message);
             FieldDTO<ArrayList<AddressType>> adr = new FieldDTO<>(FieldType.UserList, USERLIST_MUL * recipients.size(), recipients);
             frame.addFieldDTO(msg, adr);
-            inAdapterServices.sendMessage(frame);
+            inAdapterServices.sendMessage(frame, isTCP);
         }
         return true;
     }
 
     @Override
-    public void sendLogout() {
+    public void sendLogout(boolean isTCP) {
         User local = viewController.getLocal();
         User recipient = users.get(0);
         FrameDTO frame = new FrameDTO(local.getAddress(), recipient.getAddress(), VERSION, MessageType.Logout, LOGOUT_LENTGH);
         FieldDTO<InetAddress> ip = new FieldDTO<>(FieldType.IP, IP_LENGTH, local.getAddress().getIp());
         FieldDTO<Integer> port = new FieldDTO<>(FieldType.Port, PORT_LENGTH, local.getAddress().getPort());
         frame.addFieldDTO(ip, port);
-        inAdapterServices.sendLogout(frame);
+        inAdapterServices.sendLogout(frame, isTCP);
     }
 }

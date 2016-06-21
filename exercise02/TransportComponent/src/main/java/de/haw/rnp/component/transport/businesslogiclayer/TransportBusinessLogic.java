@@ -29,23 +29,23 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     }
 
     @Override
-    public void sendMessage(Frame frame) {
-        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
+    public void sendMessage(Frame frame, boolean isTCP) {
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes(), isTCP);
     }
 
     @Override
-    public void sendLogin(Frame frame) {
-        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
+    public void sendLogin(Frame frame, boolean isTCP) {
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes(), isTCP);
     }
 
     @Override
-    public void sendLogout(Frame frame) {
-        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
+    public void sendLogout(Frame frame, boolean isTCP) {
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes(), isTCP);
     }
 
     @Override
-    public void sendUsername(Frame frame) {
-        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes());
+    public void sendUsername(Frame frame, boolean isTCP) {
+        outgoingPeerAdapterServices.sendData(frame.getRecipient(), frame.getFrameAsBytes(), isTCP);
     }
 
     @Override
@@ -61,28 +61,28 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     }
 
     @Override
-    public void propagatePeer(Frame frame, Collection<UserDTO> recipients) {
+    public void propagatePeer(Frame frame, Collection<UserDTO> recipients, boolean isTCP) {
         System.out.println("propagate: " + frame.toUserDTO().getAddress().getIp().getHostAddress());
         for (UserDTO recipient : recipients) {
             frame.setSender(repo.getLocal().getAddress());
             frame.setRecipient(recipient.getAddress());
-            sendLogin(frame);
+            sendLogin(frame, isTCP);
         }
         if (!repo.getLocal().getName().equals("")) {
             Frame myName = new Frame(repo.getLocal().getAddress(), frame.toUserDTO().getAddress(), 1, MessageType.MyName, 1);
             myName.addField(new Field<>(FieldType.Name, repo.getLocal().getName().length(), repo.getLocal().getName()));
-            sendUsername(myName);
+            sendUsername(myName, isTCP);
         }
     }
 
     @Override
-    public void propagateLogout(Frame frame, Collection<UserDTO> recipients) {
+    public void propagateLogout(Frame frame, Collection<UserDTO> recipients, boolean isTCP) {
         AddressType sender = frame.getSender();
         frame.setSender(repo.getLocal().getAddress());
         for (UserDTO recipient : recipients) {
             if (!recipient.getAddress().equals(sender)) {
                 frame.setRecipient(recipient.getAddress());
-                sendLogout(frame);
+                sendLogout(frame, isTCP);
             }
         }
     }

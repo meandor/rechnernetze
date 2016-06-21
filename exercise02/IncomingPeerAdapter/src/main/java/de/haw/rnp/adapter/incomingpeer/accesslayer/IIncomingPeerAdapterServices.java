@@ -8,7 +8,7 @@ public interface IIncomingPeerAdapterServices {
 
     void stopServer();
 
-    void startQueueWorker();
+    void startQueueWorker(boolean isTCP);
 
     void stopQueueWorker();
 

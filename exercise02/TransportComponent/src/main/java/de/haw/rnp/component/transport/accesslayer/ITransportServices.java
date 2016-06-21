@@ -10,30 +10,35 @@ public interface ITransportServices {
 
     /**
      * Sends a Text Message.
+     *
      * @param frame Frame containing more info
      */
-    void sendMessage(Frame frame);
+    void sendMessage(Frame frame, boolean isTCP);
 
     /**
      * Sends a Login Message.
+     *
      * @param frame Frame containing required info
      */
-    void sendLogin(Frame frame);
+    void sendLogin(Frame frame, boolean isTCP);
 
     /**
      * Sends a Logout Message.
+     *
      * @param frame Frame containing required info
      */
-    void sendLogout(Frame frame);
+    void sendLogout(Frame frame, boolean isTCP);
 
     /**
      * Sends a Username Message.
+     *
      * @param frame Frame containing required info
      */
-    void sendUsername(Frame frame);
+    void sendUsername(Frame frame, boolean isTCP);
 
     /**
      * TODO: Sebastian
+     *
      * @param address
      * @param name
      */

@@ -26,7 +26,7 @@ public interface ITransportServicesForIncomingPeerAdapter {
      * @param frame      Frame with info
      * @param recipients Collection<UserDTO> with all recipients
      */
-    void propagatePeer(Frame frame, Collection<UserDTO> recipients);
+    void propagatePeer(Frame frame, Collection<UserDTO> recipients, boolean isTCP);
 
     /**
      * Propagate a Logout to all the recipients
@@ -34,7 +34,7 @@ public interface ITransportServicesForIncomingPeerAdapter {
      * @param frame      Frame with info
      * @param recipients Collection<UserDTO> with all recipients
      */
-    void propagateLogout(Frame frame, Collection<UserDTO> recipients);
+    void propagateLogout(Frame frame, Collection<UserDTO> recipients, boolean isTCP);
 
     /**
      * TODO: Sebastian

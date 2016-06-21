@@ -44,8 +44,8 @@ public class IncomingPeerAdapterBusinessLogic implements IIncomingPeerAdapterSer
     }
 
     @Override
-    public void startQueueWorker() {
-        queueWorker = new QueueWorker(transportServices, outClientAdapterServices, queue);
+    public void startQueueWorker(boolean isTCP) {
+        queueWorker = new QueueWorker(transportServices, outClientAdapterServices, queue, isTCP);
         new Thread(queueWorker).start();
     }
 

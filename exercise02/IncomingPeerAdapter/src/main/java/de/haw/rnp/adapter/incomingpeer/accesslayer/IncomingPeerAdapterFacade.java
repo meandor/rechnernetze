@@ -1,8 +1,8 @@
 package de.haw.rnp.adapter.incomingpeer.accesslayer;
 
+import de.haw.rnp.adapter.incomingpeer.businesslogiclayer.IncomingPeerAdapterBusinessLogic;
 import de.haw.rnp.adapter.outgoingclient.accesslayer.IOutClientAdapterServicesForInPeer;
 import de.haw.rnp.component.transport.accesslayer.ITransportServicesForIncomingPeerAdapter;
-import de.haw.rnp.adapter.incomingpeer.businesslogiclayer.IncomingPeerAdapterBusinessLogic;
 import de.haw.rnp.util.AddressType;
 
 public class IncomingPeerAdapterFacade implements IIncomingPeerAdapterServices {
@@ -25,8 +25,8 @@ public class IncomingPeerAdapterFacade implements IIncomingPeerAdapterServices {
     }
 
     @Override
-    public void startQueueWorker() {
-        businessLogic.startQueueWorker();
+    public void startQueueWorker(boolean isTCP) {
+        businessLogic.startQueueWorker(isTCP);
     }
 
     @Override

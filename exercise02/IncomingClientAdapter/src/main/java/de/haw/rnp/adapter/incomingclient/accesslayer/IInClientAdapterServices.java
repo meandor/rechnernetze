@@ -9,12 +9,12 @@ public interface IInClientAdapterServices {
 
     void stopServer();
 
-    boolean sendMessage(FrameDTO frame);
+    boolean sendMessage(FrameDTO frame, boolean isTCP);
 
-    boolean sendLogin(FrameDTO frame, String name);
+    boolean sendLogin(FrameDTO frame, String name, boolean isTCP);
 
-    boolean sendLogout(FrameDTO frame);
+    boolean sendLogout(FrameDTO frame, boolean isTCP);
 
-    boolean sendUsername(FrameDTO frame);
+    boolean sendUsername(FrameDTO frame, boolean isTCP);
 
 }

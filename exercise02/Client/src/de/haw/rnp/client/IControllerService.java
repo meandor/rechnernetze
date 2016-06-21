@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 public interface IControllerService {
 
-    public boolean startServer(AddressType localAddress, boolean TCP);
+    boolean startServer(AddressType localAddress, boolean TCP);
 
-    public boolean sendLogin(AddressType recipient);
+    boolean sendLogin(AddressType recipient, boolean isTCP);
 
-    public boolean sendMessage(String message, ArrayList<AddressType> recipients);
+    boolean sendMessage(String message, ArrayList<AddressType> recipients, boolean isTCP);
 
-    public void sendLogout();
+    void sendLogout(boolean isTCP);
 
     //public void sendUsername(String username);
 
