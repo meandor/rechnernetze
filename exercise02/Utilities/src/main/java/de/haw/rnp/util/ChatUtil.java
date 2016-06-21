@@ -53,5 +53,5 @@ public final class ChatUtil {
         return Arrays.copyOfRange(a, b, a.length);
     }
 
-    public static final int BYTEBUFFER_SIZE = 1;
+    public static final int BYTEBUFFER_SIZE = 60;
 }

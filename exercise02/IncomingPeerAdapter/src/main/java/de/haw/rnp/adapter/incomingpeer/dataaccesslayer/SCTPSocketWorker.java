@@ -27,7 +27,7 @@ public class SCTPSocketWorker extends SocketWorker {
     @Override
     public void run() {
         ByteBuffer buf = ByteBuffer.allocateDirect(ChatUtil.BYTEBUFFER_SIZE);
-        try {
+        try {//TODO: not working yet, byte buffer is empty
             this.messageInfo = clientSocket.receive(buf, null, null);
             while (messageInfo.bytes() > 0) {
                 if (buf.remaining() > 0) {
