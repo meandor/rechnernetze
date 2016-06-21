@@ -25,6 +25,7 @@ public interface ITransportServicesForIncomingPeerAdapter {
      *
      * @param frame      Frame with info
      * @param recipients Collection<UserDTO> with all recipients
+     * @param isTCP      boolean indicates TCP or SCTP
      */
     void propagatePeer(Frame frame, Collection<UserDTO> recipients, boolean isTCP);
 
@@ -33,6 +34,7 @@ public interface ITransportServicesForIncomingPeerAdapter {
      *
      * @param frame      Frame with info
      * @param recipients Collection<UserDTO> with all recipients
+     * @param isTCP      boolean indicates TCP or SCTP
      */
     void propagateLogout(Frame frame, Collection<UserDTO> recipients, boolean isTCP);
 

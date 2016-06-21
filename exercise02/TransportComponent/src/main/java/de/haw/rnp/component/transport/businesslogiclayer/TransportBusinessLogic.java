@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Business logic for the facade.
+ */
 public class TransportBusinessLogic implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
     private IOutgoingPeerAdapterServices outgoingPeerAdapterServices;

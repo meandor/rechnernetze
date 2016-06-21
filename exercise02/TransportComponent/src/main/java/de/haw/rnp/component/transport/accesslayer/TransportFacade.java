@@ -8,6 +8,9 @@ import de.haw.rnp.util.AddressType;
 
 import java.util.Collection;
 
+/**
+ * Facade pattern delegating all methods used for the actual Message Transport.
+ */
 public class TransportFacade implements ITransportServices, ITransportServicesForIncomingPeerAdapter {
 
     private TransportBusinessLogic transportBusinessLogic;
