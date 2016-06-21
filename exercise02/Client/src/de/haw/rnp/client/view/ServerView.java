@@ -35,7 +35,7 @@ public class ServerView {
     }
 
     private Scene initScene() {
-        isTCP = false;
+        isTCP = true;
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);

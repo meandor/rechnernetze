@@ -15,7 +15,7 @@ public class OutgoingClientAdapterBusinessLogic implements IOutClientAdapterServ
     private MessageSubject messageSubject;
     private UserSubject userSubject;
 
-    public OutgoingClientAdapterBusinessLogic(){
+    public OutgoingClientAdapterBusinessLogic() {
         messageSubject = new MessageSubject();
         userSubject = new UserSubject();
     }
