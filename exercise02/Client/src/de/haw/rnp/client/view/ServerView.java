@@ -65,7 +65,7 @@ public class ServerView {
         comboBox = new ComboBox<>(options);
         comboBox.getSelectionModel().select(0);
 
-        grid.add(comboBox,1,4);
+        grid.add(comboBox, 1, 4);
 
         return new Scene(grid);
     }

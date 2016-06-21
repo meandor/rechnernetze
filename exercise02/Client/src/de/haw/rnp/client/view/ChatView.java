@@ -11,6 +11,9 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
+/**
+ * This class represents the view with the actual chat.
+ */
 public class ChatView {
     private GridPane grid;
     private TextArea displayTextArea;
@@ -22,11 +25,21 @@ public class ChatView {
     private Scene scene;
     private ObservableList<User> users;
 
+    /**
+     * Constructs the view.
+     *
+     * @param users List of Users
+     */
     public ChatView(ObservableList<User> users) {
         this.users = users;
         scene = initScene();
     }
 
+    /**
+     * Initializes the Scene.
+     *
+     * @return the created Scene
+     */
     private Scene initScene() {
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -85,7 +98,7 @@ public class ChatView {
         userList = new ListView<>(users);
     }
 
-    public ListView<User> getUserList(){
+    public ListView<User> getUserList() {
         return userList;
     }
 }

@@ -8,11 +8,14 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
+/**
+ * Observer used to observe the User list.
+ */
 public class UserListObserver implements IObserver<ArrayList<UserDTO>> {
 
     private ObservableList<User> users;
 
-    public UserListObserver(ObservableList<User> users){
+    public UserListObserver(ObservableList<User> users) {
         this.users = users;
     }
 
@@ -20,7 +23,7 @@ public class UserListObserver implements IObserver<ArrayList<UserDTO>> {
     public void update(ArrayList<UserDTO> elem) {
         Platform.runLater(() -> users.clear());
 
-        for(UserDTO e : elem){
+        for (UserDTO e : elem) {
             Platform.runLater(() -> users.add(new User(e.getName(), e.getAddress())));
         }
     }

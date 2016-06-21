@@ -19,6 +19,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+/**
+ * This actually starts the actual Client App.
+ */
 public class MainApp extends Application {
 
     IOutgoingPeerAdapterServices outgoingPeerAdapterServices;
@@ -58,7 +61,10 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-    public ObservableList<User> getList(){return users;}
+
+    public ObservableList<User> getList() {
+        return users;
+    }
 
     public static void main(String[] args) {
         launch(args);

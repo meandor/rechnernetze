@@ -10,6 +10,13 @@ public class Message {
     private User sender;
     private List<User> receiver;
 
+    /**
+     * Constructs a message with the given parameters.
+     *
+     * @param text     String of the text content
+     * @param sender   User sending user
+     * @param receiver List a list with all receiving users
+     */
     public Message(String text, User sender, List<User> receiver) {
         this.text = text;
         this.sender = sender;

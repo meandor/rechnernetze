@@ -5,25 +5,41 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Controller responsible for managing the ChatView.
+ */
 public class ChatViewController {
 
     private ChatView chatView;
     private ViewController controller;
     private ObservableList<User> users;
 
-    public ChatViewController(ViewController controller, ObservableList<User> users){
+    /**
+     * Constructs the controller.
+     *
+     * @param controller Controller
+     * @param users      List of all Users
+     */
+    public ChatViewController(ViewController controller, ObservableList<User> users) {
         this.controller = controller;
         this.users = users;
     }
 
+    /**
+     * Initializes the Scene.
+     *
+     * @return the Scene
+     */
     public Scene initChatView() {
         chatView = new ChatView(users);
         initOnEvents();
         return chatView.getScene();
     }
 
-    private void initOnEvents(){
-
+    /**
+     * Initializes the Events for button clicks etc.
+     */
+    private void initOnEvents() {
         chatView.getMessageTextArea().setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && chatView.getMessageTextArea().getText().length() > 0) {
                 processMessage();
@@ -32,7 +48,7 @@ public class ChatViewController {
 
         chatView.getSendButton().setOnAction(action -> {
             String text = chatView.getMessageTextArea().getText();
-            if(!text.isEmpty()){
+            if (!text.isEmpty()) {
                 processMessage();
             }
         });
@@ -43,16 +59,18 @@ public class ChatViewController {
         });
     }
 
-    private void processMessage(){
+    /**
+     * Process a message send by the view.
+     */
+    private void processMessage() {
         String text = chatView.getMessageTextArea().getText();
         ObservableList<User> recipients = chatView.getUserList().getSelectionModel().getSelectedItems();
         if (controller.sendMessage(text, recipients)) {
             String recipient = "";
-            for(User rec : recipients){
-                if(recipient.isEmpty()){
+            for (User rec : recipients) {
+                if (recipient.isEmpty()) {
                     recipient += rec.getName();
-                }
-                else{
+                } else {
                     recipient += "," + rec.getName();
                 }
             }
@@ -61,7 +79,13 @@ public class ChatViewController {
         }
     }
 
-    public void appendMessage(User sender, String message){
+    /**
+     * Adds a message tot he ChatView.
+     *
+     * @param sender  User sender of the Message
+     * @param message String actual Message
+     */
+    public void appendMessage(User sender, String message) {
         if (chatView != null) {
             chatView.getDisplayTextArea().appendText("Message from " + sender.getName() + ":\n" + message + "\n");
         }

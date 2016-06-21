@@ -2,6 +2,9 @@ package de.haw.rnp.client.view;
 
 import javafx.scene.Scene;
 
+/**
+ * Controller for the ServerView.
+ */
 public class ServerViewController {
 
     private ServerView serverView;

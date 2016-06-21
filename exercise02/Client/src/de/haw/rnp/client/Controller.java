@@ -17,6 +17,9 @@ import javafx.collections.ObservableList;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+/**
+ * Global Controller bootstrapping everything together.
+ */
 public class Controller implements IControllerService {
 
     private static final int IP_LENGTH = 4;
@@ -36,7 +39,7 @@ public class Controller implements IControllerService {
     private IOutClientAdapterServices outAdapterServices;
     private de.haw.rnp.client.MainApp main;
 
-    public Controller(IInClientAdapterServices inAdapterServices, IOutClientAdapterServices outAdapterServices, MainApp main){
+    public Controller(IInClientAdapterServices inAdapterServices, IOutClientAdapterServices outAdapterServices, MainApp main) {
         this.main = main;
         this.inAdapterServices = inAdapterServices;
         this.outAdapterServices = outAdapterServices;
@@ -44,7 +47,7 @@ public class Controller implements IControllerService {
         init();
     }
 
-    private void init(){
+    private void init() {
         viewController = new ViewController(this.main.getPrimaryStage(), this, users);
 
         messageObserver = new MessageObserver(this.viewController);
@@ -69,8 +72,8 @@ public class Controller implements IControllerService {
     @Override
     public boolean sendLogin(AddressType recipient, boolean isTCP) {
         User local = viewController.getLocal();
-        if(local.getAddress().equals(recipient))
-                return false;
+        if (local.getAddress().equals(recipient))
+            return false;
 
         FrameDTO frame = new FrameDTO(local.getAddress(), recipient, VERSION, MessageType.Login, LOGIN_LENGTH);
         FieldDTO<InetAddress> ip = new FieldDTO<>(FieldType.IP, IP_LENGTH, local.getAddress().getIp());
@@ -83,7 +86,7 @@ public class Controller implements IControllerService {
     @Override
     public boolean sendMessage(String message, ArrayList<AddressType> recipients, boolean isTCP) {
         User local = viewController.getLocal();
-        for(AddressType recipient : recipients) {
+        for (AddressType recipient : recipients) {
             FrameDTO frame = new FrameDTO(local.getAddress(), recipient, VERSION, MessageType.TextMessage, MESSAGE_LENGTH);
             FieldDTO<String> msg = new FieldDTO<>(FieldType.Text, message.length(), message);
             FieldDTO<ArrayList<AddressType>> adr = new FieldDTO<>(FieldType.UserList, USERLIST_MUL * recipients.size(), recipients);

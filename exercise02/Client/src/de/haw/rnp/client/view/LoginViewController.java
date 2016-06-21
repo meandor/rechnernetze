@@ -2,12 +2,15 @@ package de.haw.rnp.client.view;
 
 import javafx.scene.Scene;
 
+/**
+ * Controller for the LoginView.
+ */
 public class LoginViewController {
 
     private LoginView loginView;
     private ViewController controller;
 
-    public LoginViewController(ViewController controller){
+    public LoginViewController(ViewController controller) {
         this.controller = controller;
     }
 
@@ -17,13 +20,13 @@ public class LoginViewController {
         return loginView.getScene();
     }
 
-    private void initOnEvents(){
+    private void initOnEvents() {
         loginView.getSignin().setOnAction(action -> {
             String user = loginView.getUserTextField().getText();
             String host = loginView.getHostTextField().getText();
             int port = Integer.parseInt(loginView.getPortTextField().getText());
 
-            if(controller.sendLogin(user, host, port)){
+            if (controller.sendLogin(user, host, port)) {
                 controller.changeViewState(ViewController.ViewState.Chat);
             }
         });

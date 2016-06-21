@@ -11,14 +11,23 @@ import javafx.util.Callback;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * This class represents the user used by the client gui.
+ */
 public class User {
 
     private StringProperty name;
     private StringProperty hostname;
     private IntegerProperty port;
-
     private AddressType address;
 
+    /**
+     * Constructs a User with the given parameters.
+     *
+     * @param hostname String hostname if the User
+     * @param port     int port of the User
+     * @param name     String name of the User
+     */
     public User(String hostname, int port, String name) {
         this.name = new SimpleStringProperty(name);
         this.hostname = new SimpleStringProperty(hostname);
@@ -26,14 +35,26 @@ public class User {
         updateAddress();
     }
 
-    public User(String hostname, int port){
+    /**
+     * Constructs a User with the given parameters.
+     *
+     * @param hostname String hostname of the User
+     * @param port     int port of the User
+     */
+    public User(String hostname, int port) {
         this.name = new SimpleStringProperty("");
         this.hostname = new SimpleStringProperty(hostname);
         this.port = new SimpleIntegerProperty(port);
         updateAddress();
     }
 
-    public User(String username, AddressType address){
+    /**
+     * Constructs a User with the given parameters.
+     *
+     * @param username String username of the User
+     * @param address  AddressType of the User
+     */
+    public User(String username, AddressType address) {
         this.name = new SimpleStringProperty(username);
         this.hostname = new SimpleStringProperty(address.getIp().getHostAddress());
         this.port = new SimpleIntegerProperty(address.getPort());
@@ -89,7 +110,7 @@ public class User {
         return name.get() + " (" + hostname.get() + ":" + port.get() + ")";
     }
 
-    private void updateAddress(){
+    private void updateAddress() {
         try {
             address = new AddressType(InetAddress.getByName(hostname.get()), port.get());
         } catch (UnknownHostException e) {
