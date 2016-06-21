@@ -63,6 +63,7 @@ public class ServerView {
 
         ObservableList<String> options = FXCollections.observableArrayList("TCP", "SCTP");
         comboBox = new ComboBox<>(options);
+        comboBox.getSelectionModel().select(0);
 
         grid.add(comboBox,1,4);
 
