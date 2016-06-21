@@ -1,7 +1,12 @@
 package de.haw.rnp.util;
 
+/**
+ * Generic Interface for Observers.
+ *
+ * @param <T> Type of the Generic
+ */
 public interface IObserver<T> {
-    
-    public void update(T elem);
-    
+
+    void update(T elem);
+
 }

@@ -3,17 +3,34 @@ package de.haw.rnp.util;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * This class represents an AddressType.
+ * <p>
+ * Each AdressType has an IP and a port.
+ */
 public class AddressType {
 
     private InetAddress ip;
     private int port;
 
-    public AddressType(InetAddress ip, int port){
+    /**
+     * Constructs the AddressType.
+     *
+     * @param ip   InetAddress with the IP
+     * @param port int port number
+     */
+    public AddressType(InetAddress ip, int port) {
         this.ip = ip;
         this.port = port;
     }
 
-    public AddressType(String ip, int port){
+    /**
+     * Constructs the AddressType.
+     *
+     * @param ip   String of the IP
+     * @param port int port number
+     */
+    public AddressType(String ip, int port) {
         try {
             this.ip = InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
@@ -37,8 +54,7 @@ public class AddressType {
 
         AddressType that = (AddressType) o;
 
-        if (getPort() != that.getPort()) return false;
-        return getIp().equals(that.getIp());
+        return getPort() == that.getPort() && getIp().equals(that.getIp());
 
     }
 

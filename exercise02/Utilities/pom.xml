@@ -6,6 +6,14 @@
     <groupId>Utilities</groupId>
     <artifactId>Utilities</artifactId>
     <version>1.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <jdk.version>1.8</jdk.version>

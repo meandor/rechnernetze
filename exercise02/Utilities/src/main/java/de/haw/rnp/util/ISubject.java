@@ -1,11 +1,27 @@
 package de.haw.rnp.util;
 
+/**
+ * Subject of the Observer Pattern.
+ */
 public interface ISubject {
-    
-    public void registerObserver(IObserver observer);
 
-    public void removeObserver(IObserver observer);
+    /**
+     * Registers the Observer.
+     *
+     * @param observer Observer
+     */
+    void registerObserver(IObserver observer);
 
-    public void notifyObservers();
-    
+    /**
+     * Removes the Observer
+     *
+     * @param observer Observer
+     */
+    void removeObserver(IObserver observer);
+
+    /**
+     * Notifies the Observer if Subject changed.
+     */
+    void notifyObservers();
+
 }

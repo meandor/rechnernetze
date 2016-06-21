@@ -1,5 +1,12 @@
 package de.haw.rnp.util;
 
+/**
+ * Generic Triplet containing three things.
+ *
+ * @param <X> Class of the first thing
+ * @param <Y> Class of the second thing
+ * @param <Z> Class of the third thing
+ */
 public class Triplet<X, Y, Z> {
     private X first;
     private Y second;
