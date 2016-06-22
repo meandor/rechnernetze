@@ -56,7 +56,7 @@ public class QueueWorker implements Runnable {
                             outClientAdapterServices.addUser(frame.toUserDTO());
                             transportServices.propagatePeer(frame, users, isTCP);
                         } else if (transportServices.checkLocal(frame) && !users.contains(frame.toUserDTO())) {
-                            outClientAdapterServices.addUser(frame.toUserDTO());
+                            outClientAdapterServices.addUser(frame.senderToUserDTO());
                         }
                         break;
                     }
