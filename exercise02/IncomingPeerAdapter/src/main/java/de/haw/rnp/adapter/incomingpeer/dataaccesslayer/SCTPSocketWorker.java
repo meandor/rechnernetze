@@ -46,24 +46,5 @@ public class SCTPSocketWorker extends SocketWorker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*try {
-            this.messageInfo = clientSocket.receive(buf, null, null);
-            if (messageInfo != null) {
-                buf.flip();
-                if (buf.remaining() > 0) {
-                    byte[] data = new byte[buf.remaining()];
-                    buf.get(data, 0, buf.remaining());
-                    if (readBytes == null) {
-                        readBytes = data;
-                    } else {
-                        System.arraycopy(data, 0, readBytes, readBytes.length, data.length);
-                    }
-                    queue.offer(this.readBytes);
-                }
-            }
-            clientSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 }
