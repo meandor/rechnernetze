@@ -27,9 +27,10 @@ public class SCTPSocketWorker extends SocketWorker {
     @Override
     public void run() {
         ByteBuffer buf = ByteBuffer.allocateDirect(ChatUtil.BYTEBUFFER_SIZE);
-        try {//TODO: not working yet, byte buffer is empty
+        try {
             this.messageInfo = clientSocket.receive(buf, null, null);
-            while (messageInfo.bytes() > 0) {
+            if (messageInfo != null) {
+                buf.flip();
                 if (buf.remaining() > 0) {
                     byte[] data = new byte[buf.remaining()];
                     buf.get(data, 0, buf.remaining());
@@ -38,10 +39,10 @@ public class SCTPSocketWorker extends SocketWorker {
                     } else {
                         System.arraycopy(data, 0, readBytes, readBytes.length, data.length);
                     }
+                    queue.offer(this.readBytes);
                 }
-                buf.clear();
             }
-            queue.offer(this.readBytes);
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

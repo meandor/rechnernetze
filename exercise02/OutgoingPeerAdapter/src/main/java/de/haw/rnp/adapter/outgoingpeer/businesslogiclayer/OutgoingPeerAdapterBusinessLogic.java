@@ -30,10 +30,11 @@ public class OutgoingPeerAdapterBusinessLogic implements IOutgoingPeerAdapterSer
             InetSocketAddress serverAddr = new InetSocketAddress(address.getIp(), address.getPort());
             try {
                 SctpChannel sc = SctpChannel.open(serverAddr, 0, 0);
-                //TODO: welche nummer?
-                MessageInfo messageInfo = MessageInfo.createOutgoing(serverAddr, 1);
+                MessageInfo messageInfo = MessageInfo.createOutgoing(serverAddr, 0);
                 ByteBuffer buf = ByteBuffer.allocateDirect(ChatUtil.BYTEBUFFER_SIZE);
                 buf.put(data);
+                buf.flip();
+                System.out.println("Send bytebuffer limit: " + buf.limit());
                 sc.send(buf, messageInfo);
                 sc.close();
             } catch (IOException e) {
