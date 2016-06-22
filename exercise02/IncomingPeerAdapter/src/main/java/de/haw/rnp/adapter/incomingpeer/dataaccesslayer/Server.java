@@ -24,7 +24,7 @@ abstract public class Server implements Runnable {
     public Server(int port, BlockingQueue<byte[]> incomingConnections) {
         this.port = port;
         this.incomingConnections = incomingConnections;
-        threadPool = Executors.newCachedThreadPool();
+        threadPool = Executors.newScheduledThreadPool(10);
     }
 
     /**
