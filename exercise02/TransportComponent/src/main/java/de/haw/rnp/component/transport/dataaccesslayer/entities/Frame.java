@@ -195,4 +195,13 @@ public class Frame {
 
         return new MessageDTO(sender, msg);
     }
+
+    public boolean containsFieldName(){
+        for (Field field : fields){
+            if(field.getFieldType().equals(FieldType.Name)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
