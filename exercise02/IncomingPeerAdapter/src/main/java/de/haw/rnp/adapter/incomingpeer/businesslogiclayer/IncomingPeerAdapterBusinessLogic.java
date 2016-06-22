@@ -24,7 +24,7 @@ public class IncomingPeerAdapterBusinessLogic implements IIncomingPeerAdapterSer
                                             IOutClientAdapterServicesForInPeer outClientAdapterServices){
         this.outClientAdapterServices = outClientAdapterServices;
         this.transportServices = transportServices;
-        this.queue = new LinkedBlockingQueue<>();
+        this.queue = new LinkedBlockingQueue<>(20);
     }
 
     @Override

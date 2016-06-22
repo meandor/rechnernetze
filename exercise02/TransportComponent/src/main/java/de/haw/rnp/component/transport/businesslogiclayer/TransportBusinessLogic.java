@@ -102,7 +102,7 @@ public class TransportBusinessLogic implements ITransportServices, ITransportSer
     private Collection<Field> parseFields(byte[] bytes) {
         Collection<Field> fields = new ArrayList<>();
 
-        while (bytes.length > 0) {
+        while (bytes.length > 0 && bytes.length < Short.MAX_VALUE) {
             FieldType fieldType = FieldType.fromBytes(Arrays.copyOf(bytes, 2));
             int length = ChatUtil.byteArrayToInt(Arrays.copyOfRange(bytes, 2, 4));
             bytes = ChatUtil.cut(bytes, 4);
